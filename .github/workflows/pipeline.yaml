@@ -3,7 +3,7 @@ name: Project Pipeline
 on:
   push:
     branches:
-      - 'main'
+      - 'master'
       - 'feature**'
 
 env:
