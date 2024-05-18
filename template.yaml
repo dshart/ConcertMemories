@@ -230,37 +230,37 @@ Resources:
   # DynamoDB Configuration
   #-----------------------------------------------------
 
-  ConcertsTable:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      AttributeDefinitions:
-        - AttributeName: "email_address"
-          AttributeType: "S"
-        - AttributeName: "date_attended"
-          AttributeType: "S"
-      KeySchema:
-        - AttributeName: "email_address"
-          KeyType: "HASH"
-        - AttributeName: "date_attended"
-          KeyType: "RANGE"
-      BillingMode: "PAY_PER_REQUEST"
-      TableName: "concerts"
+#  ConcertsTable:
+#    Type: AWS::DynamoDB::Table
+#    Properties:
+#      AttributeDefinitions:
+#        - AttributeName: "email_address"
+#          AttributeType: "S"
+#        - AttributeName: "date_attended"
+#          AttributeType: "S"
+#      KeySchema:
+#        - AttributeName: "email_address"
+#          KeyType: "HASH"
+#        - AttributeName: "date_attended"
+#          KeyType: "RANGE"
+#      BillingMode: "PAY_PER_REQUEST"
+#      TableName: "concerts"
 
-  BandsTable:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      AttributeDefinitions:
-        - AttributeName: "email_address"
-          AttributeType: "S"
-        - AttributeName: "band_name"
-          AttributeType: "S"
-      KeySchema:
-        - AttributeName: "email_address"
-          KeyType: "HASH"
-        - AttributeName: "band_name"
-          KeyType: "RANGE"
-      BillingMode: "PAY_PER_REQUEST"
-      TableName: "bands"
+#  BandsTable:
+#    Type: AWS::DynamoDB::Table
+#    Properties:
+#      AttributeDefinitions:
+#        - AttributeName: "email_address"
+#          AttributeType: "S"
+#        - AttributeName: "band_name"
+#          AttributeType: "S"
+#      KeySchema:
+#        - AttributeName: "email_address"
+#          KeyType: "HASH"
+#        - AttributeName: "band_name"
+#          KeyType: "RANGE"
+#      BillingMode: "PAY_PER_REQUEST"
+ #     TableName: "bands"
 
 #-----------------------------------------------------
 # The outputs defined below will be printed
