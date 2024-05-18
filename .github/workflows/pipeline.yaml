@@ -136,7 +136,7 @@ jobs:
           path: web/build
 
   deploy-to-aws:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
     needs: [build-and-package-main]
     runs-on: ubuntu-latest
     steps:
