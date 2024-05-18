@@ -59,7 +59,7 @@ jobs:
         run: |
           sam build --template ${SAM_TEMPLATE}
 
-  build-and-package-master:
+  build-and-package-main:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
