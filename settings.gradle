@@ -8,4 +8,4 @@
  */
 
 rootProject.name = 'ConcertMemories'
-include('app')
+include('ConcertMemoriesLambda')
