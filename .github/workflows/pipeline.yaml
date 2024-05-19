@@ -3,16 +3,16 @@ name: Project Pipeline
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
       - 'feature**'
 
 env:
 
   # STUDENTS: Set these environment variables 
-  API_BASE_URL: https://ijzd1hllkk.execute-api.us-east-2.amazonaws.com/Prod/
+  API_BASE_URL: https://rofweh1r1a.execute-api.us-east-2.amazonaws.com/Prod/
   COGNITO_DOMAIN: nss-se-c04-concert-memories
-  COGNITO_REDIRECT_SIGNIN: https://d3bchor4u2qsho.cloudfront.net
-  COGNITO_REDIRECT_SIGNOUT: https://d3bchor4u2qsho.cloudfront.net
+  COGNITO_REDIRECT_SIGNIN: https://d3kdb9b758wzvh.cloudfront.net
+  COGNITO_REDIRECT_SIGNOUT: https://d3kdb9b758wzvh.cloudfront.net
 
   COGNITO_USER_POOL_ID: ${{ secrets.COGNITO_USER_POOL_ID }}
   COGNITO_USER_POOL_CLIENT_ID: ${{ secrets.COGNITO_USER_POOL_CLIENT_ID }}
@@ -24,10 +24,10 @@ env:
   PIPELINE_USER_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   SAM_TEMPLATE: template.yaml
 
-  STACK_NAME: sam-app
-  PIPELINE_EXECUTION_ROLE: arn:aws:iam::730335522897:role/aws-sam-cli-managed-ServiceSt-PipelineExecutionRole-JsmuWrByN8Jy
-  CLOUDFORMATION_EXECUTION_ROLE: arn:aws:iam::730335522897:role/aws-sam-cli-managed-Servi-CloudFormationExecutionRo-aTemv7k82Gc7
-  ARTIFACTS_BUCKET: aws-sam-cli-managed-servicestage-p-artifactsbucket-gbvsxrqt6ral
+  STACK_NAME: concert-memories-pipeline
+  PIPELINE_EXECUTION_ROLE: arn:aws:iam::730335522897:role/aws-sam-cli-managed-ServiceSt-PipelineExecutionRole-JVKyP0sz18Al
+  CLOUDFORMATION_EXECUTION_ROLE: arn:aws:iam::730335522897:role/aws-sam-cli-managed-Servi-CloudFormationExecutionRo-ccN8ZmjDMc0I
+  ARTIFACTS_BUCKET: aws-sam-cli-managed-servicestage-p-artifactsbucket-4cgcn3e946lv
   REGION: us-east-2
 
 jobs:
@@ -60,7 +60,7 @@ jobs:
           sam build --template ${SAM_TEMPLATE}
 
   build-and-package-main:
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -136,7 +136,7 @@ jobs:
           path: web/build
 
   deploy-to-aws:
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     needs: [build-and-package-main]
     runs-on: ubuntu-latest
     steps:

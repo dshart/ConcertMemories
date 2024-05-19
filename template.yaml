@@ -200,21 +200,21 @@ Resources:
                   - cloudwatch:PutMetricData
                 Resource: '*'
 
-        - PolicyName: 'AccessConcertsTable'
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action: dynamodb:*
-                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Concerts"
+ #       - PolicyName: 'AccessConcertsTable'
+ #         PolicyDocument:
+ #           Version: '2012-10-17'
+ #           Statement:
+ #             - Effect: Allow
+ #               Action: dynamodb:*
+ #               Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Concerts"
 
-        - PolicyName: 'AccessBandsTable'
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action: dynamodb:*
-                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Bands"
+  #      - PolicyName: 'AccessBandsTable'
+  #        PolicyDocument:
+  #          Version: '2012-10-17'
+  #          Statement:
+  #            - Effect: Allow
+  #              Action: dynamodb:*
+  #              Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Bands"
 
   #-----------------------------------------------------
   # Lambda Functions Configuration
