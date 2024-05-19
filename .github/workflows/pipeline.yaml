@@ -3,7 +3,7 @@ name: Project Pipeline
 on:
   push:
     branches:
-      - 'main'
+      - 'master'
       - 'feature**'
 
 env:
@@ -60,7 +60,7 @@ jobs:
           sam build --template ${SAM_TEMPLATE}
 
   build-and-package-main:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -136,7 +136,7 @@ jobs:
           path: web/build
 
   deploy-to-aws:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
     needs: [build-and-package-main]
     runs-on: ubuntu-latest
     steps:
