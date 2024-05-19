@@ -28,7 +28,7 @@ public interface ServiceComponent {
      * Provides the relevant activity.
      * @return GetConcertActivity
      */
-    GetConcertActivity provideGetConcertActivity();
+    GetAllConcertsActivity provideGetConcertActivity();
 
     /**
      * Provides the relevant activity.

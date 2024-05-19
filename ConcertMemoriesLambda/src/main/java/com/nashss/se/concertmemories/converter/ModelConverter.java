@@ -30,7 +30,20 @@ public class ModelConverter {
 //                .withTags(tags)
 //                .build();
     }
-//
+
+
+    /**
+     * Converts a list of Concerts to a list of ConcerMdoels.
+     * @param  The AlbumTracks to convert to SongModels
+     * @return The converted list of SongModels
+     */
+    public List<ConcertModel> toSongModelList(List<AlbumTrack> albumTracks) {
+        List<SongModel> songModels = new ArrayList<>();
+        for (AlbumTrack albumTrack : albumTracks) {
+            songModels.add(toSongModel(albumTrack));
+        }
+
+        return songModels;
 //    /**
 //     * Converts a provided AlbumTrack into a SongModel representation.
 //     * @param albumTrack the AlbumTrack to convert to SongModel
