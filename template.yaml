@@ -168,7 +168,6 @@ Resources:
             Principal:
               AWS: !Sub "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${CloudFrontOriginAccessIdentity}"
 
-
   #-----------------------------------------------------
   # Role/Permissions/Policy Configuration
   #-----------------------------------------------------
@@ -240,7 +239,7 @@ Resources:
           Properties:
             Path: /concerts/{emailAddress}
             Method: get
-            
+
   #-----------------------------------------------------
   # DynamoDB Configuration
   #-----------------------------------------------------
