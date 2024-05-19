@@ -1,10 +1,6 @@
 package com.nashss.se.concertmemories.dependency;
 
-//import com.nashss.se.concertmemories.api.activity.artist.CreateArtistActivity;
-//import com.nashss.se.concertmemories.api.activity.artist.DeleteArtistActivity;
-//import com.nashss.se.concertmemories.api.activity.artist.GetArtistActivity;
-//import com.nashss.se.concertmemories.api.activity.artist.UpdateArtistActivity;
-import com.nashss.se.concertmemories.api.activity.*;
+import com.nashss.se.concertmemories.api.activity.GetAllConcertsActivity;
 
 import com.nashss.se.concertmemories.dynamodb.ConcertDao;
 import dagger.Component;
@@ -28,7 +24,7 @@ public interface ServiceComponent {
      * Provides the relevant activity.
      * @return GetConcertActivity
      */
-    GetConcertActivity provideGetConcertActivity();
+    GetAllConcertsActivity provideGetAllConcertActivity();
 
     /**
      * Provides the relevant activity.

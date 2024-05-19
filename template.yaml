@@ -209,7 +209,7 @@ Resources:
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: ConcertMemoriesLambda
-      Handler: com.nashss.se.concertmemories.lambda.GetConcertLambda::handleRequest
+      Handler: com.nashss.se.concertmemories.lambda.GetAllConcertsLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -221,7 +221,7 @@ Resources:
         ConcertMemories:
           Type: Api
           Properties:
-            Path: /concerts/
+            Path: /concerts/{emailAddress}
             Method: get
             Auth:
               Authorizer: 'NONE'
