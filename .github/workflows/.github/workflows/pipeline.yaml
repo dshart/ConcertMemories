@@ -9,10 +9,10 @@ on:
 env:
 
   # STUDENTS: Set these environment variables 
-  API_BASE_URL: https://sgcxizrudg.execute-api.us-east-2.amazonaws.com/Prod/
-  COGNITO_DOMAIN: nss-se-c04-concert-memories.auth.us-east-2.amazoncognito.com
-  COGNITO_REDIRECT_SIGNIN: https://d23hbe6muzc00c.cloudfront.net
-  COGNITO_REDIRECT_SIGNOUT: https://d23hbe6muzc00c.cloudfront.net
+  API_BASE_URL: https://sgcxizrudg.execute-api.us-east-2.amazonaws.com/Prod
+  COGNITO_DOMAIN: https://nss-se-c04-concert-memories.auth.us-east-2.amazoncognito.com/
+  COGNITO_REDIRECT_SIGNIN: https://d23hbe6muzc00c.cloudfront.net/
+  COGNITO_REDIRECT_SIGNOUT: https://d23hbe6muzc00c.cloudfront.net/
 
   COGNITO_USER_POOL_ID: ${{ secrets.COGNITO_USER_POOL_ID }}
   COGNITO_USER_POOL_CLIENT_ID: ${{ secrets.COGNITO_USER_POOL_CLIENT_ID }}
@@ -24,7 +24,7 @@ env:
   PIPELINE_USER_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   SAM_TEMPLATE: template.yaml
 
-  STACK_NAME: concertmemories-pipeline
+  STACK_NAME: concert-memories-pipeline
   PIPELINE_EXECUTION_ROLE: arn:aws:iam::730335522897:role/aws-sam-cli-managed-ServiceSt-PipelineExecutionRole-yNdoIB8MlmPJ
   CLOUDFORMATION_EXECUTION_ROLE: arn:aws:iam::730335522897:role/aws-sam-cli-managed-Servi-CloudFormationExecutionRo-0EsC0KeSMw09
   ARTIFACTS_BUCKET: aws-sam-cli-managed-servicestage-p-artifactsbucket-lxo3mx8nuxs4
