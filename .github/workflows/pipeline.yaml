@@ -3,7 +3,7 @@ name: Project Pipeline
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
       - 'feature**'
 
 env:
@@ -24,7 +24,7 @@ env:
   PIPELINE_USER_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   SAM_TEMPLATE: template.yaml
 
-  STACK_NAME: concertmemories-pipeline
+  STACK_NAME: sam-app
   PIPELINE_EXECUTION_ROLE: arn:aws:iam::730335522897:role/aws-sam-cli-managed-ServiceSt-PipelineExecutionRole-h7ZN1oisUUGZ
   CLOUDFORMATION_EXECUTION_ROLE: arn:aws:iam::730335522897:role/aws-sam-cli-managed-Servi-CloudFormationExecutionRo-t4Gs6k63TQP9
   ARTIFACTS_BUCKET: aws-sam-cli-managed-servicestage-p-artifactsbucket-8rzoumqj06on
@@ -60,7 +60,7 @@ jobs:
           sam build --template ${SAM_TEMPLATE}
 
   build-and-package-main:
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -136,7 +136,7 @@ jobs:
           path: web/build
 
   deploy-to-aws:
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     needs: [build-and-package-main]
     runs-on: ubuntu-latest
     steps:

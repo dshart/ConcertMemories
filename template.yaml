@@ -200,11 +200,28 @@ Resources:
                   - logs:PutLogEvents
                   - cloudwatch:PutMetricData
                 Resource: '*'
+
+        - PolicyName: 'AccessConcertsTable'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: dynamodb:*
+                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Concerts"
+
+        - PolicyName: 'AccessBandsTable'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: dynamodb:*
+                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Bands"
+
   #-----------------------------------------------------
   # Lambda Functions Configuration
   #-----------------------------------------------------
 
-  GetConcertLambda:
+  GetAllConcertsLambda:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
@@ -223,9 +240,7 @@ Resources:
           Properties:
             Path: /concerts/{emailAddress}
             Method: get
-            Auth:
-              Authorizer: 'NONE'
-
+            
   #-----------------------------------------------------
   # DynamoDB Configuration
   #-----------------------------------------------------
