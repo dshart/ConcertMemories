@@ -7,66 +7,26 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+
+import java.util.List;
+
 /**
  * Accesses data for a concert using {@link Concert} to represent the model in DynamoDB.
-//
- //@Singleton
-//public class ConcertDao {
-//    private final DynamoDBMapper dynamoDbMapper;
-//
-//    /**
-//     * Instantiates a ConcertDao object.
-//     *
-//     * @param dynamoDbMapper the {@link DynamoDBMapper} used to interact with the concerts table
-//     */
-//    @Inject
-//    public ConcertDao(DynamoDBMapper dynamoDbMapper) {
-//        this.dynamoDbMapper = dynamoDbMapper;
-//    }
-//
-//    /**
-//     * Returns the {@link Concert} corresponding to the specified date.
-//     //     *
-//     //     * @param id the Concert date
-//     //     * @return the stored Concert, or null if none was found.
-//     //     */
-//    public Concert getConcert(String dateAttended) {
-//        Concert concert = this.dynamoDbMapper.load(Concert.class, dateAttended);
-//
-//        if (concert == null) {
-//            throw new ConcertNotFoundException("Could not find concert on the date: " + dateAttended);
-//        }
-//        return concert;
-//    }
-//
-//    /**
-//     * Saves (creates or updates) the given concdrt.
-//     * @param concert The concert to save
-//     * @return The Concert object that was saved
-//     */
-//    public Concert saveConcert(Concert concert) {
-//        this.dynamoDbMapper.save(concert);
-//        return concert;
-//    }
-//}
-//
-///**
-// * Accesses data for a project using {@link Project} to interact with the model in DynamoDB.
-// */
 
-@Inject
+ */
+@Singleton
 public class ConcertDao {
-    private final DynamoDBMapper mapper;
+    private final DynamoDBMapper dynamoDbMapper;
 
     /**
-     * Instantiates a ProjectDao object.
+     * Instantiates a ConcertDao object.
      *
-     * @param mapper the {@link DynamoDBMapper} used to interact with the Projects table
+     * @param dynamoDbMapper the {@link DynamoDBMapper} used to interact with the Concerts table
      */
-
     @Inject
-    public ConcertDao(DynamoDBMapper mapper) {
-        this.mapper = mapper;
+    public ConcertDao(DynamoDBMapper dynamoDbMapper) {
+        this.dynamoDbMapper = dynamoDbMapper;
     }
 
     /**
@@ -79,10 +39,11 @@ public class ConcertDao {
      * @return The corresponding Concert if found
      */
     public Concert getSingleProject(String emailAddress, String dateAttended) {
-        Concert concert = mapper.load(Concert.class, emailAddress, dateAttended);
+        Concert concert = dynamoDbMapper.load(Concert.class, emailAddress, dateAttended);
+
         if (concert == null) {
-            throw new ConcerttNotFoundException(String.format("Could not find concert with emailAddress %s and dateAttended %s",
-                    emaildAdresss, dateAttended));
+            throw new ConcertNotFoundException(String.format("Could not find concert with emailAddress %s and dateAttended %s",
+                    emailAddress, dateAttended));
         }
         return concert;
     }
@@ -100,7 +61,7 @@ public class ConcertDao {
         concert.setEmailAddress(emailAddress);
         DynamoDBQueryExpression<Concert> queryExpression = new DynamoDBQueryExpression<Concert>()
                 .withHashKeyValues(concert);
-        return mapper.query(Concert.class, queryExpression);
+        return dynamoDbMapper.query(Concert.class, queryExpression);
     }
 
     /**
@@ -109,7 +70,7 @@ public class ConcertDao {
      * @param concert The Concert to be saved
      */
     public void writeProject(Concert concert) {
-        mapper.save(concert);
+        dynamoDbMapper.save(concert);
     }
 
     /**
@@ -118,6 +79,6 @@ public class ConcertDao {
      * @param concert The Concert to be deleted
      */
     public void deleteConcert(Concert concert) {
-        mapper.delete(concert);
+        dynamoDbMapper.delete(concert);
     }
 }

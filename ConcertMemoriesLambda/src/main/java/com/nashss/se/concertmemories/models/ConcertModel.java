@@ -6,94 +6,131 @@ import java.util.Objects;
 import static com.nashss.se.concertmemories.utils.CollectionUtils.copyToList;
 
 public class ConcertModel {
-//    private final String id;
-//    private final String name;
-//    private final String customerId;
-//    private final int songCount;
-//    private final List<String> tags;
-//
-//    private PlaylistModel(String id, String name, String customerId, int songCount, List<String> tags) {
-//        this.id = id;
-//        this.name = name;
-//        this.customerId = customerId;
-//        this.songCount = songCount;
-//        this.tags = tags;
-//    }
-//
-//    public String getId() {
-//        return id;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public String getCustomerId() {
-//        return customerId;
-//    }
-//
-//    public int getSongCount() {
-//        return songCount;
-//    }
-//
-//    public List<String> getTags() {
-//        return copyToList(tags);
-//    }
-//
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        PlaylistModel that = (PlaylistModel) o;
-//        return songCount == that.songCount
-//                && id.equals(that.id)
-//                && customerId.equals(that.customerId)
-//                && tags.equals(that.tags);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, customerId, songCount, tags);
-//    }
-//
-//    public static Builder builder() {
-//        return new Builder();
-//    }
-//
-//    public static class Builder {
-//        private String id;
-//        private String name;
-//        private String customerId;
-//        private int songCount;
-//        private List<String> tags;
-//
-//        public Builder withId(String id) {
-//            this.id = id;
-//            return this;
-//        }
-//
-//        public Builder withName(String name) {
-//            this.name = name;
-//            return this;
-//        }
-//
-//        public Builder withCustomerId(String customerId) {
-//            this.customerId = customerId;
-//            return this;
-//        }
-//
-//        public Builder withSongCount(int songCount) {
-//            this.songCount = songCount;
-//            return this;
-//        }
-//
-//        public Builder withTags(List<String> tags) {
-//            this.tags = copyToList(tags);
-//            return this;
-//        }
-//
-//        public PlaylistModel build() {
-//            return new PlaylistModel(id, name, customerId, songCount, tags);
-//        }
-//    }
+    private final String emailAddress;
+    private final String bandName;
+    private final String tourName;
+    private final String dateAttended;
+    private final String venue;
+    private final List<String> openingActs;
+    private final List<String> setList;
+    private final List<String> memories;
+
+    private ConcertModel(String emailAddress, String bandName, String tourName, String dateAttended, String venue,
+            List<String> openingActs, List<String> setList, List<String> memories) {
+        this.emailAddress = emailAddress;
+        this.bandName = bandName;
+        this.tourName = tourName;
+        this.dateAttended = dateAttended;
+        this.venue = venue;
+        this.openingActs = openingActs;
+        this.setList = setList;
+        this.memories = memories;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public String getBandName() {
+        return bandName;
+    }
+
+    public String getTourName() {
+        return tourName;
+    }
+
+    public String getDateAttended() {
+        return dateAttended;
+    }
+
+    public String getVenue() {
+        return venue;
+    }
+
+    public List<String> getOpeningActs() {
+
+        return copyToList(openingActs);
+    }
+
+    public List<String> getSetList() {
+
+        return copyToList(setList);
+    }
+
+    public List<String> getMemories() {
+
+        return copyToList(memories);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ConcertModel that = (ConcertModel) o;
+        return emailAddress.equals(that.emailAddress) && dateAttended.equals(that.dateAttended);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(emailAddress, dateAttended);
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private String emailAddress;
+        private String bandName;
+        private String tourName;
+        private String dateAttended;
+        private String venue;
+        private List<String> openingActs;
+        private List<String> setList;
+        private List<String> memories;
+
+        public Builder withEmailAddress(String emailAddress) {
+            this.emailAddress = emailAddress;
+            return this;
+        }
+
+        public Builder withBandName(String bandName) {
+            this.bandName = bandName;
+            return this;
+        }
+
+        public Builder withTourName(String tourName) {
+            this.tourName = tourName;
+            return this;
+        }
+
+        public Builder withDateAttended(String dateAttended) {
+            this.dateAttended = dateAttended;
+            return this;
+        }
+
+        public Builder withVenue(String venue) {
+            this.venue = venue;
+            return this;
+        }
+
+        public Builder withOpeningActs(List<String> openingActs) {
+            this.openingActs = copyToList(openingActs);
+            return this;
+        }
+
+        public Builder withSetList(List<String> setList) {
+            this.setList = copyToList(setList);
+            return this;
+        }
+
+        public Builder withMemories(List<String> memories) {
+            this.memories = copyToList(memories);
+            return this;
+        }
+
+        public ConcertModel build() {
+            return new ConcertModel(emailAddress, bandName, tourName, dateAttended, venue, openingActs, setList, memories);
+        }
+    }
 }

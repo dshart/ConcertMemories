@@ -11,10 +11,6 @@ import static com.nashss.se.concertmemories.utils.NullUtils.ifNotNull;
 public class CollectionUtils {
     private CollectionUtils() { }
 
-    public static <TElement> Set<TElement> copyToSet(Collection<TElement> collectionToWrap) {
-        return ifNotNull(collectionToWrap, () -> new HashSet<>(collectionToWrap));
-    }
-
     public static <TElement> List<TElement> copyToList(Collection<TElement> collectionToWrap) {
         return ifNotNull(collectionToWrap, () -> new ArrayList<>(collectionToWrap));
     }

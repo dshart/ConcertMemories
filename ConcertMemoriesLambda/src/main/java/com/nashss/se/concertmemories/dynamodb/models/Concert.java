@@ -1,11 +1,9 @@
-package com.nashss.se.concertmemories.dynam
+package com.nashss.se.concertmemories.dynamodb.models;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
-
-import java.util.HashSet;
+import com.nashss.se.concertmemories.converters.MemoriesListConverter;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Represents a record in the playlists table.
@@ -16,6 +14,7 @@ public class Concert {
     private String bandName;
     private String tourName;
     private String dateAttended;
+    private String venue;
     private List<String> openingActs;
     private List<String> setList;
     private List<String> memories;
@@ -48,13 +47,23 @@ public class Concert {
     }
 
     @DynamoDBRangeKey(attributeName = "date_attended")
-    public String getDateAttended() {
-        return dateAttended;
+    public String getDateAttended() { return dateAttended;
     }
 
     public void setDateAttended(String dateAttended) {
         this.dateAttended = dateAttended;
     }
+
+    @DynamoDBAttribute(attributeName = "venue")
+    public String getVenue() {
+        return venue;
+    }
+
+    public void setVenue(String venue) {
+        this.venue = venue;
+    }
+
+
 
     /**
      * Returns the list of opening acts for this concert, null if there are none.
@@ -83,7 +92,7 @@ public class Concert {
     }
 
     @DynamoDBAttribute(attributeName = "memories")
-    @DynamoDBTypeConverted(converter = com.nashss.se.concertmemories.converters.MemoriesConverter.class)
+    @DynamoDBTypeConverted(converter = MemoriesListConverter.class)
     public List<String> getMemories() {
         return memories;
     }

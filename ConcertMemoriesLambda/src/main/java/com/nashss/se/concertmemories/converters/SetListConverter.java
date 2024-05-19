@@ -1,18 +1,20 @@
 package com.nashss.se.concertmemories.converters;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverter;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.nashss.se.concertmemories.dynamodb.models.Concert;
+
 import com.nashss.se.concertmemories.exceptions.OpeningActsSerializationException;
+import com.nashss.se.concertmemories.exceptions.SetListSerializationException;
 
 import java.util.List;
 
 public class SetListConverter implements DynamoDBTypeConverter <String, List<String>>{
-    private ObjectMapper objectMapper = new ObjectMapper();
-    private JavaTimeModule javaTimeModule = new JavaTimeModule();
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final JavaTimeModule javaTimeModule = new JavaTimeModule();
 
 
     @Override
@@ -31,7 +33,7 @@ public class SetListConverter implements DynamoDBTypeConverter <String, List<Str
         try {
             return objectMapper.readValue(setListString, new TypeReference<>(){});
         } catch (JsonProcessingException e) {
-            throw new SetListOpeningActsSerializationException(("Error deserializing concert set list", e);
+            throw new SetListSerializationException("Error deserializing concert set list", e);
         }
     }
 }

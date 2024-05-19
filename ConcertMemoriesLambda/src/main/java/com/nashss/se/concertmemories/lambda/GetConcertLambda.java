@@ -14,10 +14,10 @@ public class GetConcertLambda
         return super.runActivity(
                 () -> input.fromPath(path ->
                         GetAllConcertsRequest.builder()
-                                .withUserId(path.get("emailAddress"))
+                                .withEmailAddress(path.get("emailAddress"))
                                 .build()),
                 (request, serviceComponent) ->
-                        serviceComponent.provideGetConcertActivity().handleRequest(request)
+                        serviceComponent.provideGetAllConcertActivity().handleRequest(request)
         );
     }
 }

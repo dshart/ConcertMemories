@@ -2,15 +2,22 @@ package com.nashss.se.concertmemories.api.result;
 
 import com.nashss.se.concertmemories.models.ConcertModel;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
+
+/**
+ * Implementation of GetAllConcertsResult for ConcertMemories' GetAllConcerts API.
+ *
+ * This API allows the user to get all of their saved concerts.
+ */
 
 public class GetAllConcertsResult {
     private final List<ConcertModel> concertList;
 
     private GetAllConcertsResult(List<ConcertModel> concertList) {
         this.concertList = concertList;
-     }
+    }
 
     public List<ConcertModel> getAllConcerts() {
         return new ArrayList<>(concertList);
@@ -28,9 +35,9 @@ public class GetAllConcertsResult {
     }
 
     public static class Builder {
-        private List<ConcertModel> songList;
+        private List<ConcertModel> concertList;
 
-        public Builder withSongList(List<ConcertModel> concertList) {
+        public Builder withConcertModelList(List<ConcertModel> concertList) {
             this.concertList = new ArrayList<>(concertList);
             return this;
         }

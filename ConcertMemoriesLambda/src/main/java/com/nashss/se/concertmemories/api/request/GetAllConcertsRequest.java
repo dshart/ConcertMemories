@@ -13,7 +13,7 @@ public class GetAllConcertsRequest {
     @Override
     public String toString() {
         return "GetConcertRequest{" +
-                "dateAttended='" + getDateAttended() + '\'' +
+                "emailAddress='" + getEmailAddress() + '\'' +
                 '}';
     }
 
@@ -25,7 +25,7 @@ public class GetAllConcertsRequest {
     public static class Builder {
         private String emailAddress;
 
-        public Builder withId(String emailAddress) {
+        public Builder withEmailAddress(String emailAddress) {
             this.emailAddress = emailAddress;
             return this;
         }
@@ -35,3 +35,4 @@ public class GetAllConcertsRequest {
         }
     }
 }
+
