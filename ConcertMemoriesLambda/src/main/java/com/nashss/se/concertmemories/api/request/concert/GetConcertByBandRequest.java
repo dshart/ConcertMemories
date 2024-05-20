@@ -1,27 +1,27 @@
 package com.nashss.se.concertmemories.api.request.concert;
 
-public class GetConcertByDateRequest {
+public class GetConcertByBandRequest {
     private final String emailAddress;
-    private final String dateAttended;
+    private final String bandName;
 
-    private GetConcertByDateRequest(String emailAddress, String dateAttended) {
+    private GetConcertByBandRequest(String emailAddress, String bandName) {
         this.emailAddress = emailAddress;
-        this.dateAttended = dateAttended;
+        this.bandName = bandName;
     }
 
     public String getEmailAddress() {
         return emailAddress;
     }
 
-    public String getDateAttended() {
-        return dateAttended;
+    public String getBandName() {
+        return bandName;
     }
 
     @Override
     public String toString() {
         return "GetConcertByDateRequest{" +
                 "emailAddress='" + emailAddress + '\'' +
-                "dateAttended='" + dateAttended + '\'' +
+                "bandName='" + bandName + '\'' +
                 '}';
     }
 
@@ -32,20 +32,20 @@ public class GetConcertByDateRequest {
 
     public static class Builder {
         private String emailAddress;
-        private String dateAttended;
+        private String bandName;
 
-        public Builder withEmailAddress(String id) {
+        public Builder withEmailAddress(String emailAddress) {
             this.emailAddress = emailAddress;
             return this;
         }
 
-        public Builder withDateAttended(String dateAttended) {
-            this.dateAttended = dateAttended;
+        public Builder withBandName(String bandName) {
+            this.bandName = bandName;
             return this;
         }
 
-        public GetConcertByDateRequest build() {
-            return new GetConcertByDateRequest(emailAddress, dateAttended);
+        public GetConcertByBandRequest build() {
+            return new GetConcertByBandRequest(emailAddress, bandName);
         }
     }
 }

@@ -1,7 +1,8 @@
 package com.nashss.se.concertmemories.dependency;
 
 import com.nashss.se.concertmemories.api.activity.concert.GetAllConcertsActivity;
-import com.nashss.se.concertmemories.api.activity.concert.GetConcertByDateActivity;
+import com.nashss.se.concertmemories.api.activity.concert.GetConcertByBandActivity;
+//import com.nashss.se.concertmemories.api.activity.concert.GetConcertByDateActivity;
 import com.nashss.se.concertmemories.dynamodb.ConcertDao;
 import dagger.Component;
 
@@ -30,13 +31,13 @@ public interface ServiceComponent {
      * Provides the relevant activity.
      * @return GetConcertByDatectivity
      */
-    GetConcertByDateActivity provideGetConcertByDateActivity();
+    //GetConcertByDateActivity provideGetConcertByDateActivity();
 
     /**
      * Provides the relevant activity.
-     * @return GetConcertByArtistActivity
+     * @return GetConcertByBandActivity
      */
-//    GetConcertByArtistActivity provideGetConcertByArtistActivity();
+    GetConcertByBandActivity provideGetConcertByBandActivity();
 
     /**
      * Provides the relevant activity.

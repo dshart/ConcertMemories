@@ -240,12 +240,12 @@ Resources:
             Path: /concerts/{emailAddress}
             Method: get
 
-  GetConcertByDateLambda:
+  GetConcertByBandLambda:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: ConcertMemoriesLambda
-      Handler: com.nashss.se.concertmemories.lambda.GetConcertByDate::handleRequest
+      Handler: com.nashss.se.concertmemories.lambda.GetConcertByBand::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -257,7 +257,7 @@ Resources:
         ConcertMemories:
           Type: Api
           Properties:
-          Path: /concerts/{emailAddress}/date/{dateAttended}
+          Path: /concerts/{emailAddress}/band/{bandName}
           Method: get
 
   #-----------------------------------------------------

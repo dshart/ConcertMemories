@@ -2,10 +2,10 @@ package com.nashss.se.concertmemories.api.result.concert;
 
 import com.nashss.se.concertmemories.models.ConcertModel;
 
-public class GetConcertByDateResult {
+public class GetConcertByBandResult {
     private final ConcertModel concert;
 
-    private GetConcertByDateResult(ConcertModel concert) {
+    private GetConcertByBandResult(ConcertModel concert) {
         this.concert = concert;
     }
 
@@ -15,7 +15,7 @@ public class GetConcertByDateResult {
 
     @Override
     public String toString() {
-        return "GetConcertByDateResult{" +
+        return "GetConcertByBandResult{" +
                 "concert=" + concert +
                 '}';
     }
@@ -33,8 +33,8 @@ public class GetConcertByDateResult {
             return this;
         }
 
-        public GetConcertByDateResult build() {
-            return new GetConcertByDateResult(concert);
+        public GetConcertByBandResult build() {
+            return new GetConcertByBandResult(concert);
         }
     }
 }
