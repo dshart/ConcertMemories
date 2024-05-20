@@ -1,4 +1,4 @@
-package com.nashss.se.concertmemories.api.request;
+package com.nashss.se.concertmemories.api.request.concert;
 public class GetAllConcertsRequest {
     private final String emailAddress;
 

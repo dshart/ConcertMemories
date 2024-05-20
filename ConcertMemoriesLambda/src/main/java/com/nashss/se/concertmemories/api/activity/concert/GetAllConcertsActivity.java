@@ -1,6 +1,6 @@
 package com.nashss.se.concertmemories.api.activity.concert;
 
-import com.nashss.se.concertmemories.api.request.GetAllConcertsRequest;
+import com.nashss.se.concertmemories.api.request.concert.GetAllConcertsRequest;
 import com.nashss.se.concertmemories.api.result.concert.GetAllConcertsResult;
 import com.nashss.se.concertmemories.converters.ModelConverter;
 import com.nashss.se.concertmemories.dynamodb.ConcertDao;
