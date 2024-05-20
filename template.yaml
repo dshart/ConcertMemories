@@ -240,6 +240,26 @@ Resources:
             Path: /concerts/{emailAddress}
             Method: get
 
+  GetConcertByDateLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: ConcertMemoriesLambda
+      Handler: com.nashss.se.concertmemories.lambda.GetConcertByDate::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        ConcertMemories:
+          Type: Api
+          Properties:
+          Path: /concerts/{emailAddress}/date/{dateAttended}
+          Method: get
+
   #-----------------------------------------------------
   # DynamoDB Configuration
   #-----------------------------------------------------

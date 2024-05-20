@@ -3,9 +3,9 @@ package com.nashss.se.concertmemories.lambda;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.concertmemories.api.request.GetAllConcertsRequest;
-import com.nashss.se.concertmemories.api.result.GetAllConcertsResult;
+import com.nashss.se.concertmemories.api.result.concert.GetAllConcertsResult;
 
-public class GetConcertLambda
+public class GetAllConcertsLambda
         extends LambdaActivityRunner<GetAllConcertsRequest, GetAllConcertsResult>
         implements RequestHandler<LambdaRequest<GetAllConcertsRequest>, LambdaResponse> {
 
@@ -17,7 +17,7 @@ public class GetConcertLambda
                                 .withEmailAddress(path.get("emailAddress"))
                                 .build()),
                 (request, serviceComponent) ->
-                        serviceComponent.provideGetAllConcertActivity().handleRequest(request)
+                        serviceComponent.provideGetAllConcertsActivity().handleRequest(request)
         );
     }
 }
