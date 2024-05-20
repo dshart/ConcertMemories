@@ -1,27 +1,27 @@
 package com.nashss.se.concertmemories.api.request.concert;
 
-public class GetConcertByBandRequest {
+public class GetConcertByVenueRequest {
     private final String emailAddress;
-    private final String bandName;
+    private final String venue;
 
-    private GetConcertByBandRequest(String emailAddress, String bandName) {
+    private GetConcertByVenueRequest(String emailAddress, String venue) {
         this.emailAddress = emailAddress;
-        this.bandName = bandName;
+        this.venue = venue;
     }
 
     public String getEmailAddress() {
         return emailAddress;
     }
 
-    public String getBandName() {
-        return bandName;
+    public String getVenue() {
+        return venue;
     }
 
     @Override
     public String toString() {
-        return "GetConcertByDateRequest{" +
+        return "GetConcertByVenueRequest{" +
                 "emailAddress='" + emailAddress + '\'' +
-                "bandName='" + bandName + '\'' +
+                "venue='" + venue + '\'' +
                 '}';
     }
 
@@ -32,20 +32,20 @@ public class GetConcertByBandRequest {
 
     public static class Builder {
         private String emailAddress;
-        private String bandName;
+        private String venue;
 
         public Builder withEmailAddress(String emailAddress) {
             this.emailAddress = emailAddress;
             return this;
         }
 
-        public Builder withBandName(String bandName) {
-            this.bandName = bandName;
+        public Builder withVenue(String venue) {
+            this.venue = venue;
             return this;
         }
 
-        public GetConcertByBandRequest build() {
-            return new GetConcertByBandRequest(emailAddress, bandName);
+        public GetConcertByVenueRequest build() {
+            return new GetConcertByVenueRequest(emailAddress, venue);
         }
     }
 }
