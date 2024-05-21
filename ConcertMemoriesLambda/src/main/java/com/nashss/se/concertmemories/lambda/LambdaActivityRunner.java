@@ -1,13 +1,13 @@
 package com.nashss.se.concertmemories.lambda;
 
-//import com.nashss.se.concertmemories.dependency.DaggerServiceComponent;
-import com.nashss.se.concertmemories.dependency.ServiceComponent;
+    import com.nashss.se.concertmemories.dependency.DaggerServiceComponent;
+    import com.nashss.se.concertmemories.dependency.ServiceComponent;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+    import org.apache.logging.log4j.LogManager;
+    import org.apache.logging.log4j.Logger;
 
-import java.util.function.BiFunction;
-import java.util.function.Supplier;
+    import java.util.function.BiFunction;
+    import java.util.function.Supplier;
 
 public class LambdaActivityRunner<TRequest, TResult> {
     private ServiceComponent service;
@@ -50,17 +50,9 @@ public class LambdaActivityRunner<TRequest, TResult> {
     }
 
     private ServiceComponent getService() {
-
-       // DaggerComponent dagger = null;
-       // RootObject obj = dagger.
-
-        //ZooAppComponent dagger = DaggerZooAppComponent.create();
-        //ZooService zooService = dagger.provideZooService();
-
-        service = null;
-//        if (service == null) {
-//            service = DaggerServiceComponent.create();
-//        }
+        if (service == null) {
+            service = DaggerServiceComponent.create();
+        }
         return service;
     }
 }
