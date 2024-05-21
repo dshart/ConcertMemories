@@ -171,7 +171,6 @@ Resources:
   #-----------------------------------------------------
   # Role/Permissions/Policy Configuration
   #-----------------------------------------------------
-
   AccessRole:
     Type: AWS::IAM::Role
     Properties:
