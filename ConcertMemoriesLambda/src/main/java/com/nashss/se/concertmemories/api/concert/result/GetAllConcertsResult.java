@@ -1,4 +1,4 @@
-package com.nashss.se.concertmemories.api.result;
+package com.nashss.se.concertmemories.api.concert.result;
 
 import com.nashss.se.concertmemories.models.ConcertModel;
 

@@ -2,8 +2,8 @@ package com.nashss.se.concertmemories.lambda;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.nashss.se.concertmemories.api.request.GetAllConcertsRequest;
-import com.nashss.se.concertmemories.api.result.GetAllConcertsResult;
+import com.nashss.se.concertmemories.api.concert.request.GetAllConcertsRequest;
+import com.nashss.se.concertmemories.api.concert.result.GetAllConcertsResult;
 
 public class GetAllConcertsLambda
         extends com.nashss.se.concertmemories.lambda.LambdaActivityRunner<GetAllConcertsRequest, GetAllConcertsResult>

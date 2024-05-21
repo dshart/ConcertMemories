@@ -1,6 +1,6 @@
 package com.nashss.se.concertmemories.dependency;
 
-import com.nashss.se.concertmemories.api.activity.GetAllConcertsActivity;
+import com.nashss.se.concertmemories.api.concert.activity.GetAllConcertsActivity;
 
 import com.nashss.se.concertmemories.dynamodb.ConcertDao;
 import dagger.Component;
