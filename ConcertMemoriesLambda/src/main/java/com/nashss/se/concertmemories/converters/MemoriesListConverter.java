@@ -10,6 +10,10 @@ import com.nashss.se.concertmemories.exceptions.MemoriesSerializationException;
 
 import java.util.List;
 
+/**
+ // * Converts between Data models and the representation we want to return in the result.
+ */
+
 public class MemoriesListConverter implements DynamoDBTypeConverter <String, List<String>>{
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final JavaTimeModule javaTimeModule = new JavaTimeModule();
@@ -29,7 +33,7 @@ public class MemoriesListConverter implements DynamoDBTypeConverter <String, Lis
     public List<String> unconvert(String memoriesString) {
         objectMapper.registerModule(javaTimeModule);
         try {
-            return objectMapper.readValue(memoriesString, new TypeReference<>(){});
+            return objectMapper.readValue(memoriesString, new TypeReference<>() {});
         } catch (JsonProcessingException e) {
             throw new MemoriesSerializationException("Error deserializing concert memories list", e);
         }

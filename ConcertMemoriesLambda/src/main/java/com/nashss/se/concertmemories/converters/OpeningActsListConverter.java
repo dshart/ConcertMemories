@@ -11,6 +11,10 @@ import com.nashss.se.concertmemories.exceptions.OpeningActsSerializationExceptio
 
 import java.util.List;
 
+/**
+ // * Converts between Data models and the representation we want to return in the result.
+ */
+
 public class OpeningActsListConverter implements DynamoDBTypeConverter <String, List<String>>{
     private ObjectMapper objectMapper = new ObjectMapper();
     private JavaTimeModule javaTimeModule = new JavaTimeModule();

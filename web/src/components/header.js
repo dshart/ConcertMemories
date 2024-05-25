@@ -1,4 +1,4 @@
-import MusicPlaylistClient from '../api/musicPlaylistClient';
+import ConcertMemoriesClient from '../api/concertMemoriesClient';
 import BindingClass from "../util/bindingClass";
 
 /**
@@ -14,7 +14,7 @@ export default class Header extends BindingClass {
         ];
         this.bindClassMethods(methodsToBind, this);
 
-        this.client = new MusicPlaylistClient();
+        this.client = new ConcertMemoriesClient();
     }
 
     /**
@@ -31,11 +31,24 @@ export default class Header extends BindingClass {
         header.appendChild(userInfo);
     }
 
+     createNavButton(text, htmlTarget) {
+            const button = document.createElement('a');
+            button.classList.add('navButton');
+            button.href = htmlTarget;
+            button.innerText = text;
+
+            button.addEventListener('click', async () => {
+                await clickHandler();
+            });
+
+            return button;
+        }
+
     createSiteTitle() {
         const homeButton = document.createElement('a');
         homeButton.classList.add('header_home');
         homeButton.href = 'index.html';
-        homeButton.innerText = 'Playlists';
+        //homeButton.innerText = 'Concert Memories<br>Relive the Rush!';
 
         const siteTitle = document.createElement('div');
         siteTitle.classList.add('site-title');

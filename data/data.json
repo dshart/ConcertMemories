@@ -1,0 +1,19 @@
+{
+  "concerts" : [
+    {  
+      "PutRequest" : {
+        "Item" : {
+          "band_name" : {"S": "Def Leppard"},
+          "email_address" : {"S": "dshart@gmail.com"},
+          "date_attended" : {"S": "1988-07-16"}, 
+          "tour_name" : {"S" : "Hysteria"},
+          "venue" : {"S" : "Alpine Valley - Troy, WI"},
+          "opening_acts" : {"SS" : ["Europe"]},
+          "songs_played" : {"SS" : ["Rock Rock Til You Drop", "Armegeddon It", "Promises"]},
+          "memories" : {"SS": ["I remember eating a really good hot dog.", "I remember it smelled like marijuana.", "I remember Def Leppard rocked the house."]},
+          "email_address" : {"S" : "dshart@gmail.com"}  
+        } 
+      }
+    }
+  ]
+}

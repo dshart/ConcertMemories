@@ -21,7 +21,7 @@ public class GetAllConcertsActivity {
     /**
      * Instantiates a new GetAllConcertActivity object.
      *
-     * @param concertDao ConcertDao to access the concert table.
+     * @param concertDao ConcertDao to access the concert table
      */
     @Inject
     public GetAllConcertsActivity(ConcertDao concertDao) {
