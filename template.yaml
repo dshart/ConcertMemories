@@ -48,65 +48,64 @@ Resources:
   # Cognito Configuration for user management
   #-----------------------------------------------------
 
-#  UserPool:
-#    Type: AWS::Cognito::UserPool
-#    Properties:
-#      AccountRecoverySetting:
-#        RecoveryMechanisms:
-#          - Name: verified_email
-#            Priority: 1
-#      UsernameAttributes:
-#        - email
-#      UsernameConfiguration:
-#        CaseSensitive: false
-#      AutoVerifiedAttributes:
-#        - email
-#      UserPoolName: !Sub ${CognitoDomain}-user-pool
-#      Schema:
-#        - Name: email
-#          AttributeDataType: String
-#          Mutable: false
-#          Required: true
-#        - Name: name
-#          AttributeDataType: String
-#          Mutable: true
-#          Required: true
+  UserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      AccountRecoverySetting:
+        RecoveryMechanisms:
+          - Name: verified_email
+            Priority: 1
+      UsernameAttributes:
+        - email
+      UsernameConfiguration:
+        CaseSensitive: false
+      AutoVerifiedAttributes:
+        - email
+      UserPoolName: !Sub ${CognitoDomain}-user-pool
+      Schema:
+        - Name: email
+          AttributeDataType: String
+          Mutable: false
+          Required: true
+        - Name: name
+          AttributeDataType: String
+          Mutable: true
+          Required: true
 
-#  UserPoolClient:
-#    Type: AWS::Cognito::UserPoolClient
-#    Properties:
-#      UserPoolId: !Ref UserPool
-#      AllowedOAuthFlowsUserPoolClient: true
-#      CallbackURLs:
-#        - http://localhost:8000
-#        - !If
-#          - DeployCloudFront
-#          - !Sub "https://${CloudfrontDistribution.DomainName}"
-#          - !Ref "AWS::NoValue"
-#      LogoutURLs:
-#        - http://localhost:8000
-#        - !If
-#          - DeployCloudFront
-#          - !Sub "https://${CloudfrontDistribution.DomainName}"
-#          - !Ref "AWS::NoValue"
-#      AllowedOAuthFlows:
-#        - code
-#        - implicit
-#      AllowedOAuthScopes:
-#        - phone
-#        - email
-#        - openid
-#        - profile
-#      SupportedIdentityProviders:
-#        - COGNITO
-#      PreventUserExistenceErrors: ENABLED
-#
-#  UserPoolDomain:
-#    Type: AWS::Cognito::UserPoolDomain
-#    Properties:
-#      Domain: !Ref CognitoDomain
-#      UserPoolId: !Ref UserPool
+  UserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      UserPoolId: !Ref UserPool
+      AllowedOAuthFlowsUserPoolClient: true
+      CallbackURLs:
+        - http://localhost:8000
+        - !If
+          - DeployCloudFront
+          - !Sub "https://${CloudfrontDistribution.DomainName}"
+          - !Ref "AWS::NoValue"
+      LogoutURLs:
+        - http://localhost:8000
+        - !If
+          - DeployCloudFront
+          - !Sub "https://${CloudfrontDistribution.DomainName}"
+          - !Ref "AWS::NoValue"
+      AllowedOAuthFlows:
+        - code
+        - implicit
+      AllowedOAuthScopes:
+        - phone
+        - email
+        - openid
+        - profile
+      SupportedIdentityProviders:
+        - COGNITO
+      PreventUserExistenceErrors: ENABLED
 
+  UserPoolDomain:
+    Type: AWS::Cognito::UserPoolDomain
+    Properties:
+      Domain: !Ref CognitoDomain
+      UserPoolId: !Ref UserPool
 
   #-----------------------------------------------------
   #  CloudFront Configuration
@@ -171,7 +170,7 @@ Resources:
   #-----------------------------------------------------
   # Role/Permissions/Policy Configuration
   #-----------------------------------------------------
-  
+
   AccessRole:
     Type: AWS::IAM::Role
     Properties:
