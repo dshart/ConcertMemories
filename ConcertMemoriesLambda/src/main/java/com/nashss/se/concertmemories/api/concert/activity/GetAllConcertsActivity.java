@@ -1,7 +1,7 @@
-package com.nashss.se.concertmemories.api.activity;
+package com.nashss.se.concertmemories.api.concert.activity;
 
-import com.nashss.se.concertmemories.api.request.GetAllConcertsRequest;
-import com.nashss.se.concertmemories.api.result.GetAllConcertsResult;
+import com.nashss.se.concertmemories.api.concert.request.GetAllConcertsRequest;
+import com.nashss.se.concertmemories.api.concert.result.GetAllConcertsResult;
 import com.nashss.se.concertmemories.converters.ModelConverter;
 import com.nashss.se.concertmemories.dynamodb.ConcertDao;
 import com.nashss.se.concertmemories.dynamodb.models.Concert;
@@ -21,7 +21,7 @@ public class GetAllConcertsActivity {
     /**
      * Instantiates a new GetAllConcertActivity object.
      *
-     * @param concertDao ConcertDao to access the concert table.
+     * @param concertDao ConcertDao to access the concert table
      */
     @Inject
     public GetAllConcertsActivity(ConcertDao concertDao) {

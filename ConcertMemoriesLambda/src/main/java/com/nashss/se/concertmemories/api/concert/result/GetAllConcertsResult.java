@@ -1,4 +1,4 @@
-package com.nashss.se.concertmemories.api.result;
+package com.nashss.se.concertmemories.api.concert.result;
 
 import com.nashss.se.concertmemories.models.ConcertModel;
 
@@ -30,18 +30,35 @@ public class GetAllConcertsResult {
                 '}';
     }
 
+    /**
+     * Builder.
+     * @return Builder.
+     */
     public static Builder builder() {
         return new Builder();
     }
 
+    /**
+     * Builder.
+     */
     public static class Builder {
         private List<ConcertModel> concertList;
 
+
+        /**
+         * withConcertModelList(x).
+         * @param concertList concertList
+         *@return Builder
+         */
         public Builder withConcertModelList(List<ConcertModel> concertList) {
             this.concertList = new ArrayList<>(concertList);
-            return this;
+            return
+                    this;
         }
-
+        /**
+         * build().
+         * @return GetAllConcertsResult
+         */
         public GetAllConcertsResult build() {
             return new GetAllConcertsResult(concertList);
         }

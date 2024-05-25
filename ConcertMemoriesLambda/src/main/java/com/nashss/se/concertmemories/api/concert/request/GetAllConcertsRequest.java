@@ -1,4 +1,10 @@
-package com.nashss.se.concertmemories.api.request;
+package com.nashss.se.concertmemories.api.concert.request;
+
+/**
+ * Implementation of GetAllConcertRequest for ConcertMemories' GetAllConcerts API.
+ *
+ * This API allows the user to get all of their saved concerts.
+ */
 public class GetAllConcertsRequest {
     private final String emailAddress;
 
@@ -17,6 +23,10 @@ public class GetAllConcertsRequest {
                 '}';
     }
 
+    /**
+     * builder().
+     * @return Builder
+     */
     //CHECKSTYLE:OFF:Builder
     public static Builder builder() {
         return new Builder();
@@ -25,11 +35,20 @@ public class GetAllConcertsRequest {
     public static class Builder {
         private String emailAddress;
 
+        /**
+         * withEmailAddress(x).
+         * @param emailAddress ConcertDao to access the concert table
+         * @return Builder
+         */
         public Builder withEmailAddress(String emailAddress) {
             this.emailAddress = emailAddress;
             return this;
         }
 
+        /**
+         * build().
+         * @return GetAllConcertsRequest
+         */
         public GetAllConcertsRequest build() {
             return new GetAllConcertsRequest(emailAddress);
         }
