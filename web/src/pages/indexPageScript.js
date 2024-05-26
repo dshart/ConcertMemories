@@ -34,9 +34,9 @@ class IndexPageScript extends BindingClass {
         if (await this.concertMemoriesClient.verifyLogin()) {
             const{email, name} = await this.concertMemoriesClient.getIdentity().then(result => result);
             this.dataStore.set([COGNITO_EMAIL_KEY], email);
-            document.getElementById('enter-site').innerText = "Enter Site";
-            document.getElementById("enter-site").removeAttribute("hidden");
-            var button = document.getElementById("enter-site");
+            document.getElementById('enter-site-button').innerText = "Enter Site";
+            document.getElementById("enter-site-button").removeAttribute("hidden");
+            var button = document.getElementById("enter-site-button");
             button.addEventListener("click", function(event){
                 document.location.href = "concertsAndBands.html";
             });
