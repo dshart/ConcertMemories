@@ -8,35 +8,35 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import com.nashss.se.concertmemories.exceptions.OpeningActsSerializationException;
-import com.nashss.se.concertmemories.exceptions.SetListSerializationException;
+import com.nashss.se.concertmemories.exceptions.SongsPlayedSerializationException;
 
 import java.util.List;
 
 /**
  // * Converts between Data models and the representation we want to return in the result.
  */
-public class SetListConverter implements DynamoDBTypeConverter <String, List<String>>{
+public class SongsPlayedConverter implements DynamoDBTypeConverter <String, List<String>>{
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final JavaTimeModule javaTimeModule = new JavaTimeModule();
 
 
     @Override
-    public String convert(List<String> setList) {
+    public String convert(List<String> songsPlayed) {
         objectMapper.registerModule(javaTimeModule);
         try {
-            return objectMapper.writeValueAsString(setList);
+            return objectMapper.writeValueAsString(songsPlayed);
         } catch (JsonProcessingException e) {
-            throw new OpeningActsSerializationException("Error serializing concert set list", e);
+            throw new SongsPlayedSerializationException("Error serializing concert songs played", e);
         }
     }
 
     @Override
-    public List<String> unconvert(String setListString) {
+    public List<String> unconvert(String songsPlayedString) {
         objectMapper.registerModule(javaTimeModule);
         try {
-            return objectMapper.readValue(setListString, new TypeReference<>(){});
+            return objectMapper.readValue(songsPlayedString, new TypeReference<>(){});
         } catch (JsonProcessingException e) {
-            throw new SetListSerializationException("Error deserializing concert set list", e);
+            throw new SongsPlayedSerializationException("Error deserializing concert songs played", e);
         }
     }
 }

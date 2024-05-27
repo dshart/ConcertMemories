@@ -52,8 +52,7 @@ public class GetAllConcertsResult {
          */
         public Builder withConcertModelList(List<ConcertModel> concertList) {
             this.concertList = new ArrayList<>(concertList);
-            return
-                    this;
+            return this;
         }
         /**
          * build().
@@ -64,3 +63,5 @@ public class GetAllConcertsResult {
         }
     }
 }
+
+

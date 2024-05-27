@@ -1,12 +1,12 @@
-
 import ConcertMemoriesClient from '../api/concertMemoriesClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
 
-//const COGNITO_NAME_KEY = 'cognito-name';
+const COGNITO_NAME_KEY = 'cognito-name';
 const COGNITO_EMAIL_KEY = 'cognito-name-results';
 const EMPTY_DATASTORE_STATE = {
+    [COGNITO_NAME_KEY]: '',
     [COGNITO_EMAIL_KEY]: ''
 };
 
@@ -14,14 +14,14 @@ const EMPTY_DATASTORE_STATE = {
  * Logic needed for the index page of the website.
  */
 class IndexPageScript extends BindingClass {
-    constructor() {
+    constructor(props = {}) {
         super();
-        this.bindClassMethods(['mount', 'startupActivities' ], this);
 
-        this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
         this.header = new Header(this.dataStore);
-    }
+        this.bindClassMethods(['mount', 'startupActivities'], this);
+        this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
 
+    }
 
     mount() {
         this.header.addHeaderToPage();
@@ -34,9 +34,10 @@ class IndexPageScript extends BindingClass {
         if (await this.concertMemoriesClient.verifyLogin()) {
             const{email, name} = await this.concertMemoriesClient.getIdentity().then(result => result);
             this.dataStore.set([COGNITO_EMAIL_KEY], email);
-            document.getElementById('enter-site-button').innerText = "Enter Site";
-            document.getElementById("enter-site-button").removeAttribute("hidden");
-            var button = document.getElementById("enter-site-button");
+            this.dataStore.set([COGNITO_NAME_KEY], name);
+            document.getElementById("enter-site-button").innerHTML = "Enter Site";
+            document.getElementById("enter-site-button").style.display = "block";
+
             button.addEventListener("click", function(event){
                 document.location.href = "concertsAndBands.html";
             });
