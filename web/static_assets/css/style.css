@@ -1,29 +1,59 @@
 h1 {
     text-align: center;
-    margin-bottom: 0em;
+    padding: 0px;
+    margin-bottom: -50px;
 }
 
 h3 {
     text-align: center;
-    margin-top: 0em;
+    padding: 0px;
+    margin-bottom: -25px;
 }
 
-#subtitle { text-align: center;
+.row {
+  display: flex;
 }
+
+div.textAndImage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#index-text{
+    text-align: center;
+}
+
+.column {
+  flex: 50%;
+  padding: 5px;
+  display: inline-block;
+  text-align: center;
+}
+
+#entrypagepic {
+    height : 55%;
+    width : 55%;
+}
+
+.links {
+    text-decoration: none;
+}
+
+.columnpic {
+  width: 90%;
+  height: 90%}
 
 .center {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
 }
 
-img {
-  width: 400px,
-  height: auto
-}
-
-body {background-color: tan;
+body {
+    background-color: tan;
+    font-size: 16px;
 }
 
 .container {
@@ -34,31 +64,108 @@ body {background-color: tan;
     align-items: center;
 }
 
-
-.header {
-    /* Flexbox: https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    padding: 10px 20px;
-}
-
-#button {
-  background-color: var(--tertiary-color);
-  border: none;
-  color: var(--secondary-color);
-  padding: 6px 8px 4px 8px;
-  text-align: center;
-  font-weight: bold;
-  text-decoration: none;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-
-.enter-site {
+#button-container-index {
     display: block;
-    margin; auto;
+    margin-left: auto;
+    margin-right: auto;
 }
+
+enter-site-button {
+    background-color: #6E5658;
+    width: 125px;
+    padding: .5em 1em;
+    font-size: 1em;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 1.25em;
+    color: white;
+    border: none;
+    display: none;
+    margin-top: 0px;
+    background-color: #6E5658;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.center-photos {
+    display: block;
+    margin: auto;
+    display: flex
+    justify-content: center;
+    align-items: center;
+}
+
+.align-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-container-concerts {
+   display: flex;
+   justify-content: center;
+   gap: 50px;
+   margin-top: 20px;
+}
+
+.button-container-bands {
+   display: flex;
+   justify-content: center;
+   gap: 50px;
+   margin-top: 20px;
+}
+
+
+.button {
+   width: 125px;
+   padding: .5em 1em;
+   font-size: 1em;
+   text-align: center;
+   cursor: pointer;
+   border-radius: 1.25em;
+   color: white;
+   display: inline-block
+}
+
+.button-primary {
+   color: white;
+   border: none;
+   display: inline-block;
+}
+
+.button-concert-enter {
+   background-color: #6E5658;
+}
+
+.button-concert-display {
+   background-color: #6E5658;
+   margin-right: 20px;
+}
+
+.button-band-enter {
+   background-color: #6E5658;
+}
+
+.button-band-display {
+    background-color: #6E5658;
+
+/*
+button1: hover {
+background-color: #013567;
+}
+
+.button2: hover {
+background-color: #0f6f2a;
+}
+
+.button3: hover {
+background-color: #013567;
+}
+
+.button4: hover {
+background-color: #0f6f2a;
+}
+
+*/
+
+
+</style>

@@ -8,12 +8,9 @@ export default class Header extends BindingClass {
     constructor() {
         super();
 
-        const methodsToBind = [
-            'addHeaderToPage', 'createSiteTitle', 'createUserInfoForHeader',
-            'createLoginButton', 'createLoginButton', 'createLogoutButton'
-        ];
+        const methodsToBind = ['addHeaderToPage', 'createSiteTitle', 'createUserInfoForHeader', 'createLoginButton',
+         'createLogoutButton', 'createButton']
         this.bindClassMethods(methodsToBind, this);
-
         this.client = new ConcertMemoriesClient();
     }
 
@@ -31,29 +28,10 @@ export default class Header extends BindingClass {
         header.appendChild(userInfo);
     }
 
-     createNavButton(text, htmlTarget) {
-            const button = document.createElement('a');
-            button.classList.add('navButton');
-            button.href = htmlTarget;
-            button.innerText = text;
-
-            button.addEventListener('click', async () => {
-                await clickHandler();
-            });
-
-            return button;
-        }
-
     createSiteTitle() {
-        const homeButton = document.createElement('a');
-        homeButton.classList.add('header_home');
-        homeButton.href = 'index.html';
-        //homeButton.innerText = 'Concert Memories<br>Relive the Rush!';
-
-        const siteTitle = document.createElement('div');
-        siteTitle.classList.add('site-title');
-        siteTitle.appendChild(homeButton);
-
+        const siteTitle = document.createElement('p');
+        siteTitle.innerHTML = `<pre><h1>Concert Memories</h1>
+                               <h3>Relive the Rush!</h3></pre>`;
         return siteTitle;
     }
 

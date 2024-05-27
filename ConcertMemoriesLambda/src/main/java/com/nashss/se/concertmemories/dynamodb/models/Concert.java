@@ -16,7 +16,7 @@ public class Concert {
     private String dateAttended;
     private String venue;
     private List<String> openingActs;
-    private List<String> setList;
+    private List<String> songsPlayed;
     private List<String> memories;
 
     @DynamoDBHashKey(attributeName = "email_address")
@@ -47,8 +47,7 @@ public class Concert {
     }
 
     @DynamoDBRangeKey(attributeName = "date_attended")
-    public String getDateAttended() { return dateAttended;
-    }
+    public String getDateAttended() { return dateAttended; }
 
     public void setDateAttended(String dateAttended) {
         this.dateAttended = dateAttended;
@@ -64,8 +63,7 @@ public class Concert {
     }
 
 
-
-    /**
+     /**
      * Returns the list of opening acts for this concert, null if there are none.
      *
      * @return List of opening acts for this concert
@@ -81,14 +79,14 @@ public class Concert {
         this.openingActs = openingActs;
     }
 
-    @DynamoDBAttribute(attributeName = "set_list")
-    @DynamoDBTypeConverted(converter = com.nashss.se.concertmemories.converters.SetListConverter.class)
-    public List<String> getSetList() {
-       return setList;
+    @DynamoDBAttribute(attributeName = "songs_played")
+    @DynamoDBTypeConverted(converter = com.nashss.se.concertmemories.converters.SongsPlayedConverter.class)
+    public List<String> getSongsPlayed() {
+       return songsPlayed;
     }
 
-    public void setSetList(List<String> setList) {
-        this.setList = setList;
+    public void setSongsPlayed(List<String> setList) {
+        this.songsPlayed = songsPlayed;
     }
 
     @DynamoDBAttribute(attributeName = "memories")

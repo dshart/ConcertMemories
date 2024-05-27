@@ -22,9 +22,9 @@ public class ModelConverter {
             openingActs = new ArrayList<>(concert.getOpeningActs());
         }
 
-        List<String> setList = null;
-        if (concert.getSetList() != null) {
-            setList = new ArrayList<>(concert.getSetList());
+        List<String> songsPlayed = null;
+        if (concert.getSongsPlayed() != null) {
+            songsPlayed = new ArrayList<>(concert.getSongsPlayed());
         }
 
         List<String> memories = null;
@@ -39,7 +39,7 @@ public class ModelConverter {
                 .withDateAttended(concert.getDateAttended())
                 .withVenue(concert.getVenue())
                 .withOpeningActs(concert.getOpeningActs())
-                .withSetList(concert.getSetList())
+                .withSetList(concert.getSongsPlayed())
                 .withMemories(concert.getMemories())
                 .build();
     }

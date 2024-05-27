@@ -1,5 +1,6 @@
 package com.nashss.se.concertmemories.dynamodb;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
 import com.nashss.se.concertmemories.dynamodb.models.Concert;
 import com.nashss.se.concertmemories.exceptions.ConcertNotFoundException;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
@@ -61,8 +62,11 @@ public class ConcertDao {
         concert.setEmailAddress(emailAddress);
         DynamoDBQueryExpression<Concert> queryExpression = new DynamoDBQueryExpression<Concert>()
                 .withHashKeyValues(concert);
-        return dynamoDbMapper.query(Concert.class, queryExpression);
+
+        PaginatedQueryList<Concert> concertsList = dynamoDbMapper.query(Concert.class, queryExpression);
+        return concertsList;
     }
+
 
     /**
      * Saves provided Concert to DynamoDB to create or update DynamoDB record.
