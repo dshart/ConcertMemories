@@ -39,7 +39,7 @@ public class ModelConverter {
                 .withDateAttended(concert.getDateAttended())
                 .withVenue(concert.getVenue())
                 .withOpeningActs(concert.getOpeningActs())
-                .withSetList(concert.getSongsPlayed())
+                .withSongsPlayed(concert.getSongsPlayed())
                 .withMemories(concert.getMemories())
                 .build();
     }

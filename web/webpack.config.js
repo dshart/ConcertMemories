@@ -24,7 +24,7 @@ module.exports = {
   },
   entry: {
     indexPageScript: path.resolve(__dirname, 'src', 'pages', 'indexPageScript.js'),
-    concertViewsScript: path.resolve(__dirname, 'src', 'pages', 'concertViewsScript.js')
+    concertViewScript: path.resolve(__dirname, 'src', 'pages', 'concertViewScript.js')
   },
   output: {
     path: path.resolve(__dirname, 'build', 'assets'),

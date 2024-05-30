@@ -1,4 +1,3 @@
-import axios from "axios";
 import BindingClass from "../util/bindingClass";
 import Authenticator from "./authenticator";
 
@@ -6,7 +5,7 @@ import Authenticator from "./authenticator";
  * Client to call ConcertMemories web app
   *
 */
-export default class ConcertMemoriesClient extends BindingClass {
+export default class ConcertClient extends BindingClass {
     constructor(props = {}) {
         super();
 
@@ -15,12 +14,6 @@ export default class ConcertMemoriesClient extends BindingClass {
 
         this.authenticator = new Authenticator();
         this.props = props;
-
-        axios.defaults.baseURL = process.env.API_BASE_URL;
-        this.axiosClient = axios;
-
-
-
         this.clientLoaded();
 
     }

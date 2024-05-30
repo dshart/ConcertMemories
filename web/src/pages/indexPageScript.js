@@ -1,4 +1,4 @@
-import ConcertMemoriesClient from '../api/concertMemoriesClient';
+import ConcertViewClient from '../api/concertViewClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
@@ -50,6 +50,7 @@ class IndexPageScript extends BindingClass {
  */
 const main = async () => {
     const indexPageScript = new IndexPageScript();
+    console.log();
     indexPageScript.mount();
 };
 

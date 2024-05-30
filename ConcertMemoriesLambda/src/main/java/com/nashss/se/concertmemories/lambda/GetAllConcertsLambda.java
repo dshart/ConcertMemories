@@ -9,16 +9,17 @@ import com.nashss.se.concertmemories.api.concert.result.GetAllConcertsResult;
  * GetAllConcertsLambda.
  */
 public class GetAllConcertsLambda
-        extends com.nashss.se.concertmemories.lambda.LambdaActivityRunner<GetAllConcertsRequest, GetAllConcertsResult>
+        extends LambdaActivityRunner<GetAllConcertsRequest, GetAllConcertsResult>
         implements RequestHandler<AuthenticatedLambdaRequest<GetAllConcertsRequest>, LambdaResponse> {
 
+    @Override
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<GetAllConcertsRequest> input, Context context) {
         return super.runActivity(
                 () ->
                 {
                     GetAllConcertsRequest stageRequest = input.fromUserClaims(claims ->
                             GetAllConcertsRequest.builder()
-                                    .withEmailAddress(claims.get("emailAddress"))
+                                    .withEmailAddress(claims.get("email"))
                                     .build());
 
                     return input.fromPath(path ->
@@ -31,3 +32,4 @@ public class GetAllConcertsLambda
         );
     }
 }
+

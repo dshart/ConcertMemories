@@ -12,18 +12,18 @@ public class ConcertModel {
     private final String dateAttended;
     private final String venue;
     private final List<String> openingActs;
-    private final List<String> setList;
+    private final List<String> songsPlayed;
     private final List<String> memories;
 
     private ConcertModel(String emailAddress, String bandName, String tourName, String dateAttended, String venue,
-            List<String> openingActs, List<String> setList, List<String> memories) {
+            List<String> openingActs, List<String> songsPlayed, List<String> memories) {
         this.emailAddress = emailAddress;
         this.bandName = bandName;
         this.tourName = tourName;
         this.dateAttended = dateAttended;
         this.venue = venue;
         this.openingActs = openingActs;
-        this.setList = setList;
+        this.songsPlayed= songsPlayed;
         this.memories = memories;
     }
 
@@ -52,9 +52,9 @@ public class ConcertModel {
         return copyToList(openingActs);
     }
 
-    public List<String> getSetList() {
+    public List<String> getSongsPlayed() {
 
-        return copyToList(setList);
+        return copyToList(songsPlayed);
     }
 
     public List<String> getMemories() {
@@ -86,7 +86,7 @@ public class ConcertModel {
         private String dateAttended;
         private String venue;
         private List<String> openingActs;
-        private List<String> setList;
+        private List<String> songsPlayed;
         private List<String> memories;
 
         public Builder withEmailAddress(String emailAddress) {
@@ -119,8 +119,8 @@ public class ConcertModel {
             return this;
         }
 
-        public Builder withSetList(List<String> setList) {
-            this.setList = copyToList(setList);
+        public Builder withSongsPlayed(List<String> songsPlayed) {
+            this.songsPlayed = copyToList(songsPlayed);
             return this;
         }
 
@@ -130,7 +130,7 @@ public class ConcertModel {
         }
 
         public ConcertModel build() {
-            return new ConcertModel(emailAddress, bandName, tourName, dateAttended, venue, openingActs, setList, memories);
+            return new ConcertModel(emailAddress, bandName, tourName, dateAttended, venue, openingActs, songsPlayed, memories);
         }
     }
 }

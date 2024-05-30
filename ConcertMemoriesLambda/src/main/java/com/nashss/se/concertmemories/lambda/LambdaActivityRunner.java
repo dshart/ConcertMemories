@@ -20,8 +20,8 @@ public class LambdaActivityRunner<TRequest, TResult> {
      * @return A LambdaResponse
      */
     protected LambdaResponse runActivity(
-            Supplier<TRequest> requestSupplier,
-            BiFunction<TRequest, ServiceComponent, TResult> handleRequest) {
+        Supplier<TRequest> requestSupplier,
+        BiFunction<TRequest, ServiceComponent, TResult> handleRequest) {
 
         TRequest request;
         try {
@@ -56,3 +56,4 @@ public class LambdaActivityRunner<TRequest, TResult> {
         return service;
     }
 }
+
