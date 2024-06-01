@@ -2,30 +2,28 @@ import BindingClass from "../util/bindingClass";
 import Authenticator from "./authenticator";
 
 /**
- * Client to call ConcertMemories web app
+ * Client to call ConcertMemories web appl
   *
 */
-export default class ConcertClient extends BindingClass {
+export default class ConcertMemoriesClient extends BindingClass {
     constructor(props = {}) {
         super();
 
         const methodsToBind = ['clientLoaded', 'getIdentity', 'getTokenOrThrow', 'login', 'logout', 'verifyLogin'];
         this.bindClassMethods(methodsToBind, this);
-
         this.authenticator = new Authenticator();
         this.props = props;
         this.clientLoaded();
-
     }
 
     /**
-     * Run any functions that are supposed to be called once the client has loaded successfully.
-     */
-    clientLoaded() {
-        if (this.props.hasOwnProperty("onReady")) {
-            this.props.onReady(this);
-        }
-    }
+    * Run any functions that are supposed to be called once the client has loaded successfully.
+             */
+     clientLoaded() {
+         if (this.props.hasOwnProperty("onReady")) {
+             this.props.onReady(this);
+         }
+     }
 
     /**
      * Get the identity of the current user
@@ -45,9 +43,11 @@ export default class ConcertClient extends BindingClass {
         }
     }
 
+
+
      async verifyLogin(errorCallback) {
             try {
-                const isLoggedIn = await this.authenticator.isUserLoggedIn();
+                 const isLoggedIn = await this.authenticator.isUserLoggedIn();
                  return isLoggedIn;
 
             } catch (error) {

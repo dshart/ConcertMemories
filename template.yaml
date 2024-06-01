@@ -236,7 +236,7 @@ Resources:
         ConcertMemories:
           Type: Api
           Properties:
-            Path: /concerts/
+            Path: /concerts
             Method: get
 
   #-----------------------------------------------------

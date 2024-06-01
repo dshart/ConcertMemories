@@ -3,6 +3,7 @@ import ConcertViewClient from '../api/concertViewClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
+import Authenticator from '../api/authenticator';
 
 const SEARCH_CRITERIA_KEY = 'search-criteria';
 const SEARCH_RESULTS_KEY = 'search-results';
@@ -11,33 +12,19 @@ const EMPTY_DATASTORE_STATE = {
     [SEARCH_RESULTS_KEY]: [],
 };
 
-const TASK_SEARCH_CRITERIA_KEY = 'search-criteria';
-const TASK_SEARCH_RESULTS_KEY = 'search-results';
-
 class ConcertViewScript extends BindingClass {
-    constructor(props = {}) {
+    constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'displayConcertsHTML', 'loadConcertsOnClick', 'mount', 'startupActivities', 'submitButton'], this);
+        this.bindClassMethods(['displayConcertsHTML', 'getHTMLForConcertsView', 'getUserEmail',
+        'mount', 'startupActivities', 'submitButton'], this);
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
-         this.header = new Header(this.dataStore);
+        this.header = new Header(this.dataStore);
+        this.authenticator = new Authenticator();; //scooby don't think I need this
+        //this.dataStore.addChangeListener(this.displaySearchResults);
+        this.axiosClient = axios;
+        axios.defaults.baseURL = process.env.API_BASE_URL;
 
 
-       //this.authenticator = new Authenticator();; //scooby don't think I need this
-       this.props = props;  //scooby not sure what this is for
-       this.axiosClient = axios;
-       axios.defaults.baseURL = process.env.API_BASE_URL;
-       this.clientLoaded();
-
-    }
-
-    /**
-      * Run any functions that are supposed to be called once the client has loaded successfully.
-    */
-    clientLoaded() {
-        alert("client loaded");
-        if (this.props.hasOwnProperty("onReady")) {
-            this.props.onReady(this);
-        }
     }
 
 
@@ -47,19 +34,23 @@ class ConcertViewScript extends BindingClass {
 
 
     mount() {
-        alert("mount");
-
-
-        document.getElementById('submitViewButton').addEventListener('click', this.submitButton);
-        this.client = new ConcertViewClient;
+        this.client = new ConcertViewClient();
         this.header.addHeaderToPage();
+        this.email = this.getUserEmail();
         this.startupActivities();
+
+
 
     }
 
     async startupActivities() {
-       alert("startup");
-         await this.submitButton()
+        var dropDown = document.getElementById('concertViewOptions');
+              // Change .innerHTML to .value if you need value instead of text
+        var selectedValue = dropDown.options[dropDown.selectedIndex].innerHTML;
+        //alert(dropDown.value);
+        document.getElementById('submitViewButton').addEventListener('click', this.submitButton);
+        //await this.submitButton();
+
 
 
 ////            document.getElementById('concertdisplayName').value = name;
@@ -117,75 +108,123 @@ class ConcertViewScript extends BindingClass {
 
 
    async submitButton(){
-       //alert("button");
-       var dropDown = document.getElementById('concertViewOptions');
+       //alert("button clicked");
+       //var dropDown = document.getElementById('concertViewOptions');
 
         // Change .innerHTML to .value if you need value instead of text
-       // var selectedValue = dropDown.options[dropDown.selectedIndex].innerHTML;
-       alert(dropDown.value);
-       loadConcertOnClick();
-       displayConcertsHTML();
+       //var selectedValue = dropDown.options[dropDown.selectedIndex].innerHTML;
+       //alert(dropDown.value);
+        // alert("loading concerts");
+        const searchCriteria = this.getUserEmail();
+        //if (searchCriteria) {
+            const results = await this.client.getAllConcerts(searchCriteria);
+       // }
+
+        this.dataStore.set([SEARCH_CRITERIA_KEY], searchCriteria);
+        this.dataStore.set([SEARCH_RESULTS_KEY], results);
+        //this.dataStore.setState({
+        //    [SEARCH_CRITERIA_KEY]: searchCriteria,
+        //     [SEARCH_RESULTS_KEY]: results
+        //});
+        //} else {
+            //alert("datastore empty");
+        //    this.dataStore.setState(EMPTY_DATASTORE_STATE);
+
+
+       this.displayConcertsHTML();
+    }
+      // this.displayConcertsHTML();
 
         /**
             * Pulls search results from the datastore and displays them on the html page.
             */
-       //    displaySearchResults() {
-//       const searchCriteria = this.dataStore.get(SEARCH_CRITERIA_KEY);
-//       const searchResults = this.dataStore.get(SEARCH_RESULTS_KEY);
-//
-//       const searchResultsContainer = document.getElementById('concertViewRender');
-//       const searchCriteriaDisplay = document.getElementById('search-criteria-display');
-//       const searchResultsDisplay = document.getElementById('search-results-display');
-//
-//               if (searchCriteria === '') {
-//                   searchResultsContainer.classList.add('hidden');
-//                   searchCriteriaDisplay.innerHTML = '';
-//                   searchResultsDisplay.innerHTML = '';
-//               } else {
-//                   searchResultsContainer.classList.remove('hidden');
-//                   searchResultsDisplay.innerHTML = this.getHTMLForProject(searchResults);
-//               }
-//           }
-        }
+          //displaySearchResults();
+
+    displayConcertsHTML() {
+    //   alert("scooby here");
+       const searchCriteria = this.dataStore.get(SEARCH_CRITERIA_KEY);
+       const searchResults = this.dataStore.get(SEARCH_RESULTS_KEY);
+       const searchResultsContainer = document.getElementById('searchResultsContainer');
+       const searchCriteriaDisplay = document.getElementById('searchCriteriaDisplay');
+       const searchResultsDisplay = document.getElementById('searchResultsDisplay');
+
+       if (searchCriteria == '') {
+      //     alert("bad");
+           //searchResultsContainer.style.display = "block";
+           searchResultsContainer.classList.add('hidden');
+           searchCriteriaDisplay.innerHTML = '';
+           searchResultsDisplay.innerHTML = '';
+       } else {
+        //    alert("good");
+             //searchResultsContainer.style.display = "none";
+            searchResultsContainer.classList.remove('hidden');
+            searchResultsDisplay.innerHTML = this.getHTMLForConcertsView(searchResults);
+       }
+    }
 
 
-        async loadConcertsOnClick() {
-             const email = new URLSearchParams(window.location.search).get('email');
-             if (email) {
-                 const results = await client.getAllConcerts(email);
-                 this.dataStore.setState({
-                    [SEARCH_CRITERIA_KEY]: email,
-                    [SEARCH_RESULTS_KEY]: results
-                 });
-             } else {
-                 this.dataStore.setState(EMPTY_DATASTORE_STATE);
-            }
-        }
+
+
+
+
+                /**
+             * Uses the client to obtain the Users email and Name;
+             * @returns User Email
+             */
+         async getUserEmail() {
+            const { email, name } = await this.client.getIdentity().then(result => result);
+            return email;
+         }
+
+          /**
+                      * Get the identity of the current user
+                      * @param errorCallback (Optional) A function to execute if the call fails.
+                      * @returns The user information for the current user.
+                      */
+          async getIdentity(errorCallback) {
+              try {
+                          const isLoggedIn = await this.authenticator.isUserLoggedIn();
+
+                          if (!isLoggedIn) {
+                              return undefined;
+                          }
+
+                          return await this.authenticator.getCurrentUserInfo();
+                     } catch (error) {
+                           this.handleError(error, errorCallback)
+                     }
+                  }
+
 
          /**
              * Pulls search results from the datastore and displays them on the html page.
              */
-         displayConcertsHTML() {
-             const searchCriteria = this.dataStore.get(SEARCH_CRITERIA_KEY);
-             const searchResults = this.dataStore.get(SEARCH_RESULTS_KEY);
+     //    displayConcertsHTML() {
+     //        alert("display ");
+//             const searchCriteria = this.dataStore.get(SEARCH_CRITERIA_KEY);
+//             const searchResults = this.dataStore.get(SEARCH_RESULTS_KEY);
+//
+//             const searchResultsContainer = document.getElementById('search-results-container');
+//             const searchCriteriaDisplay = document.getElementById('search-criteria-display');
+//             const searchResultsDisplay = document.getElementById('search-results-display');
+//
+//             if (searchCriteria === '') {
+//                 searchResultsContainer.classList.add('hidden');
+//                 searchCriteriaDisplay.innerHTML = '';
+//                 searchResultsDisplay.innerHTML = '';
+//             } else {
+//                searchResultsContainer.classList.remove('hidden');
+//                searchResultsDisplay.innerHTML = await this.getHTMLForConcertsView(searchResults);
+//             }
+     //   }
 
-             const searchResultsContainer = document.getElementById('search-results-container');
-             const searchCriteriaDisplay = document.getElementById('search-criteria-display');
-             const searchResultsDisplay = document.getElementById('search-results-display');
 
-             if (searchCriteria === '') {
-                 //searchResultsContainer.classList.add('hidden');
-                 searchCriteriaDisplay.innerHTML = '';
-                 searchResultsDisplay.innerHTML = '';
-             } else {
-                // searchResultsContainer.classList.remove('hidden');
-                //searchResultsDisplay.innerHTML = this.getHTMLForConcertView(searchResults);
-             }
-
-             //getHTMLForProject(searchResults) {
-             if (searchResults.length === 0) {
-                return '<h4>No concerts found</h4>';
-             }
+         getHTMLForConcertsView(searchResults) {
+           // alert("in getHTML");
+            //alert(searchResults.size());
+//             if (searchResults.length() == 0) {
+//                return '<h4>No concerts found</h4>';
+//             }
 
                 /*
                  const editNameField = document.getElementById('new-project-name');
@@ -207,21 +246,60 @@ class ConcertViewScript extends BindingClass {
                         }
                 */
 
-             let html = '<table><tr><th>Date Attended</th><th>Band Name</th> <th>Tour Name</th><th>Venue</th><th>Opening Act(s)</tr>';
-             const res = searchResults;
+  //          this.sortByProperty(searchResults, searchResults.bandName, ascending);
 
-             html += `
-                <tr>
-                   <td>${res.dateAttended}</td>
-                   <td>${res.bandName}</td>
-                   <td>${res.tourName}</td>
-                   <td>${res.venue}</td>
-                   <td>${res.openingActs}</td>
-                </tr>`;
+            //searchResults.sort((a,b) => {
+            //const bandName1 = a.bandName.toLowerCase(), bandName2 = b.bandName.toLowerCase();
+            //return bandName1 === bandName2 ? 0 : bandName1 < bandName2 ? -1 : 1;
+            //});
+
+             searchResults.sort((a,b) => {
+              const venue1 = a.venue.toLowerCase(), venue2 = b.venue.toLowerCase();
+                        return venue1 === venue2 ? 0 : venue1 < venue2 ? -1 : 1;
+                        });
+
+             let html = '<table><tr><th>Date Attended</th><th>Band Name</th> <th>Tour Name</th><th>Venue</th><th>Opening Act(s)</tr>';
+
+
+
+
+
+
+
+
+
+
+             for (const res of searchResults) {
+
+                html += `
+                    <tr>
+                        <td>${res.dateAttended}</td>
+                        <td>${res.bandName}</td>
+                        <td>${res.tourName}</td>
+                        <td>${res.venue}</td>
+                        <td>${res.openingActs}</td>
+                    </tr>`;
+            }
 
              html += '</table>';
              return html;
          }
+
+//          function sortByProperty( arr, property, descending )
+//                      {
+//                        arr.sort( function( a, b )
+//                        {
+//                          var c = a[property].toString()
+//                            , d = b[property].toString()
+//
+//                          if ( c == d ) return 0;
+//                          return Boolean( descending )
+//                            ? d > c ? 1 : -1
+//                            : d < c ? 1 : -1
+//                        } );
+
+
+
 
 
 
@@ -320,13 +398,13 @@ class ConcertViewScript extends BindingClass {
 //            alert("All Concerts By Venue");
 //        else if (e.selectedIndex  == "6")
 //            alert("All Concerts By Year");
-    }
-
+    //}
+}
 /**
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
-    alert("concert view main")
+   // alert("concert view main")
     const concertViewScript = new ConcertViewScript();
     concertViewScript.mount();
 };
