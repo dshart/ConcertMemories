@@ -1,14 +1,14 @@
 package com.nashss.se.concertmemories.dynamodb.models;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
-import com.nashss.se.concertmemories.converters.MemoriesListConverter;
+
 import java.util.List;
 import java.util.Objects;
 
 /**
  * Represents a record in the playlists table.
  */
-@DynamoDBTable(tableName = "concerts")
+@DynamoDBTable(tableName = "Concerts")
 public class Concert {
     private String emailAddress;
     private String bandName;
@@ -19,7 +19,9 @@ public class Concert {
     private List<String> songsPlayed;
     private List<String> memories;
 
-    @DynamoDBHashKey(attributeName = "email_address")
+    public Concert() {
+    }
+    @DynamoDBHashKey(attributeName = "emailAddress")
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -28,7 +30,7 @@ public class Concert {
         this.emailAddress = emailAddress;
     }
 
-    @DynamoDBAttribute(attributeName = "band_name")
+    @DynamoDBAttribute(attributeName = "bandName")
     public String getBandName() {
         return bandName;
     }
@@ -37,7 +39,7 @@ public class Concert {
         this.bandName = bandName;
     }
 
-    @DynamoDBAttribute(attributeName = "tour_name")
+    @DynamoDBAttribute(attributeName = "tourName")
     public String getTourName() {
         return tourName;
     }
@@ -46,7 +48,7 @@ public class Concert {
         this.tourName = tourName;
     }
 
-    @DynamoDBRangeKey(attributeName = "date_attended")
+    @DynamoDBRangeKey(attributeName = "dateAttended")
     public String getDateAttended() { return dateAttended; }
 
     public void setDateAttended(String dateAttended) {
@@ -62,15 +64,13 @@ public class Concert {
         this.venue = venue;
     }
 
-
-     /**
+    /**
      * Returns the list of opening acts for this concert, null if there are none.
      *
      * @return List of opening acts for this concert
      */
 
-    @DynamoDBAttribute(attributeName = "opening_acts")
-    @DynamoDBTypeConverted(converter = com.nashss.se.concertmemories.converters.OpeningActsListConverter.class)
+    @DynamoDBAttribute(attributeName = "openingActs")
     public List<String> getOpeningActs() {
         return openingActs;
     }
@@ -79,25 +79,36 @@ public class Concert {
         this.openingActs = openingActs;
     }
 
-    @DynamoDBAttribute(attributeName = "songs_played")
-    @DynamoDBTypeConverted(converter = com.nashss.se.concertmemories.converters.SongsPlayedConverter.class)
+    @DynamoDBAttribute(attributeName = "songsPlayed")
     public List<String> getSongsPlayed() {
        return songsPlayed;
     }
 
-    public void setSongsPlayed(List<String> setList) {
+    public void setSongsPlayed(List<String> songsPlayed) {
         this.songsPlayed = songsPlayed;
     }
 
     @DynamoDBAttribute(attributeName = "memories")
-    @DynamoDBTypeConverted(converter = MemoriesListConverter.class)
     public List<String> getMemories() {
         return memories;
     }
 
-    public void setMemories(List<String> memories) {
-        this.memories = memories;
+    public void setMemories(List<String> memories) {this.memories = memories;
 
+    }
+
+    @Override
+    public String toString() {
+        return "Concert{" +
+                "emailAddress='" + emailAddress + '\'' +
+                ", bandName='" + bandName + '\'' +
+                ", tourName='" + tourName + '\'' +
+                ", dateAttended='" + dateAttended + '\'' +
+                ", venue='" + venue + '\'' +
+                ", openingActs=" + openingActs +
+                ", songsPlayed=" + songsPlayed +
+                ", memories=" + memories +
+                '}';
     }
 
     @Override

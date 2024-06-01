@@ -60,11 +60,11 @@ public class ConcertDao {
     public List<Concert> getAllConcerts(String emailAddress) {
         Concert concert = new Concert();
         concert.setEmailAddress(emailAddress);
+
         DynamoDBQueryExpression<Concert> queryExpression = new DynamoDBQueryExpression<Concert>()
                 .withHashKeyValues(concert);
 
-        PaginatedQueryList<Concert> concertsList = dynamoDbMapper.query(Concert.class, queryExpression);
-        return concertsList;
+        return dynamoDbMapper.query(Concert.class, queryExpression);
     }
 
 

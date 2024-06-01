@@ -14,13 +14,12 @@ const EMPTY_DATASTORE_STATE = {
  * Logic needed for the index page of the website.
  */
 class IndexPageScript extends BindingClass {
-    constructor(props = {}) {
+    constructor() {
         super();
 
         this.header = new Header(this.dataStore);
         this.bindClassMethods(['mount', 'startupActivities'], this);
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
-
     }
 
     mount() {
@@ -35,13 +34,31 @@ class IndexPageScript extends BindingClass {
             const{email, name} = await this.concertMemoriesClient.getIdentity().then(result => result);
             this.dataStore.set([COGNITO_EMAIL_KEY], email);
             this.dataStore.set([COGNITO_NAME_KEY], name);
-            document.getElementById("enter-site-button").innerHTML = "Enter Site";
-            document.getElementById("enter-site-button").style.display = "block";
 
-            button.addEventListener("click", function(event){
-                document.location.href = "concertsAndBands.html";
+            var myButton = document.getElementById("enter-site-button");
+            //myButtonebutton.innerHTML = "Enter Site ";
+            //const button = document.querySelector("enter-site-button");
+            myButton.style.display = "block";
+            myButton.addEventListener("click", function(event){document.location.href = "concertsAndBands.html";
             });
+
+
+            //button.addEventListener("click", function(event){
+            //    document.location.href = "concertsAndBands.html";
+            //});
+
+            //button  = document.getElementById(enter-site-button);
+            //button.innerHTML = "Enter Site";
+            //button.style.display = "block";
+
+           // button.addEventListener("click", function(event){document.location.href = "concertsAndBands.html";
+           // });
+
+
+
         }
+
+
     }
 }
 
@@ -50,6 +67,7 @@ class IndexPageScript extends BindingClass {
  */
 const main = async () => {
     const indexPageScript = new IndexPageScript();
+    console.log();
     indexPageScript.mount();
 };
 
