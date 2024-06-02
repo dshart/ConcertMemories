@@ -43,7 +43,14 @@ class ConcertViewScript extends BindingClass {
             this.dropDownChange();
         });
 
+       // var submitDate = document.quer
+       // this.createGlobalVars();
 
+    }
+
+//    createGlobalVars() {
+//         let submitDate = document.querySelector("#submitDateButton");
+//    }
 
 
 
@@ -59,7 +66,7 @@ class ConcertViewScript extends BindingClass {
             //if default value is changed
                                                                                           // selector.addEventListener("change", () => {
                                                                                            // if value switched by client
-    }                                                                                        // switch (selector.value) {
+//    }                                                                                        // switch (selector.value) {
                                                                                             //   case "add":
                                                                                                //do somthing with  , "add" value
                                                                                             //     result.innerHTML = selector.value;this.dropDownChange());
@@ -146,104 +153,23 @@ class ConcertViewScript extends BindingClass {
 
         var dropDown = document.getElementById('concertViewOptions');
         var selectedValue = dropDown.options[dropDown.selectedIndex].value;
-
-
-        //if (selectedValue == "0")
-
-        // let selector = document.getElementById("ConcertViewOptions");
-        //        let button = document.getElementById("submitViewButton");
-
-        //var selectedValue = dropDown.options[dropDown.selectedIndex].innerHTML;
-
-
-        // Change .innerHTML to .value if you need value instead of text
-        //var selectedValue = dropDown.options[dropDown.selectedIndex].innerHTML;
-        //var selectedValue = dropDown.options[dropDown.selectedIndex].value;
-
-
         var temp = document.getElementById("submitConcertArea");
         var html = "";
+
         if (selectedValue == 6) {
-            //var button = document.getElementById("submitButton");
-            //button.classList.add('hidden');
+            html += '<br><label>Enter Concert Date<br><input type="date" id="concertDateId" /><br><input type="button" disabled value="Submit" id="submitDateButton" />'
+            temp.innerHTML = "";
+            temp.innerHTML = html;
+            //dateSelected = document.querySelector("#concertDateId");
+            //submitDateButton = document.querySelector("#submitDateButton");
 
-             html += '<br><label>Enter Concert Date<br><input type="date" id="concertDateId" /><br><input type="button" disabled value="Submit" id="submitDateButton" />'
-             temp.innerHTML = "";
-             temp.innerHTML = html;
-
-             var grabDate = document.querySelector("#concertDateId");
-             var date;
-             var grabSubmit;
-             var submitDateViewButton;
-             grabDate.addEventListener("change",  function() {
-                date = grabDate.value;
-                grabSubmit = document.querySelector('#submitDateButton');
-                grabSubmit.removeAttribute("disabled");
-                grabSubmit.addEventListener("click", () => submitDateView(selectedView));
-              });
-
-                //submitDateView.addEventListener('click', click.bind(fooImg, 'foo'));
-
-                //return date;
-
-            //var grabSubmitEnabled = document.getElementById('submitDateButton');
-            //grabSubmitEnabled.addEventListener("click", this.submitDateView(date));
-
-
-                //document.getElementById("demo").innerHTML = "Hello World";)
-
-            //const submit = document.querySelector(".submitDateButton");
-            //submit.addEventListener("click", this.submitDateButton(selectedValue));
-
-           // document.getElementById("dateInput").addEventListener("change", function() {
-           //     var input = this.value;
-           //     var dateEntered = new Date(input);
-
-
-            //            this.submitViewButton(selectedValue);
-
-          //   document.getElementById("concertDateId").addEventListener("click", function(event) {
-           //      alert(event.target.value);
-           //   });
-
-//            <label for="concertDate">Concert Date</label> <input type ="date" id="concertDateId" name="concertDateName">'
-            //button.innerHTML = html;
-            //button.classList.remove('hidden');
-            //var dateControl = document.querySelector('input[type="date"]');
-            //var concertDate = dateControl.value;
-
-
-            //alert(concertDate);
-         //   html += '<br><br><br><label for="dateSumbitButton">Submit Date</label> <input type ="button" id="dateSubmitButton" name="dateSubmitButton">';
-            //var x = document.getElementById("myDate").value;
-            //alert(concertDate);
-            //console.log(dateControl.value); // prints "2017-06-01"
-            //console.log(dateControl.valueAsNumber); // prints 1496275200000, a JavaScript timestamp (ms)
-
-
-//        =====
-//        function onButtonClick() {
-//          alert('Button clicked!');
-//        }
-//
-//        const button = document.querySelector('button');
-//        button.addEventListener('click', onButtonClick);
-//
-//        const newButton = document.createElement('button');
-//        newButton.textContent = 'Submit!';
-//        document.body.appendChild(newButton);
-//
-//        newButton.addEventListener('click', () => {
-//          alert('New button clicked!');
-//        });
-//        =====
-
-
-
-
-
-
-
+            dateSelected.addEventListener("change",  function() {
+                var date = dateSelected.value;
+                submitDateButton.removeAttribute("disabled");
+            });
+            submitDateButton.addEventListener("click", function() {
+                submitDateView(selectedValue);
+            });
        }
        else {
             alert("in here");
@@ -253,14 +179,7 @@ class ConcertViewScript extends BindingClass {
            temp.innerHTML = html;
            const submit = document.querySelector("#submitViewButton");
            submit.addEventListener("click", this.submitViewButton(selectedValue));
-               //this.submitViewButton(selectedValue);
-               //alert(submit);
-
-          // document.getElementById("submitViewButton").addEventListener("click", this.submitViewButton());
-
-           // this.submitViewButton(selectedValue);
-        }
-
+       }
     }
 
 
@@ -300,7 +219,7 @@ class ConcertViewScript extends BindingClass {
        this.displayConcertsHTML(selectedValue);
     }
 
-    async submitDateView(selectedDate){
+    submitDateView(selectedDate){
         alert("submit date View entered with: " + selectedDate);
            //alert(dropDown.value);
             // alert("loading concerts");
@@ -502,4 +421,11 @@ const main = async () => {
     concertViewScript.mount();
 };
 
+let dateSelected = document.querySelector("#concertDateId");
+let submitDateButton = document.querySelector("#submitDateButton");
+
+
+//let submitDate = document.querySelector("#submitDateButton");
+//let dateSelected = "";
+//let submitDateButton = "";
 window.addEventListener('DOMContentLoaded', main);
