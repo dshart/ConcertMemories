@@ -36,29 +36,10 @@ class IndexPageScript extends BindingClass {
             this.dataStore.set([COGNITO_NAME_KEY], name);
 
             var myButton = document.getElementById("enter-site-button");
-            //myButtonebutton.innerHTML = "Enter Site ";
-            //const button = document.querySelector("enter-site-button");
             myButton.style.display = "block";
             myButton.addEventListener("click", function(event){document.location.href = "concertsAndBands.html";
             });
-
-
-            //button.addEventListener("click", function(event){
-            //    document.location.href = "concertsAndBands.html";
-            //});
-
-            //button  = document.getElementById(enter-site-button);
-            //button.innerHTML = "Enter Site";
-            //button.style.display = "block";
-
-           // button.addEventListener("click", function(event){document.location.href = "concertsAndBands.html";
-           // });
-
-
-
         }
-
-
     }
 }
 
@@ -72,6 +53,3 @@ const main = async () => {
 };
 
 window.addEventListener('DOMContentLoaded', main);
-
-
-

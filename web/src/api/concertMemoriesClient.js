@@ -3,8 +3,8 @@ import Authenticator from "./authenticator";
 
 /**
  * Client to call ConcertMemories web appl
-  *
 */
+
 export default class ConcertMemoriesClient extends BindingClass {
     constructor(props = {}) {
         super();
@@ -18,12 +18,12 @@ export default class ConcertMemoriesClient extends BindingClass {
 
     /**
     * Run any functions that are supposed to be called once the client has loaded successfully.
-             */
-     clientLoaded() {
-         if (this.props.hasOwnProperty("onReady")) {
-             this.props.onReady(this);
-         }
-     }
+    */
+    clientLoaded() {
+        if (this.props.hasOwnProperty("onReady")) {
+            this.props.onReady(this);
+        }
+    }
 
     /**
      * Get the identity of the current user
@@ -36,25 +36,20 @@ export default class ConcertMemoriesClient extends BindingClass {
             if (!isLoggedIn) {
                 return undefined;
             }
-
             return await this.authenticator.getCurrentUserInfo();
         } catch (error) {
             this.handleError(error, errorCallback)
         }
     }
 
-
-
-     async verifyLogin(errorCallback) {
-            try {
-                 const isLoggedIn = await this.authenticator.isUserLoggedIn();
-                 return isLoggedIn;
-
-            } catch (error) {
-                this.handleError(error, errorCallback)
-            }
+    async verifyLogin(errorCallback) {
+        try {
+            const isLoggedIn = await this.authenticator.isUserLoggedIn();
+                return isLoggedIn;
+        } catch (error) {
+            this.handleError(error, errorCallback)
         }
-
+    }
 
     async login() {
         this.authenticator.login();
