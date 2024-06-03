@@ -239,12 +239,12 @@ Resources:
             Path: /concerts
             Method: get
 
-  CreateConcertsLambda:
+  CreateConcertLambda:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: ConcertMemoriesLambda
-      Handler: com.nashss.se.concertmemories.lambda.CreateConcertsLambda::handleRequest
+      Handler: com.nashss.se.concertmemories.lambda.CreateConcertLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64

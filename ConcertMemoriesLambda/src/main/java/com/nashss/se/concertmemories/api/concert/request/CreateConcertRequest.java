@@ -1,4 +1,4 @@
-package com.nashss.se.concertmemories.api.request;
+package com.nashss.se.concertmemories.api.concert.request;
 
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 

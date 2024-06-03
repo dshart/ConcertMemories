@@ -73,9 +73,23 @@ public class ConcertDao {
      *
      * @param concert The Concert to be saved
      */
-    public void writeProject(Concert concert) {
-        dynamoDbMapper.save(concert);
+    //public void writeProject(Concert concert) {
+      //  dynamoDbMapper.save(concert);
+   // }
+
+    /**
+     * Saves (creates or updates) the given concert.
+     * @param concert The concert to save
+     * @return The Concert object that was saved
+     */
+    public Concert saveConcert(Concert concert) {
+        this.dynamoDbMapper.save(concert);
+        return concert;
     }
+
+
+
+
 
     /**
      * Removes the provided Concert from DynamoDB, if present.

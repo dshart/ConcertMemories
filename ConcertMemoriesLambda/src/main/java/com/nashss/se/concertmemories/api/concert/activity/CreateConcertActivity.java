@@ -1,7 +1,7 @@
-package com.nashss.se.concertmemories.api.activity;
+package com.nashss.se.concertmemories.api.concert.activity;
 
-import com.nashss.se.concertmemories.api.request.CreateConcertRequest;
-import com.nashss.se.concertmemories.api.result.CreateConcertResult;
+import com.nashss.se.concertmemories.api.concert.request.CreateConcertRequest;
+import com.nashss.se.concertmemories.api.concert.result.CreateConcertResult;
 import com.nashss.se.concertmemories.models.ConcertModel;
 
 import com.nashss.se.concertmemories.converters.ModelConverter;
@@ -65,9 +65,9 @@ public class CreateConcertActivity {
         concert.setSongsPlayed(createConcertRequest.getSongsPlayed());;
         concert.setMemories(createConcertRequest.getMemories());;
 
-        concertDao.saveConcert(concert);
+        Concert savedConcert = concertDao.saveConcert(concert);
 
-        ConcertModel concertModel = new ModelConverter().toConcertModel(concert);
+        ConcertModel concertModel = new ModelConverter().toConcertModel(savedConcert);
         return CreateConcertResult.builder()
                 .withConcert(concertModel)
                 .build();
