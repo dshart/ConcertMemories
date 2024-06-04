@@ -1,5 +1,6 @@
 package com.nashss.se.concertmemories.dependency;
 
+import com.nashss.se.concertmemories.api.concert.activity.GetConcertActivity;
 import com.nashss.se.concertmemories.api.concert.activity.GetAllConcertsActivity;
 
 import com.nashss.se.concertmemories.dynamodb.ConcertDao;
@@ -24,7 +25,7 @@ public interface ServiceComponent {
      * Provides the relevant activity.
      * @return GetConcertActivity
      */
-   // GetConcertActivity provideGetConcertActivity();
+    GetConcertActivity provideGetConcertActivity();
 
     /**
      * Provides the relevant activity.
