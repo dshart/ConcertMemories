@@ -1,32 +1,29 @@
 package com.nashss.se.concertmemories.api.concert.request;
 
-/**
- * Implementation of GetAllConcertRequest for ConcertMemories' GetAllConcerts API.
- *
- * This API allows the user to get all of their saved concerts.
- */
-public class GetAllConcertsRequest {
+public class GetConcertRequest {
     private final String emailAddress;
+    private final String dateAttended;
 
-    private GetAllConcertsRequest(String emailAddress) {
+    private GetConcertRequest(String emailAddress, String dateAttended) {
         this.emailAddress = emailAddress;
+        this.dateAttended = dateAttended;
     }
 
     public String getEmailAddress() {
         return emailAddress;
     }
 
+    public String getDateAttended() {
+        return dateAttended;
+    }
     @Override
     public String toString() {
         return "GetConcertRequest{" +
-                "emailAddress='" + getEmailAddress() + '\'' +
+                "emailAddress='" + emailAddress + '\'' +
+                "dateAttended='" + dateAttended + '\'' +
                 '}';
     }
 
-    /**
-     * builder().
-     * @return Builder
-     */
     //CHECKSTYLE:OFF:Builder
     public static Builder builder() {
         return new Builder();
@@ -34,23 +31,20 @@ public class GetAllConcertsRequest {
 
     public static class Builder {
         private String emailAddress;
+        private String dateAttended;
 
-        /**
-         * withEmailAddress(x).
-         * @param emailAddress ConcertDao to access the concert table
-         * @return Builder
-         */
         public Builder withEmailAddress(String emailAddress) {
             this.emailAddress = emailAddress;
             return this;
         }
 
-        /**
-         * build().
-         * @return GetAllConcertsRequest
-         */
-        public GetAllConcertsRequest build() {
-            return new GetAllConcertsRequest(emailAddress);
+        public Builder withDateAttended(String dateAttended) {
+            this.dateAttended = dateAttended;
+            return this;
+        }
+
+        public GetConcertRequest build() {
+            return new GetConcertRequest(emailAddress, dateAttended);
         }
     }
 }
