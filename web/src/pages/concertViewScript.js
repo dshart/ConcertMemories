@@ -22,14 +22,11 @@ class ConcertViewScript extends BindingClass {
         this.authenticator = new Authenticator();
         this.axiosClient = axios;
         axios.defaults.baseURL = process.env.API_BASE_URL;
-
     }
 
    /**
     * Add the header to the page and load the ConcertMemoriesClient.
     */
-
-
     mount() {
         this.client = new ConcertViewClient();
         this.header.addHeaderToPage();
@@ -39,191 +36,51 @@ class ConcertViewScript extends BindingClass {
 
     async startupActivities() {
         const concertView = document.querySelector('#concertViewOptions');
-        concertView.addEventListener("change", () => {
-            this.dropDownChange();
-        });
-
-       // var submitDate = document.quer
-       // this.createGlobalVars();
-
+        concertView.addEventListener("change", this.dropDownChange);
     }
 
-//    createGlobalVars() {
-//         let submitDate = document.querySelector("#submitDateButton");
-//    }
-
-
-
-//        var dateInput = document.getElementById("DateSelector");
-//
-//        dateInput.addEventListener('change', function(event) {
-//           console.log(event.target.value)
-//        });
-//        <div class = "Comparisons_Wrapper">
-//            <input type="date" class="DateSelector" id = "DateSelector">
-//        </div>
-
-            //if default value is changed
-                                                                                          // selector.addEventListener("change", () => {
-                                                                                           // if value switched by client
-//    }                                                                                        // switch (selector.value) {
-                                                                                            //   case "add":
-                                                                                               //do somthing with  , "add" value
-                                                                                            //     result.innerHTML = selector.value;this.dropDownChange());
-             // }
-
-       // function addActivityItem(){
-              //option is selected
-         //     alert("yeah");
-
-         //const selectElement = document.querySelector('#ConcertViewOptions');
-         //selectElement.addEventListener('change', (event) => {
-         //const result = document.querySelector('.tutorial');
-          //const result = document.querySelector('submitViewButton');
-         //   dropDownChange(result);
-         //if result == 6
-          //  var html = 'Select concert date<br> <input type =date id="concert" name="concertdate"';
-
-         //submitButton(result);
-         //result.classList
-         //result.textContent = ""
-         //result.textContent = `You like ${event.target.value}`;
-         //});
-
-        //const selectElement = document.querySelector('.ConcertViewOptions');
-        //selectElement.addEventListener('change', (event) => {this.dropDownChange() });
-
-        //const result = document.querySelector('.tutorial');
-//            result.textContent = `You like ${event.target.value}`;
-
-
-
-                //document.getElementById('submitViewButton').addEventListener('click', () => { this.submitButton(selectedValue) });
-        //document.getElementById('concertViewOptions').addEventListener('onChange', () => { this.dropDownChange() });
-        //document.getElementById('concertViewOptions').addEventListener('onChange', () => { this.dropDownChange() });
-        //await this.submitButton();
-        //element = document.querySelector(selectors);
-
-
-
-//
-//    /Get select object
-//    var objSelect = document.getElementById("Mobility");
-//
-//    //Set selected
-//    setSelectedValue(objSelect, "10");
-//
-//    function setSelectedValue(selectObj, valueToSet) {
-//        for (var i = 0; i < selectObj.options.length; i++) {
-//            if (selectObj.options[i].text== valueToSet) {
-//                selectObj.options[i].selected = true;
-//                return;
-//            }
-//        }
-  //  }
-
-//    async populateDropdown() {
-//        const select = document.getElementById('organizations');
-//        const orgList = await this.organizationClient.getAllOrgs();
-//        this.dataStore.set(ORG_LIST_KEY, orgList);
-//        for (const org of orgList) {
-//            var opt = document.createElement('option');
-//            opt.innerText = org.displayName;
-//            select.appendChild(opt);
-//        }
-//    }
-
-//    async submitButton() {
-//        if(document.getElementById('organizations').selectedIndex == 0 || document.getElementById('jobRoles').selectedIndex == 0) {
-//            alert("Error: please fill out all fields!")
-//            return;
-//        }
-//        const orgId = this.dataStore.get(ORG_LIST_KEY)[document.getElementById('organizations').selectedIndex -1].orgId
-//          if(await this.checkIfExists(orgId) == true) {
-//                alert("Error: you already have a role at this organization.")
-//    } else {
-//           await this.createNewUserRole(orgId);
-//////           alert("Role submitted!")
-//////           window.location.href = "index.html";
-//////        }
-////    }
-
     async dropDownChange() {
-        alert("in dropdown change");
-
         var dropDown = document.getElementById('concertViewOptions');
         var selectedValue = dropDown.options[dropDown.selectedIndex].value;
         var temp = document.getElementById("submitConcertArea");
         var html = "";
 
-        if (selectedValue == 6) {
+        if (selectedValue == 0) {
             html += '<br><label>Enter Concert Date<br><input type="date" id="concertDateId" /><br><input type="button" disabled value="Submit" id="submitDateButton" />'
             temp.innerHTML = "";
             temp.innerHTML = html;
-            //dateSelected = document.querySelector("#concertDateId");
-            //submitDateButton = document.querySelector("#submitDateButton");
+
+            var dateSelected = document.querySelector("#concertDateId");
+            var submitDateButton = document.querySelector("#submitDateButton");
 
             dateSelected.addEventListener("change",  function() {
-                var date = dateSelected.value;
+                //var date = dateSelected.value;
                 submitDateButton.removeAttribute("disabled");
             });
-            submitDateButton.addEventListener("click", function() {
-                submitDateView(selectedValue);
-            });
+            submitDateButton.addEventListener("click", () => this.submitDateView(dateSelected));
+
        }
        else {
-            alert("in here");
-           //drop down 0-5 for all concerts
-           html += '<br><label for="submitViewButton"></label><input type ="button" value="Submit" id="submitViewButton" />';
+            html += '<br><label for="submitViewButton"></label><input type ="button" value="Submit" id="submitViewButton" />';
            temp.innerHTML = "";
            temp.innerHTML = html;
-           const submit = document.querySelector("#submitViewButton");
-           submit.addEventListener("click", this.submitViewButton(selectedValue));
+           const submitView = document.querySelector("#submitViewButton");
+           submitView.addEventListener("click", () => this.submitViewButton(selectedValue));
        }
     }
 
-
-
-   async submitViewButton(selectedValue){
-        alert("submit button clicked");
-       //alert(dropDown.value);
-        // alert("loading concerts");
-       // alert("selectedValue " + selectedValue);
+    async submitViewButton(selectedValue){
+        alert("submit view button clicked");
         const searchCriteria = this.getUserEmail();
-        //if (searchCriteria) {
         const results = await this.client.getAllConcerts(searchCriteria);
-       // }
 
         this.dataStore.set([SEARCH_CRITERIA_KEY], searchCriteria);
         this.dataStore.set([SEARCH_RESULTS_KEY], results);
-        //this.dataStore.setState({
-        //    [SEARCH_CRITERIA_KEY]: searchCriteria,
-        //     [SEARCH_RESULTS_KEY]: results
-        //});
-        //} else {
-            //alert("datastore empty");
-        //    this.dataStore.setState(EMPTY_DATASTORE_STATE);
-
-        //need to sort for band and venue as well as add var for each
-
-
-        //        else if (selectedValue == 6) {//all concerts sorted by band
-        //
-
-                    //html+= '<table><tr><th>Date Attended</th><th>Band Name</th> <th>Tour Name</th><th>Venue</th><th>Opening Act(s)</tr>'
-                    //                    '<tr>Set List</tr><tr>Memories/tr>';
-          //          return;
-           //     }
-
-
-       this.displayConcertsHTML(selectedValue);
+        this.displayConcertsHTML(selectedValue);
     }
 
     submitDateView(selectedDate){
-        alert("submit date View entered with: " + selectedDate);
-           //alert(dropDown.value);
-            // alert("loading concerts");
-           // alert("selectedValue " + selectedValue);
+            // alert("selectedValue " + selectedValue);
             //const searchCriteria = this.getUserEmail();
             //if (searchCriteria) {
             //const results = await this.client.getAllConcerts(searchCriteria);
@@ -262,7 +119,6 @@ class ConcertViewScript extends BindingClass {
           //displaySearchResults();
 
     displayConcertsHTML(selectedValue) {
-       alert("in displayConcertsHTML");
        const searchCriteria = this.dataStore.get(SEARCH_CRITERIA_KEY);
        const searchResults = this.dataStore.get(SEARCH_RESULTS_KEY);
        const searchResultsContainer = document.getElementById('searchResultsContainer');
@@ -270,162 +126,92 @@ class ConcertViewScript extends BindingClass {
        const searchResultsDisplay = document.getElementById('searchResultsDisplay');
 
        if (searchCriteria == '') {
-      //     alert("bad");
-           //searchResultsContainer.style.display = "block";
            searchResultsContainer.classList.add('hidden');
            searchCriteriaDisplay.innerHTML = '';
            searchResultsDisplay.innerHTML = '';
        } else {
-            alert("so far so good");
-            //set view for text portion and sort by band and venue if necessary
-        if (selectedValue == 0) { //all concerts sorted by band
-            var view = "Date";
-                  //  searchResultsContainer.classList.add('hidden');
-       } else if (selectedValue == 1) {
-                              //var button = document.getElementById("submitViewButton");
-                                  //button.classList.remove("hidden");
-                                  //alert(button.)
-                           //var html = '<h3>Concerts Attended sorted by Band</h3><br><br>'
-                   var view = "Band";
-                   searchResults.sort((a,b) => {
-                   const band1 = a.bandName.toLowerCase(), band2 = b.bandName.toLowerCase();
-                        return band1 === band2 ? 0 : band1 < band2 ? -1 : 1;
-                   })
-       } else if (selectedValue == 2) { //all concerts sorted by venue
-                   var view = "Venue";
-                           //var html = '<h3>Concerts Attended sorted by Venue</h3><br><br>';
-                   searchResults.sort((a,b) => {
-                        const venue1 = a.venue.toLowerCase(), venue2 = b.venue.toLowerCase();
-                        return venue1 === venue2 ? 0 : venue1 < venue2 ? -1 : 1;
-                   });
-       }
-        //    alert("good");
-             //searchResultsContainer.style.display = "none";
-       searchResultsContainer.classList.remove('hidden');
-      // searchResultsDisplay.innerHTML = this.getHTMLForConcertsView(searchResults, view);
-       }
-    }
-               /**
-             * Uses the client to obtain the Users email and Name;
-             * @returns User Email
-             */
-    async getUserEmail() {
-            const { email, name } = await this.client.getIdentity().then(result => result);
-            return email;
-    }
-
-          /**
-                      * Get the identity of the current user
-                      * @param errorCallback (Optional) A function to execute if the call fails.
-                      * @returns The user information for the current user.
-                      */
-   async getIdentity(errorCallback) {
-              try {
-                          const isLoggedIn = await this.authenticator.isUserLoggedIn();
-
-                          if (!isLoggedIn) {
-                              return undefined;
-                }
-
-                          return await this.authenticator.getCurrentUserInfo();
-                     } catch (error) {
-                           this.handleError(error, errorCallback)
-                     }
-   }
-
-
-         /**
-             * Pulls search results from the datastore and displays them on the html page.
-             */
-     //    displayConcertsHTML() {
-     //        alert("display ");
-//             const searchCriteria = this.dataStore.get(SEARCH_CRITERIA_KEY);
-//             const searchResults = this.dataStore.get(SEARCH_RESULTS_KEY);
-//
-//             const searchResultsContainer = document.getElementById('search-results-container');
-//             const searchCriteriaDisplay = document.getElementById('search-criteria-display');
-//             const searchResultsDisplay = document.getElementById('search-results-display');
-//
-//             if (searchCriteria === '') {
-//                 searchResultsContainer.classList.add('hidden');
-//                 searchCriteriaDisplay.innerHTML = '';
-//                 searchResultsDisplay.innerHTML = '';
-//             } else {
-//                searchResultsContainer.classList.remove('hidden');
-//                searchResultsDisplay.innerHTML = await this.getHTMLForConcertsView(searchResults);
-//             }
-     //   }
-
-
-     getHTMLForConcertsView(searchResults, view) {
-
-            alert("in getHTML");
-            alert(view);
-            //alert(selectedValue);
-//             if (searchResults.length() == 0) {
-//                return '<h4>No concerts found</h4>';
-//             }
-
-                /*
-                 const editNameField = document.getElementById('new-project-name');
-                 const editStatusField = document.getElementById('status');
-                        const editDescriptionField = document.getElementById('new-project-description');
-                        const editEndDateField = document.getElementById('endDate');
-
-
-
-                        editNameField.value = searchResults.name;
-                        editStatusField.value = searchResults.projectStatus;
-                        editDescriptionField.value = searchResults.projectDescription;
-
-                        if (searchResults.endDate != null) {
-                            var convertedEndDate = searchResults.endDate;
-                            var date = new Date(convertedEndDate * 1000);
-                            date = date.toISOString().slice(0, 10).toString();
-                            editEndDateField.value = date;
-                        }
-                */
-
-  //          this.sortByProperty(searchResults, searchResults.bandName, ascending);
-
-            //searchResults.sort((a,b) => {
-            //const bandName1 = a.bandName.toLowerCase(), bandName2 = b.bandName.toLowerCase();
-            //return bandName1 === bandName2 ? 0 : bandName1 < bandName2 ? -1 : 1;
-            //});
-
-             let html = '<h3>Concerts Attended sorted by ${view}</h3><br><br>';
-             html+= '<table><tr><th>Date Attended</th><th>Band Name</th> <th>Tour Name</th><th>Venue</th><th>Opening Act(s)</tr>';
-
-            for (const res of searchResults) {
-
-                html += `
-                    <tr>
-                        <td>${res.dateAttended}</td>
-                        <td>${res.bandName}</td>
-                        <td>${res.tourName}</td>
-                        <td>${res.venue}</td>
-                        <td>${res.openingActs}</td>
-                    </tr>`;
+            if (selectedValue == 1) {
+                var view = "Date";
+            } else if (selectedValue == 2) {
+                var view = "Band";
+                searchResults.sort((a,b) => {
+                const band1 = a.bandName.toLowerCase(), band2 = b.bandName.toLowerCase();
+                    return band1 === band2 ? 0 : band1 < band2 ? -1 : 1;
+                })
+            } else if (selectedValue == 3) {
+                var view = "Venue";
+                searchResults.sort((a,b) => {
+                    const venue1 = a.venue.toLowerCase(), venue2 = b.venue.toLowerCase();
+                    return venue1 === venue2 ? 0 : venue1 < venue2 ? -1 : 1;
+                });
             }
 
-             html += '</table>';
-             return html;
+            searchResultsContainer.classList.remove('hidden');
+            searchResultsDisplay.innerHTML = this.getHTMLForConcertsView(searchResults, view);
+       }
     }
-}
+
+    /**
+     * Uses the client to obtain the Users email and Name;
+     * @returns User Email
+    */
+
+    async getUserEmail() {
+        const { email, name } = await this.client.getIdentity().then(result => result);
+        return email;
+    }
+
+    /**
+     * Get the identity of the current user
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns The user information for the current user.
+    */
+
+   async getIdentity(errorCallback) {
+       try {
+           const isLoggedIn = await this.authenticator.isUserLoggedIn();
+
+           if (!isLoggedIn) {
+               return undefined;
+           }
+
+           return await this.authenticator.getCurrentUserInfo();
+       } catch (error) {
+           this.handleError(error, errorCallback)
+       }
+   }
+
+   getHTMLForConcertsView(searchResults, view) {
+
+       if (Object.keys(searchResults).length === 0) {
+           return '<h4>No concerts found</h4>';
+       }
+
+       let html = '<h3>Concerts Attended sorted by ${view}</h3><br><br>';
+       html+= '<table><tr><th>Date Attended</th><th>Band Name</th> <th>Tour Name</th><th>Venue</th><th>Opening Act(s)</tr>';
+
+       for (const res of searchResults) {
+           html += `
+               <tr>
+                   <td>${res.dateAttended}</td>
+                   <td>${res.bandName}</td>
+                   <td>${res.tourName}</td>
+                   <td>${res.venue}</td>
+                   <td>${res.openingActs}</td>
+               </tr>`;
+           }
+
+           html += '</table>';
+               return html;
+       }
+   }
+
 /**
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
-   // alert("concert view main")
     const concertViewScript = new ConcertViewScript();
     concertViewScript.mount();
 };
 
-let dateSelected = document.querySelector("#concertDateId");
-let submitDateButton = document.querySelector("#submitDateButton");
-
-
-//let submitDate = document.querySelector("#submitDateButton");
-//let dateSelected = "";
-//let submitDateButton = "";
 window.addEventListener('DOMContentLoaded', main);
