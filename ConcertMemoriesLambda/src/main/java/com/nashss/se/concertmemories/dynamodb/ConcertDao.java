@@ -39,7 +39,7 @@ public class ConcertDao {
      * @param dateAttended The dateAttended to look up
      * @return The corresponding Concert if found
      */
-    public Concert getSingleProject(String emailAddress, String dateAttended) {
+    public Concert getConcert(String emailAddress, String dateAttended) {
         Concert concert = dynamoDbMapper.load(Concert.class, emailAddress, dateAttended);
 
         if (concert == null) {

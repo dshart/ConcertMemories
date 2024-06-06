@@ -10,7 +10,7 @@ export default class ConcertViewClient extends BindingClass {
     constructor(props = {}) {
         super();
 
-        const methodsToBind = ['clientLoaded', 'getAllConcerts', 'getIdentity', 'verifyLogin', 'login', 'logout',
+        const methodsToBind = ['clientLoaded', 'getConcert', 'getAllConcerts', 'getIdentity', 'verifyLogin', 'login', 'logout',
         'getTokenOrThrow'];
         this.bindClassMethods(methodsToBind, this);
         this.authenticator = new Authenticator();
@@ -25,25 +25,31 @@ export default class ConcertViewClient extends BindingClass {
      /**
          * Run any functions that are supposed to be called once the client has loaded successfully.
          */
-        clientLoaded() {
-            if (this.props.hasOwnProperty("onReady")) {
-                this.props.onReady(this);
-            }
-        }
-
-    handleError(error, errorCallback) {
-        console.error(error);
-
-        const errorFromApi = error?.response?.data?.error_message;
-        if (errorFromApi) {
-            console.error(errorFromApi)
-            error.message = errorFromApi;
-        }
-
-        if (errorCallback) {
-            errorCallback(error);
-        }
+     clientLoaded() {
+         if (this.props.hasOwnProperty("onReady")) {
+             this.props.onReady(this);
+         }
     }
+
+    /**
+     * Gets single concert in the database by date.
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns A single concert object
+    */
+
+   async getConcert(emailAddress, dateAttended, errorCallback) {
+       try {
+           const token = await this.getTokenOrThrow("Only authenticated users can get a concert");
+           const response = await this.axiosClient.get(`concerts/${dateAttended}`, {
+               headers: {
+                   Authorization: `Bearer ${token}`
+               }});
+           alert(response);
+           return response.data.concert;
+           } catch (error) {
+               this.handleError(error, errorCallback)
+           }
+       }
 
      /**
          * Gets all concerts in the database.
@@ -92,7 +98,6 @@ export default class ConcertViewClient extends BindingClass {
                  }
              }
 
-
      async login() {
              this.authenticator.login();
          }
@@ -116,17 +121,17 @@ export default class ConcertViewClient extends BindingClass {
          * @param error The error received from the server.
          * @param errorCallback (Optional) A function to execute if the call fails.
          */
-        handleError(error, errorCallback) {
-            console.error(error);
+     handleError(error, errorCallback) {
+         console.error(error);
 
-            const errorFromApi = error?.response?.data?.error_message;
-            if (errorFromApi) {
-                console.error(errorFromApi)
-                error.message = errorFromApi;
-            }
+         const errorFromApi = error?.response?.data?.error_message;
+         if (errorFromApi) {
+             console.error(errorFromApi)
+             error.message = errorFromApi;
+         }
 
-            if (errorCallback) {
-                errorCallback(error);
-            }
-        }
-    }
+         if (errorCallback) {
+             errorCallback(error);
+         }
+     }
+}
