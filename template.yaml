@@ -258,25 +258,59 @@ Resources:
             Path: /concerts
             Method: get
 
+  GetAllConcertsByBandLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: ConcertMemoriesLambda
+      Handler: com.nashss.se.concertmemories.lambda.GetAllConcertsByBand::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        MusicPlaylistService:
+          Type: Api
+          Properties:
+            Path: /concerts/{bandName}
+            Method: get
+
   #-----------------------------------------------------
   # DynamoDB Configuration
   #-----------------------------------------------------
 
-#  ConcertsTable:
-#    Type: AWS::DynamoDB::Table
-#    Properties:
-#      AttributeDefinitions:
-#        - AttributeName: "emailAddress"
-#          AttributeType: "S"
-#        - AttributeName: "dateAttended"
-#          AttributeType: "S"
-#      KeySchema:
-#        - AttributeName: "emailAddress"
-#          KeyType: "HASH"
-#        - AttributeName: "dateAttended"
-#          KeyType: "RANGE"
-#      BillingMode: "PAY_PER_REQUEST"
-#      TableName: "Concerts"
+  ConcertsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "emailAddress"
+          AttributeType: "S"
+        - AttributeName: "dateAttended"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "emailAddress"
+          KeyType: "HASH"
+        - AttributeName: "dateAttended"
+          KeyType: "RANGE"
+      BillingMode: "PAY_PER_REQUEST"
+      TableName: "Concerts"
+      GlobalSecondaryIndexes:
+        - IndexName: "AllConcertsByBandIndex"
+          KeySchema:
+            - AttributeName: "emailAddress"
+              KeyType: "HASH"
+            - AttributeName: "bandName"
+              KeyType: "RANGE"
+          Projection:
+            ProjectionType: "INCLUDE"
+            NonKeyAttributes:
+              - "dateAttended"
+              - "tourName"
+              - "venue"
+              - "openingActs"
 
 #  BandsTable:
 #    Type: AWS::DynamoDB::Table
