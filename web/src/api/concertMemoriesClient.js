@@ -2,7 +2,7 @@ import BindingClass from "../util/bindingClass";
 import Authenticator from "./authenticator";
 
 /**
- * Client to call ConcertMemories web appl
+ * Client to call ConcertMemories web application
 */
 
 export default class ConcertMemoriesClient extends BindingClass {
