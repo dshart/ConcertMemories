@@ -10,6 +10,8 @@ import java.util.Objects;
  */
 @DynamoDBTable(tableName = "Concerts")
 public class Concert {
+    public static final String BAND_INDEX = "ConcertsByBandIndex";
+    public static final String VENUE_INDEX = "ConcertsByVenueIndex";
     private String emailAddress;
     private String bandName;
     private String tourName;
@@ -22,6 +24,8 @@ public class Concert {
     public Concert() {
     }
     @DynamoDBHashKey(attributeName = "emailAddress")
+    @DynamoDBIndexHashKey(globalSecondaryIndexNames = {BAND_INDEX, VENUE_INDEX},
+            attributeName = "emailAddress")
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -30,7 +34,7 @@ public class Concert {
         this.emailAddress = emailAddress;
     }
 
-    @DynamoDBAttribute(attributeName = "bandName")
+    @DynamoDBIndexRangeKey(globalSecondaryIndexName = BAND_INDEX, attributeName = "bandName")
     public String getBandName() {
         return bandName;
     }
@@ -55,7 +59,7 @@ public class Concert {
         this.dateAttended = dateAttended;
     }
 
-    @DynamoDBAttribute(attributeName = "venue")
+    @DynamoDBIndexRangeKey(globalSecondaryIndexName = VENUE_INDEX, attributeName = "venue")
     public String getVenue() {
         return venue;
     }

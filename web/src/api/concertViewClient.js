@@ -44,7 +44,7 @@ export default class ConcertViewClient extends BindingClass {
                headers: {
                    Authorization: `Bearer ${token}`
                }});
-           alert(response);
+
            return response.data.concert;
            } catch (error) {
                this.handleError(error, errorCallback)
@@ -65,9 +65,28 @@ export default class ConcertViewClient extends BindingClass {
             }});
             return response.data.allConcerts;
         } catch (error) {
-           // alert("error");
             this.handleError(error, errorCallback)
         }
+     }
+
+     /**
+      * Gets all concerts in the database for a specific band.
+      * @param errorCallback (Optional) A function to execute if the call fails.
+      * @returns A list of concerts seen of a specific band
+     */
+
+     async getAllConcertsByBand(emailAddress, bandName, errorCallback) {
+         try {
+             const token = await this.getTokenOrThrow("Only authenticated users can get a concert");
+             const response = await this.axiosClient.get(`concertsbyband/${bandName}`, {
+                 headers: {
+                     Authorization: `Bearer ${token}`
+                 }});
+
+             return response.data.allConcertsByBand;
+         } catch (error) {
+             this.handleError(error, errorCallback)
+         }
      }
 
      /**
