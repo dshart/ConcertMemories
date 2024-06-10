@@ -24,9 +24,10 @@ public class GetAllConcertsByBandRequest {
 
     @Override
     public String toString() {
-        return "GetConcertRequest{" +
+        return "GetAllConcertsByBandRequest{" +
                 "emailAddress='" + getEmailAddress() + '\'' +
-                '}';
+                "bandName='" + getBandName() + '\'' +
+        '}';
     }
 
     /**
@@ -66,7 +67,7 @@ public class GetAllConcertsByBandRequest {
          * build().
          * @return GetAllConcertsRequest
          */
-        public GetAllConcertsRequest build() {
+        public GetAllConcertsByBandRequest build() {
             return new GetAllConcertsByBandRequest(emailAddress, bandName);
         }
     }

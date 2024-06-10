@@ -1,6 +1,8 @@
 package com.nashss.se.concertmemories.api.concert.activity;
 
+import com.nashss.se.concertmemories.api.concert.request.GetAllConcertsByBandRequest;
 import com.nashss.se.concertmemories.api.concert.request.GetAllConcertsRequest;
+import com.nashss.se.concertmemories.api.concert.result.GetAllConcertsByBandResult;
 import com.nashss.se.concertmemories.api.concert.result.GetAllConcertsResult;
 import com.nashss.se.concertmemories.converters.ModelConverter;
 import com.nashss.se.concertmemories.dynamodb.ConcertDao;
@@ -40,8 +42,7 @@ public class GetAllConcertsByBandActivity {
      * @return getAllConcertsByBandResult result object containing the API defined {@link ConcertModel}
      */
     public GetAllConcertsByBandResult handleRequest(final GetAllConcertsByBandRequest getAllConcertsByBandRequest) {
-        List<Concert> concertList = concertDao.getAllConcertsByBand(getAllConcertsByBandRequest.getEmailAddress(),
-                getAllConcertsByBandRequest.getBandName());
+        List<Concert> concertList = concertDao.getAllConcertsByBand(getAllConcertsByBandRequest.getEmailAddress(), getAllConcertsByBandRequest.getBandName());
         List<ConcertModel> concertModels = new ModelConverter().toConcertModelList(concertList);
 
         return GetAllConcertsByBandResult.builder()

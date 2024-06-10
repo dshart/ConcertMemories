@@ -2,12 +2,11 @@ package com.nashss.se.concertmemories.lambda;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.nashss.se.concertmemories.api.concert.request.GetAllConcertsRequest;
-import com.nashss.se.concertmemories.api.concert.request.GetConcertRequest;
-import com.nashss.se.concertmemories.api.concert.result.GetAllConcertsResult;
+import com.nashss.se.concertmemories.api.concert.request.GetAllConcertsByBandRequest;
+import com.nashss.se.concertmemories.api.concert.result.GetAllConcertsByBandResult;
 
 /**
- * GetAllConcertsLambda.
+ * GetAllConcertsByBandLambda.
  */
 public class GetAllConcertsByBandLambda
         extends LambdaActivityRunner<GetAllConcertsByBandRequest, GetAllConcertsByBandResult>
@@ -18,20 +17,19 @@ public class GetAllConcertsByBandLambda
         return super.runActivity(
                 () ->
                 {
-                    GetAllConcertsRequest stageRequest = input.fromUserClaims(claims ->
+                    GetAllConcertsByBandRequest stageRequest = input.fromUserClaims(claims ->
                             GetAllConcertsByBandRequest.builder()
                                     .withEmailAddress(claims.get("email"))
                                     .build());
 
                     return input.fromPath(path ->
-                            GetConcertRequest.builder()
+                            GetAllConcertsByBandRequest.builder()
                                     .withEmailAddress(stageRequest.getEmailAddress())
                                     .withBandName(path.get("bandName"))
                                     .build());
                 },
                 (request, serviceComponent) ->
-                        serviceComponent.provideGetAllConcertsActivity().handleRequest(request)
+                        serviceComponent.provideGetAllConcertsByBandActivity().handleRequest(request)
         );
     }
 }
-
