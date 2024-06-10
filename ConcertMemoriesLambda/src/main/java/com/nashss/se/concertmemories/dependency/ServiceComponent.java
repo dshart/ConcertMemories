@@ -1,5 +1,6 @@
 package com.nashss.se.concertmemories.dependency;
 
+import com.nashss.se.concertmemories.api.concert.activity.CreateConcertActivity;
 import com.nashss.se.concertmemories.api.concert.activity.GetConcertActivity;
 import com.nashss.se.concertmemories.api.concert.activity.GetAllConcertsActivity;
 import com.nashss.se.concertmemories.api.concert.activity.GetAllConcertsByBandActivity;
@@ -36,12 +37,6 @@ public interface ServiceComponent {
 
     /**
      * Provides the relevant activity.
-     * @return GetConcertByYearActivity
-     */
-    // GetConcertByYearActivity provideGetConcertByYearActivity();
-
-    /**
-     * Provides the relevant activity.
      * @return GetAllConcertsByBandActivity
      */
     GetAllConcertsByBandActivity provideGetAllConcertsByBandActivity();
@@ -63,7 +58,7 @@ public interface ServiceComponent {
      * Provides the relevant activity.
      * @return CreateConcertActivity
      */
-    //CreateConcertActivity provideCreateConcertActivity();
+    CreateConcertActivity provideCreateConcertActivity();
 
 
     /**

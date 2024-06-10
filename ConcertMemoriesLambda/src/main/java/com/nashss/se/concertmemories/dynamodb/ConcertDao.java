@@ -89,39 +89,6 @@ public class ConcertDao {
                 .withExpressionAttributeValues(valueMap);
 
         return dynamoDbMapper.query(Concert.class, queryExpression);
-
-
-
-
-//        GlobalSecondaryIndex SeenBandIndex = new GlobalSecondaryIndex()
-//                .withIndexName(BAND_INDEX);
-//                //.withProvisionedThroughput(new ProvisionedThroughput()
-//                        .withReadCapacityUnits((long) 10)
-//                        .withWriteCapacityUnits((long) 1))
-//                .withProjection(new Projection().withProjectionType(ProjectionType.ALL));
-//
-//        ArrayList<KeySchemaElement> indexKeySchema = new ArrayList<KeySchemaElement>();
-//
-//        indexKeySchema.add(new KeySchemaElement()
-//                .withAttributeName("Date")
-//                .withKeyType(KeyType.HASH));  //Partition key
-//        indexKeySchema.add(new KeySchemaElement()
-//                .withAttributeName("Precipitation")
-//                .withKeyType(KeyType.RANGE));  //Sort key
-//
-//        precipIndex.setKeySchema(indexKeySchema);
-//
-//        CreateTableRequest createTableRequest = new CreateTableRequest()
-//                .withTableName("WeatherData")
-//                .withProvisionedThroughput(new ProvisionedThroughput()
-//                        .withReadCapacityUnits((long) 5)
-//                        .withWriteCapacityUnits((long) 1))
-//                .withAttributeDefinitions(attributeDefinitions)
-//                .withKeySchema(tableKeySchema)
-//                .withGlobalSecondaryIndexes(precipIndex);
-//
-//        Table table = dynamoDB.createTable(createTableRequest);
-//        System.out.println(table.getDescription());
     }
 
     /**
@@ -129,7 +96,7 @@ public class ConcertDao {
      *
      * @param concert The Concert to be saved
      */
-    public void writeProject(Concert concert) {
+    public void saveConcert(Concert concert) {
         dynamoDbMapper.save(concert);
     }
 
