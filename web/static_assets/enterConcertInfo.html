@@ -1,14 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <script type="text/javascript" src="assets/indexPageScript.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Concert Memories - Relive the Rush</title>
+  <html lang="en">
+    <head>
+      <script type="text/javascript" src="assets/createConcert.js"></script>
+      <link rel="stylesheet" type="text/css" href="css/style.css">
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Concert Memories - Display Single Concert</title>
 </head>
 <body>
-Enter Concert Info
+    <h3>Enter Concert Information</h3>
+    <br>
+
+    <div class="concertForm">
+        <form action="http://localhost:3000/concerts" method="POST">
+            <br><br>
+            <label for="concertDate">Concert Date (Required):</label><br>
+            <input type="date" id="concertDate"><br><br>
+            <label for="bandName">Band Name:</label><br>
+            <input type="text" id="bandName"><br><br>
+            <label for="tourName">Tour Name:</label><br>
+            <input type="text" id="tourName"><br><br>
+            <label for="venue">Venue:</label><br>
+            <input type="text" id="venue" name="venue"><br><br>
+
+            <label for="openingActs">Opening Act(s)</label><br>
+            <textarea id="openingActs" rows="5" cols="25" placeholder="Separate entries by commas"></textarea><br><br>
+
+            <label for="songsPlayed">Songs Played</label><br>
+            <textarea id='songsPlayed' rows="5" cols="25" placeholder="Separate entries by commas"></textarea><br><br>
+
+            <label for="memories">Memories</label><br>
+            <textarea id='memories' rows="5" cols="25" placeholder="Separate entries by commas"></textarea><br><br>
+
+            <input type="submit" id="submitConcertButton" text="Submit" class="enter-site-button"><br><br>
+        </form>
+    </div>
+
 </body>
 </html>

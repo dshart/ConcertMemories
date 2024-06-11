@@ -6,11 +6,11 @@ import Authenticator from "./authenticator";
  * Client to call ConcertMemories web app
   *
 */
-export default class ConcertViewClient extends BindingClass {
+export default class CreateConcert extends BindingClass {
     constructor(props = {}) {
         super();
 
-        const methodsToBind = ['clientLoaded', 'getConcert', 'getAllConcerts', 'getIdentity', 'verifyLogin', 'login', 'logout',
+        const methodsToBind = ['clientLoaded', 'createConcert','getIdentity', 'verifyLogin', 'login', 'logout',
         'getTokenOrThrow'];
         this.bindClassMethods(methodsToBind, this);
         this.authenticator = new Authenticator();
@@ -18,7 +18,6 @@ export default class ConcertViewClient extends BindingClass {
         axios.defaults.baseURL = process.env.API_BASE_URL;
         this.props = props;
         this.clientLoaded();
-
 
     }
 
@@ -32,62 +31,38 @@ export default class ConcertViewClient extends BindingClass {
     }
 
     /**
-     * Gets single concert in the database by date.
+     * Creates single concert in the database by date.
      * @param errorCallback (Optional) A function to execute if the call fails.
      * @returns A single concert object
     */
 
-   async getConcert(emailAddress, dateAttended, errorCallback) {
+   async createConcert(emailAddress, dateAttended, bandName, tourName, venue, openingActs, songsPlayed, memories, errorCallback) {
+       alert("creating concert");
+       alert(dateAttended);
+       alert(memories);
        try {
-           const token = await this.getTokenOrThrow("Only authenticated users can get a concert");
-           const response = await this.axiosClient.get(`concerts/${dateAttended}`, {
+           const token = await this.getTokenOrThrow("Only authenticated users can create a concert");
+           const response = await this.axiosClient.post(`concerts`, {
+                emailAddress: emailAddress,
+                dateAttended: dateAttended,
+                bandName: bandName,
+                tourName: tourName,
+                venue: venue,
+                openingActs: [openingActs],
+                songsPlayed: [songsPlayed],
+                memories: [memories]
+           }, {
                headers: {
                    Authorization: `Bearer ${token}`
-               }});
+               }
+           });
 
+            alert("about to retuirn");
            return response.data.concert;
            } catch (error) {
                this.handleError(error, errorCallback)
            }
        }
-
-     /**
-         * Gets all concerts in the database.
-         * @param errorCallback (Optional) A function to execute if the call fails.
-         * @returns A list of concerts
-         */
-     async getAllConcerts(errorCallback) {
-        try {
-            const token = await this.getTokenOrThrow("Encountered token error trying to call Concert endpoint.");
-            const response = await this.axiosClient.get(`concerts`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }});
-            return response.data.allConcerts;
-        } catch (error) {
-            this.handleError(error, errorCallback)
-        }
-     }
-
-     /**
-      * Gets all concerts in the database for a specific band.
-      * @param errorCallback (Optional) A function to execute if the call fails.
-      * @returns A list of concerts seen of a specific band
-     */
-
-     async getAllConcertsByBand(emailAddress, bandName, errorCallback) {
-         try {
-             const token = await this.getTokenOrThrow("Only authenticated users can get a concert");
-             const response = await this.axiosClient.get(`concertsbyband/${bandName}`, {
-                 headers: {
-                     Authorization: `Bearer ${token}`
-                 }});
-
-             return response.data.allConcertsByBand;
-         } catch (error) {
-             this.handleError(error, errorCallback)
-         }
-     }
 
      /**
           * Get the identity of the current user

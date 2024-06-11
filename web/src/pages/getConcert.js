@@ -1,5 +1,4 @@
-import axios from "axios";
-import ConcertViewClient from '../api/concertViewClient';
+import GetConcertClient from '../api/getConcertClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
@@ -12,7 +11,7 @@ const EMPTY_DATASTORE_STATE = {
     [SEARCH_RESULTS_KEY]: [],
 };
 
-class ConcertViewScript extends BindingClass {
+class GetConcert extends BindingClass {
     constructor() {
         super();
         this.bindClassMethods(['displayAllConcertsHTML', 'displayAllConcertsByBandHTML', 'displaySingleConcertHTML',
@@ -23,15 +22,13 @@ class ConcertViewScript extends BindingClass {
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
         this.header = new Header(this.dataStore);
         this.authenticator = new Authenticator();
-        this.axiosClient = axios;
-        axios.defaults.baseURL = process.env.API_BASE_URL;
     }
 
    /**
     * Add the header to the page and load the ConcertMemoriesClient.
     */
     mount() {
-        this.client = new ConcertViewClient();
+        this.client = new GetConcertClient();
         this.header.addHeaderToPage();
         this.email = this.getUserEmail();
         this.startupActivities();
@@ -99,11 +96,10 @@ class ConcertViewScript extends BindingClass {
     }
 
     async submitViewButton(selectedValue){
-        var submitViewButton = document.querySelector("submitViewButton");
+        var submitViewButton = document.querySelector("#submitViewButton");
         submitViewButton.classList.add("hidden");
 
         if (selectedValue == 0) {
-            alert("0");
             searchResultsDisplay.innerHTML = "";
             searchResultsDisplay.innerHTML = "";
         } else {
@@ -155,7 +151,6 @@ class ConcertViewScript extends BindingClass {
         const searchResultsDisplay = document.getElementById('searchResultsDisplay');
 
         if (selectedValue == 2) {
-            alert("here");
             var viewType = "Date";
             searchResultsDisplay.innerHTML = "";
         } else if (selectedValue == 3) {
@@ -217,10 +212,38 @@ class ConcertViewScript extends BindingClass {
             return html;
         }
 
-        let html = '<h3>Concerts Attended sorted by ' + viewType + '</h3><br>';
+//        if (searchResults.dateAttended == null)
+//            searchResults.dateAttended = "";
+//
+//        if (!searchResults.hasOwnProperty("bandName")
+//
+//            searchResults.bandName = "";
+//
+//          if (searchResults.openingActs == null) {
+//                searchResults.openingActs = [];
+//          }
+          //alert("Opening Acts " + searchResults.openingActs);
+//          var openingActsLength = Object.keys(searchResults.openingActs).length;
+//          if (openingActsLength  > 1) {
+//            alert("greater");
+//            var openingActsList = '<ol>';
+//            for (let openingAct of searchResults.openingActs) {
+//                openingActsList += '<li>' + openingAct + '</li>'
+//            }
+//                openingActsList += '</ol>'
+//                searchResults.openingActs = openingActsList;
+//        }
+
+                let html = '<h3>Concerts Attended sorted by ' + viewType + '</h3><br>';
         html+= '<br><table><tr><th>Date Attended</th><th>Band Name</th> <th>Tour Name</th><th>Venue</th><th>Opening Act(s)</tr>';
 
         for (const res of searchResults) {
+            //if (!Object.prototype.hasOwnProperty.call(searchResults, "bandName"));
+           // if (!openingAc in res) {
+                //searchResults.defineProperty("bandName:);
+           //     res[bandName] = "";
+           // }
+            //some of these fields may not be filled in DDB so won't exist here and can't add to table what doesn't exits
             html += `
                 <tr>
                     <td>${res.dateAttended}</td>
@@ -246,8 +269,7 @@ class ConcertViewScript extends BindingClass {
          html += '<br><table><tr><th>Date Attended</th><th>Band Name</th> <th>Tour Name</th><th>Venue</th><th>Opening Act(s)</tr>';
 
          for (const res of searchResults) {
-            alert(res.tourName);
-             html += `
+            html += `
                  <tr>
                     <td>${res.dateAttended}</td>
                     <td>${res.bandName}</td>
@@ -335,8 +357,8 @@ class ConcertViewScript extends BindingClass {
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
-    const concertViewScript = new ConcertViewScript();
-    concertViewScript.mount();
+    const getConcert = new GetConcert();
+    getConcert.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);

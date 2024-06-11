@@ -17,15 +17,10 @@ public class GetAllConcertsLambda
         return super.runActivity(
                 () ->
                 {
-                    GetAllConcertsRequest stageRequest = input.fromUserClaims(claims ->
-                            GetAllConcertsRequest.builder()
-                                    .withEmailAddress(claims.get("email"))
-                                    .build());
-
-                    return input.fromPath(path ->
-                            GetAllConcertsRequest.builder()
-                                    .withEmailAddress(stageRequest.getEmailAddress())
-                                    .build());
+                    return input.fromUserClaims(claims ->
+                        GetAllConcertsRequest.builder()
+                            .withEmailAddress(claims.get("email"))
+                            .build());
                 },
                 (request, serviceComponent) ->
                         serviceComponent.provideGetAllConcertsActivity().handleRequest(request)

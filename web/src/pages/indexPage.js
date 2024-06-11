@@ -13,7 +13,7 @@ const EMPTY_DATASTORE_STATE = {
 /**
  * Logic needed for the index page of the website.
  */
-class IndexPageScript extends BindingClass {
+class IndexPage extends BindingClass {
     constructor() {
         super();
 
@@ -35,9 +35,10 @@ class IndexPageScript extends BindingClass {
             this.dataStore.set([COGNITO_EMAIL_KEY], email);
             this.dataStore.set([COGNITO_NAME_KEY], name);
 
-            var myButton = document.getElementById("enter-site-button");
-            myButton.style.display = "block";
-            myButton.addEventListener("click", function(event){document.location.href = "concertsAndBands.html";
+            //var enterSiteButton = document.getElementById("enter-site-button");
+            var enterSiteButton = document.querySelector("#enterSiteButtonId");
+            //enterSiteButton.style.display = "block";
+            enterSiteButton.addEventListener("click", function(event){document.location.href = "concertsAndBands.html";
             });
         }
     }
@@ -47,9 +48,9 @@ class IndexPageScript extends BindingClass {
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
-    const indexPageScript = new IndexPageScript();
+    const indexPage = new IndexPage();
     console.log();
-    indexPageScript.mount();
+    indexPage.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);

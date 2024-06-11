@@ -17,20 +17,6 @@ public class ModelConverter {
      * @return the converted concert
      */
     public ConcertModel toConcertModel(Concert concert) {
-        List<String> openingActs = null;
-        if (concert.getOpeningActs() != null) {
-            openingActs = new ArrayList<>(concert.getOpeningActs());
-        }
-
-        List<String> songsPlayed = null;
-        if (concert.getSongsPlayed() != null) {
-            songsPlayed = new ArrayList<>(concert.getSongsPlayed());
-        }
-
-        List<String> memories = null;
-        if (concert.getMemories() != null) {
-            memories = new ArrayList<>(concert.getMemories());
-        }
 
         return ConcertModel.builder()
                 .withEmailAddress(concert.getEmailAddress())

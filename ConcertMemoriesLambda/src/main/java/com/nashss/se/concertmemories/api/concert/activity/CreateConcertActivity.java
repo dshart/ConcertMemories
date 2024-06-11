@@ -48,30 +48,70 @@ public class CreateConcertActivity {
     public CreateConcertResult handleRequest(final CreateConcertRequest createConcertRequest) {
         log.info("Received CreateConcertRequest {}", createConcertRequest);
 
-        List<String> openingActs = null;
-        if (createConcertRequest.getOpeningActs() != null) {
-            openingActs = new ArrayList<>(createConcertRequest.getOpeningActs());
-        }
-
-        List<String> songsPlayed = null;
-        if (createConcertRequest.getSongsPlayed() != null) {
-            songsPlayed = new ArrayList<>(createConcertRequest.getSongsPlayed());
-        }
-
-        List<String> memories = null;
-        if (createConcertRequest.getMemories() != null) {
-            memories = new ArrayList<>(createConcertRequest.getMemories());
-        }
+//        List<String> openingActs = null;
+//        if (createConcertRequest.getOpeningActs() != null) {
+//            openingActs = new ArrayList<>(createConcertRequest.getOpeningActs());
+//        }
+//
+//        List<String> songsPlayed = null;
+//        if (createConcertRequest.getSongsPlayed() != null) {
+//            songsPlayed = new ArrayList<>(createConcertRequest.getSongsPlayed());
+//        }
+//
+//        List<String> memories = null;
+//        if (createConcertRequest.getMemories() != null) {
+//            memories = new ArrayList<>(createConcertRequest.getMemories());
+//        }
 
         Concert concert = new Concert();
-        concert.setEmailAddress(createConcertRequest.getEmailAddress());
-        concert.setDateAttended(createConcertRequest.getDateAttended());
-        concert.setBandName(createConcertRequest.getBandName());
-        concert.setTourName(createConcertRequest.getTourName());
-        concert.setVenue(createConcertRequest.getVenue());
-        concert.setOpeningActs(createConcertRequest.getOpeningActs());
-        concert.setSongsPlayed(createConcertRequest.getSongsPlayed());
-        concert.setMemories(createConcertRequest.getMemories());
+
+        String emailAddress = createConcertRequest.getEmailAddress();
+        if (emailAddress == null) {
+            emailAddress = " ";
+        }
+        concert.setEmailAddress(emailAddress);
+
+        String dateAttended = createConcertRequest.getDateAttended();
+        if (dateAttended == null) {
+            dateAttended = " ";
+        }
+        concert.setDateAttended(dateAttended);
+
+        String bandName = createConcertRequest.getBandName();
+        if (bandName == null) {
+            bandName = " ";
+        }
+        concert.setBandName(bandName);
+
+        String tourName = createConcertRequest.getTourName();
+        if (tourName == null) {
+            tourName = " ";
+        }
+        concert.setTourName(tourName);
+
+        String venue = createConcertRequest.getVenue();
+        if (venue == null) {
+            venue = " ";
+        }
+        concert.setVenue(venue);
+
+        List<String> openingActs = createConcertRequest.getOpeningActs();
+        if (openingActs == null) {
+            openingActs = new ArrayList<>();
+        }
+        concert.setOpeningActs(openingActs);
+
+        List<String> songsPlayed = createConcertRequest.getSongsPlayed();
+        if (songsPlayed == null) {
+            songsPlayed = new ArrayList<>();
+        }
+        concert.setSongsPlayed(songsPlayed);
+
+        List<String> memories = createConcertRequest.getMemories();
+        if (memories == null) {
+            memories = new ArrayList<>();
+        }
+        concert.setMemories(memories);
 
         concertDao.saveConcert(concert);
 

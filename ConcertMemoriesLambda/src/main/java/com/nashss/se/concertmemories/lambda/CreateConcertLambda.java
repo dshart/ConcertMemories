@@ -18,16 +18,22 @@ public class CreateConcertLambda extends LambdaActivityRunner<CreateConcertReque
                                     .withEmailAddress(claims.get("email"))
                                     .build());
 
-                    return input.fromPath(path ->
-                            CreateConcertRequest.builder()
-                                    .withEmailAddress(stageRequest.getEmailAddress())
-                                    .withDateAttended(path.get("dateAttended"))
-                                    .build());
+
+                    CreateConcertRequest request = input.fromBody(CreateConcertRequest.class);
+                    return input.fromUserClaims(claims ->
+                        CreateConcertRequest.builder()
+                        .withEmailAddress(claims.get("email"))
+                        .withDateAttended(request.getDateAttended())
+                        .withBandName(request.getBandName())
+                        .withTourName(request.getTourName())
+                        .withVenue(request.getVenue())
+                        .withOpeningActs(request.getOpeningActs())
+                        .withSongsPlayed(request.getSongsPlayed())
+                        .withMemories(request.getMemories())
+                        .build());
                 },
                 (request, serviceComponent) ->
                         serviceComponent.provideCreateConcertActivity().handleRequest(request)
         );
     }
-
-
 }

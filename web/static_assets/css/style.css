@@ -19,6 +19,11 @@ h3 {
   display: flex;
 }
 
+div.concertForm
+{
+    text-align: center;
+}
+
 div.textAndImage {
     display: block;
     margin-left: auto;
@@ -49,6 +54,14 @@ div.textAndImage {
 .columnpic {
   width: 85%;
   height: 85%}
+}
+
+.form
+{
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
 }
 
 .center {
@@ -95,7 +108,7 @@ td {
   padding: 20px;
 }
 
-#enter-site-button {
+#enterSiteButtonId {
     background-color: #6E5658;
     width: 125px;
     padding: .5em 1em;
@@ -108,7 +121,8 @@ td {
     display: none;
     margin-top: 0px;
     margin-left: auto;
-    margin-right: auto
+    margin-right: auto;
+    display: block
 }
 
 .center-photos {
@@ -185,4 +199,6 @@ td {
 .disabled {
     opacity: 0.3;
 }
+
+
 
