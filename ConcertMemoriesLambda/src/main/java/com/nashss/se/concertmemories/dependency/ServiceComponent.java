@@ -3,6 +3,7 @@ package com.nashss.se.concertmemories.dependency;
 import com.nashss.se.concertmemories.api.concert.activity.GetConcertActivity;
 import com.nashss.se.concertmemories.api.concert.activity.GetAllConcertsActivity;
 import com.nashss.se.concertmemories.api.concert.activity.GetAllConcertsByBandActivity;
+import com.nashss.se.concertmemories.api.concert.activity.DeleteConcertActivity;
 
 import com.nashss.se.concertmemories.dynamodb.ConcertDao;
 import dagger.Component;
@@ -70,7 +71,7 @@ public interface ServiceComponent {
      * Provides the relevant activity.
      * @return DeleteConcertActivity
      */
-    //DeleteConcertActivity provideDeleteConcertActivity();
+    DeleteConcertActivity provideDeleteConcertActivity();
 
 
     /**
