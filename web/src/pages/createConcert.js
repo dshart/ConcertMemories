@@ -40,7 +40,7 @@ class CreateConcert extends BindingClass {
         */
      async getUserEmail() {
         const { email, name } = await this.client.getIdentity().then(result => result);
-        alert(email);
+        //alert(email);
         return email;
      }
 
@@ -61,10 +61,10 @@ class CreateConcert extends BindingClass {
         var oaList = this.convertToList(oa);
         var spList = this.convertToList(sp);
         var mList = this.convertToList(m);
-        var email = this.getUserEmail();
+        var email = await this.getUserEmail();
 
         alert("before create concert");
-        var results = await this.client.createConcert(
+        await this.client.createConcert(
             email,
             document.getElementById('concertDate').value,
             document.getElementById('bandName').value,
@@ -73,104 +73,24 @@ class CreateConcert extends BindingClass {
             oaList,
             spList,
             mList
-        ).then(response => {
-            alert("in response: " + response);
+        ).then(results => {
+             //alert("in response: " + response);
              const searchCriteria = this.taskDataStore.get(TASK_SEARCH_CRITERIA_KEY);
-             alert("searchCriteria" + searchCriteria);
              var searchResults = this.taskDataStore.get(TASK_SEARCH_RESULTS_KEY);
-             searchResults.push(response);
-             
+             searchResults.push(results);
+
                                     //console.log(searchResults)
              this.taskDataStore.setState({
              [TASK_SEARCH_CRITERIA_KEY]: searchCriteria,
              [TASK_SEARCH_RESULTS_KEY]: searchResults,
         });
                                     //console.log(response);
-            alert("returning response");
-            return response;
+            alert("returning results");
+            return results;
         }).catch(e => {
             alert("Error, Will Robinson!");
             console.log(e);
         });
-
-
-
-
-
-
-//        async createTask() {
-//                //alert("createTask called")
-//                var startTime = this.dataStore.get(SEARCH_RESULTS_KEY);
-//                startTime = startTime.creationDate;
-//                var taskClient = new TaskClient();
-//                const orgId = new URLSearchParams(window.location.search).get('orgId');
-//                const assignee = null;
-//                const completed = false;
-//                const hoursToComplete = null;
-//                const materialsList = null;
-//                const name = document.getElementById('new-task-name').value;
-//                var results = null;
-//                if (orgId && name) {
-//
-//                    results = await taskClient.createTask(orgId, assignee, completed, hoursToComplete, materialsList, name, startTime).then(response => {
-//
-//                        const searchCriteria = this.taskDataStore.get(TASK_SEARCH_CRITERIA_KEY);
-//                        var searchResults = this.taskDataStore.get(TASK_SEARCH_RESULTS_KEY);
-//                        searchResults.push(response);
-//                        //console.log(searchResults)
-//                        this.taskDataStore.setState({
-//                            [TASK_SEARCH_CRITERIA_KEY]: searchCriteria,
-//                            [TASK_SEARCH_RESULTS_KEY]: searchResults,
-//                        });
-//                        //console.log(response);
-//                        return response;
-//                    }).catch(e => {
-//                        console.log(e);
-//                    });;
-//
-//                }
-//            }
-
-          //alert("createTask called")
-          //      var startTime = this.dataStore.get(SEARCH_RESULTS_KEY);
-          //      startTime = startTime.creationDate;
-         //       var taskClient = new TaskClient();
-         //       const orgId = new URLSearchParams(window.location.search).get('orgId');
-         //       const assignee = null;
-         //       const completed = false;
-         //       const hoursToComplete = null;
-         //       const materialsList = null;
-         //       const name = document.getElementById('new-task-name').value;
-//                var results = null;
-//                if (orgId && name) {
-//
-//                    results = await taskClient.createTask(orgId, assignee, completed, hoursToComplete, materialsList, name, startTime).then(response => {
-//
-//
-//
-//                }
-//            }
-
-
-
-//         if (orgId && name) {
-//
-//                    results = await taskClient.createTask(orgId, assignee, completed, hoursToComplete, materialsList, name, startTime).then(response => {
-//
-//                        const searchCriteria = this.taskDataStore.get(TASK_SEARCH_CRITERIA_KEY);
-//                        var searchResults = this.taskDataStore.get(TASK_SEARCH_RESULTS_KEY);
-//                        searchResults.push(response);
-//                        //console.log(searchResults)
-//                        this.taskDataStore.setState({
-//                            [TASK_SEARCH_CRITERIA_KEY]: searchCriteria,
-//                            [TASK_SEARCH_RESULTS_KEY]: searchResults,
-//                        });
-//                        //console.log(response);
-//                        return response;
-//                    }).catch(e => {
-//                        console.log(e);
-//                    });;
-
 
         alert("Form submitted success!");
         window.location.href = "concertsAndBands.html";

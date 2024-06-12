@@ -38,32 +38,52 @@ export default class CreateConcert extends BindingClass {
 
    async createConcert(emailAddress, dateAttended, bandName, tourName, venue, openingActs, songsPlayed, memories, errorCallback) {
         alert("create concert");
-        alert(emailAddress);
-        alert(dateAttended);
+
+//        const data = {
+//          emailAddress: emailAddress,
+//          dateAttended: dateAttended,
+//          bandName: bandName,
+//          tourName: tourName,
+//          venue: venue,
+//          openingActos: openingActs,
+//          songsPlayed: songsPlayed,
+//          memories: memories
+//        };
+//
+//       axios.post('concerts', data)
+//            headers: {
+//              Authorization: `Bearer ${token}`
+//           }
+//           .then(response => {
+//            console.log(response.data);
+//             return response.data.concert;
+//          })
+//          .catch(error => {
+//            console.log(error);
+//             this.handleError(error, errorCallback)
+//          });
+
+
         try {
-           const token = await this.getTokenOrThrow("Only authenticated users can create a concert");
-           const response = await this.axiosClient.post(`concerts`, {
+            const token = await this.getTokenOrThrow("Only authenticated users can create a concert");
+            const response = await this.axiosClient.post(`concerts`, {
                 emailAddress: emailAddress,
                 dateAttended: dateAttended,
-                bandName: bandName,
                 tourName: tourName,
+                bandName: bandName,
                 venue: venue,
                 openingActs: openingActs,
                 songsPlayed: songsPlayed,
                 memories: memories
-           }, {
-               headers: {
-                   Authorization: `Bearer ${token}`
-               }
-           });
-
-           alert("about to return from concert creating");
-           return response.data.concert;
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+            return response.data.concert;
        } catch (error) {
-            alert("caughterror");
             this.handleError(error, errorCallback)
        }
-
    }
 
 
