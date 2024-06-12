@@ -14,9 +14,9 @@ public class CreateConcertRequest {
     private final String bandName;
     private final String tourName;
     private final String venue;
-    private final List<String> openingActs;
-    private final List<String> songsPlayed;
-    private final List<String> memories;
+    private final List<String> openingActs; //scooby should this be a string
+    private final List<String> songsPlayed; //scooby should this be a string
+    private final List<String> memories; //scooby should this be a string
 
     private CreateConcertRequest(String emailAddress, String dateAttended, String bandName, String tourName,
         String venue, List<String> openingActs, List<String> songsPlayed, List<String> memories) {

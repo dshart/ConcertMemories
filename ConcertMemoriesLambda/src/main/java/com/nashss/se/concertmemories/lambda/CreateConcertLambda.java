@@ -5,6 +5,9 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.concertmemories.api.concert.request.CreateConcertRequest;
 import com.nashss.se.concertmemories.api.concert.result.CreateConcertResult;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CreateConcertLambda extends LambdaActivityRunner<CreateConcertRequest, CreateConcertResult>
         implements RequestHandler<AuthenticatedLambdaRequest<CreateConcertRequest>, LambdaResponse> {
 
@@ -14,9 +17,9 @@ public class CreateConcertLambda extends LambdaActivityRunner<CreateConcertReque
                 () ->
                 {
                     CreateConcertRequest stageRequest = input.fromUserClaims(claims ->
-                            CreateConcertRequest.builder()
-                                    .withEmailAddress(claims.get("email"))
-                                    .build());
+                        CreateConcertRequest.builder()
+                           .withEmailAddress(claims.get("email"))
+                           .build());
 
 
                     CreateConcertRequest request = input.fromBody(CreateConcertRequest.class);

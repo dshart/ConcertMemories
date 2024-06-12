@@ -10,8 +10,8 @@ export default class CreateConcert extends BindingClass {
     constructor(props = {}) {
         super();
 
-        const methodsToBind = ['clientLoaded', 'createConcert','getIdentity', 'verifyLogin', 'login', 'logout',
-        'getTokenOrThrow'];
+        const methodsToBind = ['clientLoaded', 'createConcert', 'getIdentity','verifyLogin', 'login',
+        'logout', 'getTokenOrThrow'];
         this.bindClassMethods(methodsToBind, this);
         this.authenticator = new Authenticator();
         this.axiosClient = axios;
@@ -37,10 +37,10 @@ export default class CreateConcert extends BindingClass {
     */
 
    async createConcert(emailAddress, dateAttended, bandName, tourName, venue, openingActs, songsPlayed, memories, errorCallback) {
-       alert("creating concert");
-       alert(dateAttended);
-       alert(memories);
-       try {
+        alert("create concert");
+        alert(emailAddress);
+        alert(dateAttended);
+        try {
            const token = await this.getTokenOrThrow("Only authenticated users can create a concert");
            const response = await this.axiosClient.post(`concerts`, {
                 emailAddress: emailAddress,
@@ -48,21 +48,25 @@ export default class CreateConcert extends BindingClass {
                 bandName: bandName,
                 tourName: tourName,
                 venue: venue,
-                openingActs: [openingActs],
-                songsPlayed: [songsPlayed],
-                memories: [memories]
+                openingActs: openingActs,
+                songsPlayed: songsPlayed,
+                memories: memories
            }, {
                headers: {
                    Authorization: `Bearer ${token}`
                }
            });
 
-            alert("about to retuirn");
+           alert("about to return from concert creating");
            return response.data.concert;
-           } catch (error) {
-               this.handleError(error, errorCallback)
-           }
+       } catch (error) {
+            alert("caughterror");
+            this.handleError(error, errorCallback)
        }
+
+   }
+
+
 
      /**
           * Get the identity of the current user

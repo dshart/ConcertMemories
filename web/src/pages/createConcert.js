@@ -4,13 +4,12 @@ import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
 import Authenticator from '../api/authenticator';
 
-const COGNITO_NAME_KEY = 'cognito-name';
-const COGNITO_EMAIL_KEY = 'cognito-name-results';
+const SEARCH_CRITERIA_KEY = 'search-criteria';
+const SEARCH_RESULTS_KEY = 'search-results';
 const EMPTY_DATASTORE_STATE = {
-    [COGNITO_NAME_KEY]: '',
-    [COGNITO_EMAIL_KEY]: ''
+    [SEARCH_CRITERIA_KEY]: '',
+    [SEARCH_RESULTS_KEY]: ''
 };
-
 /**
  * Logic needed for the enterConcertInfo page of the website.
  */
@@ -19,7 +18,7 @@ class CreateConcert extends BindingClass {
         super();
 
         this.header = new Header(this.dataStore);
-        this.bindClassMethods(['getIdentity', 'mount', 'startupActivities', 'submitForm'], this);
+        this.bindClassMethods(['convertToList', 'getIdentity', 'getUserEmail', 'mount', 'startupActivities', 'submitForm'], this);
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
     }
 
@@ -27,62 +26,154 @@ class CreateConcert extends BindingClass {
         this.header.addHeaderToPage();
         this.client = new CreateConcertClient();
         this.startupActivities();
-        this.email = this.getUserEmail();
+       // this.email = this.getUserEmail();
     }
 
     async startupActivities() {
-//        if (await this.client.verifyLogin()) {
-//            const{email, name} = await this.client.getIdentity().then(result => result);
-//            this.dataStore.set([COGNITO_EMAIL_KEY], email);
-//            this.dataStore.set([COGNITO_NAME_KEY], name);
-//        }
-
-        //var concertEntryForm = document.getElementById("entryForm");
-        var concertEntryForm = document.querySelector("#entryForm");
-        concertEntryForm.addEventListener('submit', () => this.submitForm());
+        //var concertEntryForm = document.querySelector("#entryForm");
+       // concertEntryForm.addEventListener('submit', () => this.submitForm());
         document.getElementById('submitConcertButton').addEventListener('click', this.submitForm);
     }
 
-     /**
-         * Uses the client to obtain the Users email and Name;
+    /* Uses the client to obtain the Users email and Name;
          * @returns User Email
         */
-        async getUserEmail() {
-            const { email, name } = await this.client.getIdentity().then(result => result);
-            return email;
-        }
+     async getUserEmail() {
+        const { email, name } = await this.client.getIdentity().then(result => result);
+        alert(email);
+        return email;
+     }
+
+     convertToList(stringToConvert) {
+         var arr = [];
+         if (stringToConvert != null) {
+             arr = stringToConvert.split(",");
+         }
+         return arr;
+     }
 
     async submitForm() {
         alert("submitting");
+        var oa = document.getElementById('openingActs').value;
+        var sp = document.getElementById('songsPlayed').value;
+        var m = document.getElementById('memories').value;
 
-        var oA = document.getElementById(openingActs);
-        var sP = document.getElementsById(songsPlayed);
-        var m = document.getElementsById(memories);
+        var oaList = this.convertToList(oa);
+        var spList = this.convertToList(sp);
+        var mList = this.convertToList(m);
+        var email = this.getUserEmail();
 
-        var oaArray = new Array();
-        var spArray = new Array();
-        var mArray = new Array();
-
-        oaArray = oA.value.split(",");
-        spArray = sP.value.split(',');
-        mArray = m.value.split(',');
-
-        const results = await this.client.createConcert(
-            this.dataStore.get(COGNITO_EMAIL_KEY),
+        alert("before create concert");
+        var results = await this.client.createConcert(
+            email,
             document.getElementById('concertDate').value,
             document.getElementById('bandName').value,
             document.getElementById('tourName').value,
             document.getElementById('venue').value,
-            oaArray,
-            spArray,
-            mArray
-//            document.getElementById('openingActs').value,
-//            document.getElementById('songsPlayed').value,
-//            document.getElementById('memories').value
-        )
+            oaList,
+            spList,
+            mList
+        ).then(response => {
+            alert("in response: " + response);
+             const searchCriteria = this.taskDataStore.get(TASK_SEARCH_CRITERIA_KEY);
+             alert("searchCriteria" + searchCriteria);
+             var searchResults = this.taskDataStore.get(TASK_SEARCH_RESULTS_KEY);
+             searchResults.push(response);
+             
+                                    //console.log(searchResults)
+             this.taskDataStore.setState({
+             [TASK_SEARCH_CRITERIA_KEY]: searchCriteria,
+             [TASK_SEARCH_RESULTS_KEY]: searchResults,
+        });
+                                    //console.log(response);
+            alert("returning response");
+            return response;
+        }).catch(e => {
+            alert("Error, Will Robinson!");
+            console.log(e);
+        });
 
-        alert("Form submitted!");
-        window.location.href = "enterConcertInfo.html";
+
+
+
+
+
+//        async createTask() {
+//                //alert("createTask called")
+//                var startTime = this.dataStore.get(SEARCH_RESULTS_KEY);
+//                startTime = startTime.creationDate;
+//                var taskClient = new TaskClient();
+//                const orgId = new URLSearchParams(window.location.search).get('orgId');
+//                const assignee = null;
+//                const completed = false;
+//                const hoursToComplete = null;
+//                const materialsList = null;
+//                const name = document.getElementById('new-task-name').value;
+//                var results = null;
+//                if (orgId && name) {
+//
+//                    results = await taskClient.createTask(orgId, assignee, completed, hoursToComplete, materialsList, name, startTime).then(response => {
+//
+//                        const searchCriteria = this.taskDataStore.get(TASK_SEARCH_CRITERIA_KEY);
+//                        var searchResults = this.taskDataStore.get(TASK_SEARCH_RESULTS_KEY);
+//                        searchResults.push(response);
+//                        //console.log(searchResults)
+//                        this.taskDataStore.setState({
+//                            [TASK_SEARCH_CRITERIA_KEY]: searchCriteria,
+//                            [TASK_SEARCH_RESULTS_KEY]: searchResults,
+//                        });
+//                        //console.log(response);
+//                        return response;
+//                    }).catch(e => {
+//                        console.log(e);
+//                    });;
+//
+//                }
+//            }
+
+          //alert("createTask called")
+          //      var startTime = this.dataStore.get(SEARCH_RESULTS_KEY);
+          //      startTime = startTime.creationDate;
+         //       var taskClient = new TaskClient();
+         //       const orgId = new URLSearchParams(window.location.search).get('orgId');
+         //       const assignee = null;
+         //       const completed = false;
+         //       const hoursToComplete = null;
+         //       const materialsList = null;
+         //       const name = document.getElementById('new-task-name').value;
+//                var results = null;
+//                if (orgId && name) {
+//
+//                    results = await taskClient.createTask(orgId, assignee, completed, hoursToComplete, materialsList, name, startTime).then(response => {
+//
+//
+//
+//                }
+//            }
+
+
+
+//         if (orgId && name) {
+//
+//                    results = await taskClient.createTask(orgId, assignee, completed, hoursToComplete, materialsList, name, startTime).then(response => {
+//
+//                        const searchCriteria = this.taskDataStore.get(TASK_SEARCH_CRITERIA_KEY);
+//                        var searchResults = this.taskDataStore.get(TASK_SEARCH_RESULTS_KEY);
+//                        searchResults.push(response);
+//                        //console.log(searchResults)
+//                        this.taskDataStore.setState({
+//                            [TASK_SEARCH_CRITERIA_KEY]: searchCriteria,
+//                            [TASK_SEARCH_RESULTS_KEY]: searchResults,
+//                        });
+//                        //console.log(response);
+//                        return response;
+//                    }).catch(e => {
+//                        console.log(e);
+//                    });;
+
+
+        alert("Form submitted success!");
+        window.location.href = "concertsAndBands.html";
 
    }
 
@@ -106,7 +197,6 @@ class CreateConcert extends BindingClass {
  */
 const main = async () => {
     const createConcert = new CreateConcert();
-    console.log();
     createConcert.mount();
 };
 

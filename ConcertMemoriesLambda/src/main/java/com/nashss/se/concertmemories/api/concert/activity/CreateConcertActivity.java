@@ -48,23 +48,9 @@ public class CreateConcertActivity {
     public CreateConcertResult handleRequest(final CreateConcertRequest createConcertRequest) {
         log.info("Received CreateConcertRequest {}", createConcertRequest);
 
-//        List<String> openingActs = null;
-//        if (createConcertRequest.getOpeningActs() != null) {
-//            openingActs = new ArrayList<>(createConcertRequest.getOpeningActs());
-//        }
-//
-//        List<String> songsPlayed = null;
-//        if (createConcertRequest.getSongsPlayed() != null) {
-//            songsPlayed = new ArrayList<>(createConcertRequest.getSongsPlayed());
-//        }
-//
-//        List<String> memories = null;
-//        if (createConcertRequest.getMemories() != null) {
-//            memories = new ArrayList<>(createConcertRequest.getMemories());
-//        }
-
         Concert concert = new Concert();
 
+        //Don't want nulls in database as it displays 'null' it table
         String emailAddress = createConcertRequest.getEmailAddress();
         if (emailAddress == null) {
             emailAddress = " ";
