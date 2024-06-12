@@ -2,6 +2,7 @@ import CreateConcertClient from '../api/createConcertClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
+import Authenticator from '../api/authenticator';
 
 const COGNITO_NAME_KEY = 'cognito-name';
 const COGNITO_EMAIL_KEY = 'cognito-name-results';
@@ -18,7 +19,7 @@ class CreateConcert extends BindingClass {
         super();
 
         this.header = new Header(this.dataStore);
-        this.bindClassMethods(['mount', 'startupActivities', 'submitForm'], this);
+        this.bindClassMethods(['getIdentity', 'mount', 'startupActivities', 'submitForm'], this);
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
     }
 
@@ -26,19 +27,30 @@ class CreateConcert extends BindingClass {
         this.header.addHeaderToPage();
         this.client = new CreateConcertClient();
         this.startupActivities();
+        this.email = this.getUserEmail();
     }
 
     async startupActivities() {
-        if (await this.client.verifyLogin()) {
-            const{email, name} = await this.client.getIdentity().then(result => result);
-            this.dataStore.set([COGNITO_EMAIL_KEY], email);
-            this.dataStore.set([COGNITO_NAME_KEY], name);
-        }
+//        if (await this.client.verifyLogin()) {
+//            const{email, name} = await this.client.getIdentity().then(result => result);
+//            this.dataStore.set([COGNITO_EMAIL_KEY], email);
+//            this.dataStore.set([COGNITO_NAME_KEY], name);
+//        }
 
         //var concertEntryForm = document.getElementById("entryForm");
-        //concertEntryForm.addEventListener('submit', () => this.submitForm());
+        var concertEntryForm = document.querySelector("#entryForm");
+        concertEntryForm.addEventListener('submit', () => this.submitForm());
         document.getElementById('submitConcertButton').addEventListener('click', this.submitForm);
     }
+
+     /**
+         * Uses the client to obtain the Users email and Name;
+         * @returns User Email
+        */
+        async getUserEmail() {
+            const { email, name } = await this.client.getIdentity().then(result => result);
+            return email;
+        }
 
     async submitForm() {
         alert("submitting");
@@ -74,6 +86,19 @@ class CreateConcert extends BindingClass {
 
    }
 
+   async getIdentity(errorCallback) {
+       try {
+           const isLoggedIn = await this.authenticator.isUserLoggedIn();
+           if (!isLoggedIn) {
+               return undefined;
+           }
+
+           return await this.authenticator.getCurrentUserInfo();
+       } catch (error) {
+           this.handleError(error, errorCallback)
+       }
+   }
+
 }
 
 /**
@@ -86,4 +111,5 @@ const main = async () => {
 };
 
 window.addEventListener('DOMContentLoaded', main);
+
 

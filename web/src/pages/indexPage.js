@@ -37,7 +37,7 @@ class IndexPage extends BindingClass {
 
             //var enterSiteButton = document.getElementById("enter-site-button");
             var enterSiteButton = document.querySelector("#enterSiteButtonId");
-            //enterSiteButton.style.display = "block";
+            enterSiteButton.style.display = "block";
             enterSiteButton.addEventListener("click", function(event){document.location.href = "concertsAndBands.html";
             });
         }

@@ -7,29 +7,31 @@ import Authenticator from '../api/authenticator';
 const SEARCH_CRITERIA_KEY = 'search-criteria';
 const SEARCH_RESULTS_KEY = 'search-results';
 const EMPTY_DATASTORE_STATE = {
-    [SEARCH_CRITERIA_KEY]: [],
-    [SEARCH_RESULTS_KEY]: [],
+    //[SEARCH_CRITERIA_KEY]: [],
+    //[SEARCH_RESULTS_KEY]: [],
+    [SEARCH_CRITERIA_KEY]: '',
+        [SEARCH_RESULTS_KEY]: ''
 };
 
 class GetConcert extends BindingClass {
     constructor() {
         super();
+
+        this.header = new Header(this.dataStore);
         this.bindClassMethods(['displayAllConcertsHTML', 'displayAllConcertsByBandHTML', 'displaySingleConcertHTML',
         'dropDownChange', 'getHTMLForAllConcertsView', 'getHTMLForAllConcertsByBandView', 'getHTMLForSingleConcertView',
         'getUserEmail', 'mount', 'startupActivities', 'submitBandViewButton', 'submitDateViewButton',
         'submitViewButton', ], this);
-
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
-        this.header = new Header(this.dataStore);
-        this.authenticator = new Authenticator();
     }
 
    /**
-    * Add the header to the page and load the ConcertMemoriesClient.
+    * Add the header to the page and load the GetConcertClient.
     */
     mount() {
-        this.client = new GetConcertClient();
+
         this.header.addHeaderToPage();
+        this.client = new GetConcertClient();
         this.email = this.getUserEmail();
         this.startupActivities();
     }
