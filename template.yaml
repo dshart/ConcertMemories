@@ -218,65 +218,65 @@ Resources:
   #-----------------------------------------------------
   # Lambda Functions Configuration
   #-----------------------------------------------------
-  GetConcertLambda:
-    Type: AWS::Serverless::Function
-    Properties:
-      Role: !GetAtt AccessRole.Arn
-      CodeUri: ConcertMemoriesLambda
-      Handler: com.nashss.se.concertmemories.lambda.GetConcertLambda::handleRequest
-      Runtime: java11
-      Architectures:
-        - x86_64
-      MemorySize: 512
-      Environment:
-        Variables:
-          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-      Events:
-        ConcertMemories:
-          Type: Api
-          Properties:
-            Path: /concerts/{dateAttended}
-            Method: get
-
-  GetAllConcertsLambda:
-    Type: AWS::Serverless::Function
-    Properties:
-      Role: !GetAtt AccessRole.Arn
-      CodeUri: ConcertMemoriesLambda
-      Handler: com.nashss.se.concertmemories.lambda.GetAllConcertsLambda::handleRequest
-      Runtime: java11
-      Architectures:
-        - x86_64
-      MemorySize: 512
-      Environment:
-        Variables:
-          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-      Events:
-        ConcertMemories:
-          Type: Api
-          Properties:
-            Path: /concerts
-            Method: get
-
-  GetAllConcertsByBandLambda:
-    Type: AWS::Serverless::Function
-    Properties:
-      Role: !GetAtt AccessRole.Arn
-      CodeUri: ConcertMemoriesLambda
-      Handler: com.nashss.se.concertmemories.lambda.GetAllConcertsByBandLambda::handleRequest
-      Runtime: java11
-      Architectures:
-        - x86_64
-      MemorySize: 512
-      Environment:
-        Variables:
-          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-      Events:
-        ConcertMemories:
-          Type: Api
-          Properties:
-            Path: /concertsbyband/{bandName}
-            Method: get
+#  GetConcertLambda:
+#    Type: AWS::Serverless::Function
+#    Properties:
+#      Role: !GetAtt AccessRole.Arn
+#      CodeUri: ConcertMemoriesLambda
+#      Handler: com.nashss.se.concertmemories.lambda.GetConcertLambda::handleRequest
+#      Runtime: java11
+#      Architectures:
+#        - x86_64
+#      MemorySize: 512
+#      Environment:
+#        Variables:
+#          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+#      Events:
+#        ConcertMemories:
+#          Type: Api
+#          Properties:
+#            Path: /concerts/{dateAttended}
+#            Method: get
+#
+#  GetAllConcertsLambda:
+#    Type: AWS::Serverless::Function
+#    Properties:
+#      Role: !GetAtt AccessRole.Arn
+#      CodeUri: ConcertMemoriesLambda
+#      Handler: com.nashss.se.concertmemories.lambda.GetAllConcertsLambda::handleRequest
+#      Runtime: java11
+#      Architectures:
+#        - x86_64
+#      MemorySize: 512
+#      Environment:
+#        Variables:
+#          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+#      Events:
+#        ConcertMemories:
+#          Type: Api
+#          Properties:
+#            Path: /concerts
+#            Method: get
+#
+#  GetAllConcertsByBandLambda:
+#    Type: AWS::Serverless::Function
+#    Properties:
+#      Role: !GetAtt AccessRole.Arn
+#      CodeUri: ConcertMemoriesLambda
+#      Handler: com.nashss.se.concertmemories.lambda.GetAllConcertsByBandLambda::handleRequest
+#      Runtime: java11
+#      Architectures:
+#        - x86_64
+#      MemorySize: 512
+#      Environment:
+#        Variables:
+#          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+#      Events:
+#        ConcertMemories:
+#          Type: Api
+#          Properties:
+#            Path: /concertsbyband/{bandName}
+#            Method: get
 
   #-----------------------------------------------------
   # DynamoDB Configuration
@@ -363,7 +363,7 @@ Outputs:
   ApiBaseUrl:
     Description: "API Gateway endpoint base URL for Prod stage (API_BASE_URL)."
     #Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
-    Value: !Sub "https://ConcertMemoriesApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+    Value: !Sub "https://nn2kv62h2g.execute-api.${AWS::Region}.amazonaws.com/Prod/"
 
   CognitoRedirectSignin:
     Description: "The URL of the deployed front-end application (COGNITO_REDIRECT_SIGNIN)."
