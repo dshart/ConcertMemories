@@ -136,9 +136,14 @@ public class ConcertDao {
     /**
      * Removes the provided Concert from DynamoDB, if present.
      *
-     * @param concert The Concert to be deleted
+     * @param emailAddress The emailAddress of user
+     * @param dateAttended The date of concert to be deleted
      */
-    public void deleteConcert(Concert concert) {
+    public void deleteConcert(String emailAddress, String dateAttended) {
+        Concert concert = new Concert();
+        concert.setEmailAddress(emailAddress);
+        concert.setDateAttended(dateAttended);
+
         dynamoDbMapper.delete(concert);
     }
 }
