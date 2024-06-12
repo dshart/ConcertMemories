@@ -383,7 +383,8 @@ Outputs:
   ApiBaseUrl:
     Description: "API Gateway endpoint base URL for Prod stage (API_BASE_URL)."
     #Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
-    Value: !Sub "https://nn2kv62h2g.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+    #Value: !Sub "https://nn2kv62h2g.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+    Value: !Sub "https://k1b0kmg37b.execute-api.us-east-2.amazonaws.com/Prod/"
 
   CognitoRedirectSignin:
     Description: "The URL of the deployed front-end application (COGNITO_REDIRECT_SIGNIN)."
