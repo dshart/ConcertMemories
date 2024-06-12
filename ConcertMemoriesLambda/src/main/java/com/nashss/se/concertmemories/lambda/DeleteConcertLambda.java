@@ -12,6 +12,7 @@ public class DeleteConcertLambda extends LambdaActivityRunner<DeleteConcertReque
         implements RequestHandler<AuthenticatedLambdaRequest<DeleteConcertRequest>, LambdaResponse> {
 
     private final Logger log = LogManager.getLogger();
+
     @Override
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<DeleteConcertRequest> input, Context context) {
         log.info("handleRequest");
@@ -25,8 +26,11 @@ public class DeleteConcertLambda extends LambdaActivityRunner<DeleteConcertReque
 
                     return input.fromPath(path ->
                             DeleteConcertRequest.builder()
-                                    .withEmailAddress(stageRequest.getEmailAddress())
+                                //    .withDateAttended("1988-07-16")
+                                //    .withEmailAddress("dshart@gmail.com")
                                     .withDateAttended(path.get("dateAttended"))
+                                    .withEmailAddress(stageRequest.getEmailAddress())
+
                                     .build());
                 },
 
@@ -34,6 +38,55 @@ public class DeleteConcertLambda extends LambdaActivityRunner<DeleteConcertReque
                         serviceComponent.provideDeleteConcertActivity().handleRequest(request)
         );
     }
+//        log.info("handleRequest");
+//        return super.runActivity(
+//                () ->
+//                {
+//                    DeleteConcertRequest stageRequest = input.fromUserClaims(claims ->
+//                            DeleteConcertRequest.builder()
+//                                    .withEmailAddress(claims.get("email"))
+//                                    .build());
+////
+////                    return input.fromPath(path ->
+////                            DeleteConcertRequest.builder()
+////                                    .withEmailAddress(stageRequest.getEmailAddress())
+////                                    .withDateAttended(path.get("dateAttended"))
+////                                    .build());
+////                },
+//
+//                    //DeleteConcertRequest request = input.fromPath(DeleteConcertRequest.class);
+//                    return input.fromPath(path ->
+//                            DeleteConcertRequest.builder()
+//                                    .withEmailAddress(stageRequest.getEmailAddress())
+//                                    .withDateAttended(path.get("dateAttended"))
+//                                    .build());
+//                },
+//
+//                (request, serviceComponent) ->
+//                        serviceComponent.provideDeleteConcertActivity().handleRequest(request)
+//
+//        );
+//    }
+}
 
-    {
+
+
+//        CreateConcertRequest request = input.fromBody(CreateConcertRequest.class);
+//        return input.fromUserClaims(claims ->
+//                CreateConcertRequest.builder()
+//                        .withEmailAddress(claims.get("email"))
+//                        .withDateAttended(request.getDateAttended())
+//                        .withBandName(request.getBandName())
+//                        .withTourName(request.getTourName())
+//                        .withVenue(request.getVenue())
+//                        .withOpeningActs(request.getOpeningActs())
+//                        .withSongsPlayed(request.getSongsPlayed())
+//                        .withMemories(request.getMemories())
+//                        .build());
+//    },
+//            (request, serviceComponent) ->
+//            serviceComponent.provideCreateConcertActivity().handleRequest(request)
+//        );
+
+    //{
         

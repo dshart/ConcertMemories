@@ -39,9 +39,10 @@ public class DeleteConcertActivity {
         String emailAddress = deleteConcertRequest.getEmailAddress();
         String dateAttended = deleteConcertRequest.getDateAttended();
         Concert concert = concertDao.getConcert(emailAddress, dateAttended);
-        concertDao.deleteConcert(concert);
+        concertDao.deleteConcert(emailAddress, dateAttended);
+
         return DeleteConcertResult.builder()
-                .withConcert(concert)
-                .build();
+            .withConcert(concert)
+            .build();
     }
 }
