@@ -9,10 +9,10 @@ on:
 env:
 
   # STUDENTS: Set these environment variables 
-  API_BASE_URL: https://k1b0kmg37b.execute-api.us-east-2.amazonaws.com/Prod/
+  API_BASE_URL: https://rofweh1r1a.execute-api.us-east-2.amazonaws.com/Prod/
   COGNITO_DOMAIN: nss-se-c04-concert-memories
-  COGNITO_REDIRECT_SIGNIN: https://d1ekrphqnve1vq.cloudfront.net
-  COGNITO_REDIRECT_SIGNOUT: https://d1ekrphqnve1vq.cloudfront.net
+  COGNITO_REDIRECT_SIGNIN: https://d3kdb9b758wzvh.cloudfront.net
+  COGNITO_REDIRECT_SIGNOUT: https://d3kdb9b758wzvh.cloudfront.net
 
   COGNITO_USER_POOL_ID: ${{ secrets.COGNITO_USER_POOL_ID }}
   COGNITO_USER_POOL_CLIENT_ID: ${{ secrets.COGNITO_USER_POOL_CLIENT_ID }}
