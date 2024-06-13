@@ -9,6 +9,7 @@ on:
 env:
 
   # STUDENTS: Set these environment variables 
+
   API_BASE_URL: https://tj8oqjwto6.execute-api.us-east-2.amazonaws.com/Prod/
   COGNITO_DOMAIN: nss-se-c04-concert-memories
   COGNITO_REDIRECT_SIGNIN: https://d1ekrphqnve1vq.cloudfront.net
@@ -19,7 +20,7 @@ env:
 
   GH_PACKAGE_REG_READ_USER: ${{ secrets.GH_PACKAGE_REG_READ_USER }}
   GH_PACKAGE_REG_READ_PASS: ${{ secrets.GH_PACKAGE_REG_READ_PASS }}
-  
+
   PIPELINE_USER_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   PIPELINE_USER_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   SAM_TEMPLATE: template.yaml
@@ -28,8 +29,9 @@ env:
   PIPELINE_EXECUTION_ROLE: arn:aws:iam::730335522897:role/aws-sam-cli-managed-ServiceSt-PipelineExecutionRole-JVKyP0sz18Al
   CLOUDFORMATION_EXECUTION_ROLE: arn:aws:iam::730335522897:role/aws-sam-cli-managed-Servi-CloudFormationExecutionRo-ccN8ZmjDMc0I
   ARTIFACTS_BUCKET: aws-sam-cli-managed-servicestage-p-artifactsbucket-4cgcn3e946lv
-  REGION: us-east-2
+  REGION: us-east-2 
 
+  
 jobs:
 
   build-feature:

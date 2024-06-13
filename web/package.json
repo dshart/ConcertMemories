@@ -3,7 +3,7 @@
   "description": "Website for the NSS Capstone Project",
   "version": "1.0.0",
   "license": "UNLICENSED",
-  "main": "js/indexPageScript.js",
+  "main": "js/indexPage.js",
   "scripts": {
     "prepublishOnly": "npm run build",
     "build": "webpack --mode=production --devtool=source-map",

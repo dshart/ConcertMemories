@@ -218,6 +218,26 @@ Resources:
   #-----------------------------------------------------
   # Lambda Functions Configuration
   #-----------------------------------------------------
+  CreateConcertLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: ConcertMemoriesLambda
+      Handler: com.nashss.se.concertmemories.lambda.CreateConcertLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        ConcertMemories:
+          Type: Api
+          Properties:
+            Path: /createconcert
+            Method: post
+
   GetConcertLambda:
     Type: AWS::Serverless::Function
     Properties:
@@ -276,6 +296,26 @@ Resources:
           Type: Api
           Properties:
             Path: /concertsbyband/{bandName}
+            Method: get
+
+  GetAllConcertsByVenueLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: ConcertMemoriesLambda
+      Handler: com.nashss.se.concertmemories.lambda.GetAllConcertsByVenueLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        ConcertMemories:
+          Type: Api
+          Properties:
+            Path: /concertsbyvenue/{venue}
             Method: get
 
   DeleteConcertLambda:
@@ -382,9 +422,7 @@ Outputs:
 
   ApiBaseUrl:
     Description: "API Gateway endpoint base URL for Prod stage (API_BASE_URL)."
-    #Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
-    Value: !Sub "https://tj8oqjwto6.execute-api.us-east-2.amazonaws.com/Prod/"
-
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
 
   CognitoRedirectSignin:
     Description: "The URL of the deployed front-end application (COGNITO_REDIRECT_SIGNIN)."

@@ -1,7 +1,5 @@
 package com.nashss.se.concertmemories.dynamodb;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
-import com.amazonaws.services.dynamodbv2.model.GlobalSecondaryIndex;
 import com.nashss.se.concertmemories.dynamodb.models.Concert;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.nashss.se.concertmemories.exceptions.ConcertNotFoundException;
@@ -13,6 +11,7 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 import static com.nashss.se.concertmemories.dynamodb.models.Concert.BAND_INDEX;
+import static com.nashss.se.concertmemories.dynamodb.models.Concert.VENUE_INDEX;
 
 /**
  * Accesses data for a concert using {@link Concert} to represent the model in DynamoDB.
@@ -89,39 +88,28 @@ public class ConcertDao {
                 .withExpressionAttributeValues(valueMap);
 
         return dynamoDbMapper.query(Concert.class, queryExpression);
+    }
 
+    /**
+     * Retrieves all concerts matching provided emailAddress and venue
+     * <p>
+     * If none found, returns an empty list.
+     *
+     * @param emailAddress The emailAddress to look up
+     * @param venue The venue to look up
+     * @return A list of Concerts found, if any
+     */
+    public List<Concert> getAllConcertsByVenue(String emailAddress, String venue) {
+        Map<String, AttributeValue> valueMap = new HashMap<>();
+        valueMap.put(":emailAddress", new AttributeValue().withS(emailAddress));
+        valueMap.put(":venue", new AttributeValue().withS(venue));
+        DynamoDBQueryExpression<Concert> queryExpression = new DynamoDBQueryExpression<Concert>()
+                .withIndexName(VENUE_INDEX)
+                .withConsistentRead(false)
+                .withKeyConditionExpression("emailAddress = :emailAddress and venue = :venue")
+                .withExpressionAttributeValues(valueMap);
 
-
-
-//        GlobalSecondaryIndex SeenBandIndex = new GlobalSecondaryIndex()
-//                .withIndexName(BAND_INDEX);
-//                //.withProvisionedThroughput(new ProvisionedThroughput()
-//                        .withReadCapacityUnits((long) 10)
-//                        .withWriteCapacityUnits((long) 1))
-//                .withProjection(new Projection().withProjectionType(ProjectionType.ALL));
-//
-//        ArrayList<KeySchemaElement> indexKeySchema = new ArrayList<KeySchemaElement>();
-//
-//        indexKeySchema.add(new KeySchemaElement()
-//                .withAttributeName("Date")
-//                .withKeyType(KeyType.HASH));  //Partition key
-//        indexKeySchema.add(new KeySchemaElement()
-//                .withAttributeName("Precipitation")
-//                .withKeyType(KeyType.RANGE));  //Sort key
-//
-//        precipIndex.setKeySchema(indexKeySchema);
-//
-//        CreateTableRequest createTableRequest = new CreateTableRequest()
-//                .withTableName("WeatherData")
-//                .withProvisionedThroughput(new ProvisionedThroughput()
-//                        .withReadCapacityUnits((long) 5)
-//                        .withWriteCapacityUnits((long) 1))
-//                .withAttributeDefinitions(attributeDefinitions)
-//                .withKeySchema(tableKeySchema)
-//                .withGlobalSecondaryIndexes(precipIndex);
-//
-//        Table table = dynamoDB.createTable(createTableRequest);
-//        System.out.println(table.getDescription());
+        return dynamoDbMapper.query(Concert.class, queryExpression);
     }
 
     /**
@@ -129,7 +117,7 @@ public class ConcertDao {
      *
      * @param concert The Concert to be saved
      */
-    public void writeProject(Concert concert) {
+    public void saveConcert(Concert concert) {
         dynamoDbMapper.save(concert);
     }
 

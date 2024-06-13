@@ -19,24 +19,34 @@ public class DeleteConcertLambda extends LambdaActivityRunner<DeleteConcertReque
         return super.runActivity(
                 () ->
                 {
-                    DeleteConcertRequest stageRequest = input.fromUserClaims(claims ->
-                            DeleteConcertRequest.builder()
-                                    .withEmailAddress(claims.get("email"))
-                                    .build());
 
-                    return input.fromPath(path ->
-                            DeleteConcertRequest.builder()
-                                //    .withDateAttended("1988-07-16")
-                                //    .withEmailAddress("dshart@gmail.com")
-                                    .withDateAttended(path.get("dateAttended"))
-                                    .withEmailAddress(stageRequest.getEmailAddress())
-
-                                    .build());
+                    String dateAttended = input.getPathParameters().get("dateAttended");
+                    return input.fromUserClaims(claims ->
+                        DeleteConcertRequest.builder()
+                            .withDateAttended(dateAttended)
+                            .withEmailAddress(claims.get("email"))
+                                .build());
+//                    DeleteConcertRequest stageRequest = input.fromUserClaims(claims ->
+//                            DeleteConcertRequest.builder()
+//                                    .withEmailAddress(claims.get("email"))
+//                                    .build());
+//
+//                    return input.fromPath(path ->
+//                            DeleteConcertRequest.builder()
+//                                //    .withDateAttended("1988-07-16")
+//                                //    .withEmailAddress("dshart@gmail.com")
+//                                    .withDateAttended(path.get("dateAttended"))
+//                                    .withEmailAddress(stageRequest.getEmailAddress())
+//
+//                                    .build());
                 },
 
                 (request, serviceComponent) ->
                         serviceComponent.provideDeleteConcertActivity().handleRequest(request)
         );
+
+
+
     }
 //        log.info("handleRequest");
 //        return super.runActivity(

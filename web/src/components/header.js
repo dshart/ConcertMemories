@@ -69,3 +69,4 @@ export default class Header extends BindingClass {
         return button;
     }
 }
+

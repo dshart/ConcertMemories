@@ -23,6 +23,7 @@ public class Concert {
 
     public Concert() {
     }
+
     @DynamoDBHashKey(attributeName = "emailAddress")
     @DynamoDBIndexHashKey(globalSecondaryIndexNames = {BAND_INDEX, VENUE_INDEX},
             attributeName = "emailAddress")

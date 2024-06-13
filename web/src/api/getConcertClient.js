@@ -6,7 +6,7 @@ import Authenticator from "./authenticator";
  * Client to call ConcertMemories web app
   *
 */
-export default class ConcertViewClient extends BindingClass {
+export default class GetConcertClient extends BindingClass {
     constructor(props = {}) {
         super();
 
@@ -87,6 +87,25 @@ export default class ConcertViewClient extends BindingClass {
          } catch (error) {
              this.handleError(error, errorCallback)
          }
+     }
+
+     /**
+         * Gets all concerts in the database for a specific venue.
+         * @param errorCallback (Optional) A function to execute if the call fails.
+         * @returns A list of concerts seen at a specific venue
+     */
+
+     async getAllConcertsByVenue(emailAddress, venue, errorCallback) {
+         try {
+             const token = await this.getTokenOrThrow("Only authenticated users can get a concert");
+             const response = await this.axiosClient.get(`concertsbyvenue/${venue}`, {
+                 headers: {
+                      Authorization: `Bearer ${token}`
+             }});
+             return response.data.allConcertsByVenue;
+         } catch (error) {
+             this.handleError(error, errorCallback)
+        }
      }
 
      /**

@@ -2,7 +2,6 @@ package com.nashss.se.concertmemories.lambda;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.nashss.se.concertmemories.api.concert.request.GetAllConcertsRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.nashss.se.concertmemories.api.concert.result.GetConcertResult;

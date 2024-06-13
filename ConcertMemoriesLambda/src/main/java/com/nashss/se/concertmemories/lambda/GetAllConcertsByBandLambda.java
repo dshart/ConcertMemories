@@ -3,10 +3,12 @@ package com.nashss.se.concertmemories.lambda;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.concertmemories.api.concert.request.GetAllConcertsByBandRequest;
+import com.nashss.se.concertmemories.api.concert.request.GetAllConcertsByVenueRequest;
 import com.nashss.se.concertmemories.api.concert.result.GetAllConcertsByBandResult;
+import com.nashss.se.concertmemories.api.concert.result.GetAllConcertsByVenueResult;
 
 /**
- * GetAllConcertsByBandLambda.
+ * GetAllConcertsByVenueLambda.
  */
 public class GetAllConcertsByBandLambda
         extends LambdaActivityRunner<GetAllConcertsByBandRequest, GetAllConcertsByBandResult>
