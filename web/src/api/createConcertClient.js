@@ -44,7 +44,7 @@ export default class CreateConcert extends BindingClass {
 
          try {
         const token = await this.getTokenOrThrow("Only authenticated users can create a concert");
-        const response = await this.axiosClient.post(`createconcerts`, {
+        const response = await this.axiosClient.post(`createconcert`, {
             emailAddress: emailAddress,
             dateAttended: dateAttended,
             tourName: tourName,
@@ -55,9 +55,7 @@ export default class CreateConcert extends BindingClass {
             memories: memories
         }, {
             headers: {
-                Authorization: `Bearer ${token}`,
-                accept: 'application/json',
-                content-type: 'application/x-www-form-urlencoded'
+                Authorization: `Bearer ${token}`
             }
         });
         return response.data.concert;
