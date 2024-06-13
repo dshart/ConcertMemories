@@ -53,7 +53,7 @@ class CreateConcert extends BindingClass {
      }
 
     async submitForm() {
-        alert("submitting");
+      //  alert("submitting");
         var oa = document.getElementById('openingActs').value;
         var sp = document.getElementById('songsPlayed').value;
         var m = document.getElementById('memories').value;
@@ -63,7 +63,7 @@ class CreateConcert extends BindingClass {
         var mList = this.convertToList(m);
         var email = await this.getUserEmail();
 
-        alert("before create concert");
+      //  alert("before create concert");
         await this.client.createConcert(
             email,
             document.getElementById('concertDate').value,
@@ -85,14 +85,14 @@ class CreateConcert extends BindingClass {
              [TASK_SEARCH_RESULTS_KEY]: searchResults,
         });
                                     //console.log(response);
-            alert("returning results");
+           // alert("returning results");
             return results;
         }).catch(e => {
-            alert("Error, Will Robinson!");
+           // alert("Error, Will Robinson!");
             console.log(e);
         });
 
-        alert("Form submitted success!");
+       // alert("Form submitted success!");
         window.location.href = "concertsAndBands.html";
 
    }

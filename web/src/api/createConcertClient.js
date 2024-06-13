@@ -38,11 +38,12 @@ export default class CreateConcert extends BindingClass {
     */
 
    async createConcert(emailAddress, dateAttended, bandName, tourName, venue, openingActs, songsPlayed, memories, errorCallback) {
-        alert("create changed concert");
-        alert(axios.defaults.baseURL);
+//        alert("create changed concert");
+//        alert(axios.defaults.baseURL);
 
 
          try {
+         debugger;
         const token = await this.getTokenOrThrow("Only authenticated users can create a concert");
         const response = await this.axiosClient.post(`createconcert`, {
             emailAddress: emailAddress,
