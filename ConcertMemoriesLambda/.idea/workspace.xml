@@ -5,16 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64f9bf2a-dccd-47da-9481-0daca08cd7ef" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../web/src/pages/concertViewsScript.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../web/static_assets/displayConcertsChoices.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web/src/api/authenticator.js" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/api/authenticator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web/src/api/concertMemoriesClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/api/concertMemoriesClient.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web/src/components/header.js" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/components/header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web/src/pages/displayConcertsChoices.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web/src/pages/indexPageScript.js" beforeDir="false" afterPath="$PROJECT_DIR$/../web/src/pages/indexPageScript.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web/static_assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../web/static_assets/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web/static_assets/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../web/static_assets/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../web/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,9 +22,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2h1uEw8grQLRKITjDdllywIIuD3" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -42,7 +35,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "android.gradle.sync.needed": "true",
-    "git-widget-placeholder": "feature/GetAllConcerts"
+    "git-widget-placeholder": "feature/CreateConcert"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

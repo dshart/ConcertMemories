@@ -38,32 +38,28 @@ export default class CreateConcert extends BindingClass {
     */
 
    async createConcert(emailAddress, dateAttended, bandName, tourName, venue, openingActs, songsPlayed, memories, errorCallback) {
-//        alert("create changed concert");
-//        alert(axios.defaults.baseURL);
+       try {
+           const token = await this.getTokenOrThrow("Only authenticated users can create a concert");
+           const response = await this.axiosClient.post(`createconcert`, {
+               emailAddress: emailAddress,
+               dateAttended: dateAttended,
+               tourName: tourName,
+               bandName: bandName,
+               venue: venue,
+               openingActs: openingActs,
+               songsPlayed: songsPlayed,
+               memories: memories
+           }, {
+               headers: {
+                   Authorization: `Bearer ${token}`
+                }
+           });
 
-
-         try {
-         debugger;
-        const token = await this.getTokenOrThrow("Only authenticated users can create a concert");
-        const response = await this.axiosClient.post(`createconcert`, {
-            emailAddress: emailAddress,
-            dateAttended: dateAttended,
-            tourName: tourName,
-            bandName: bandName,
-            venue: venue,
-            openingActs: openingActs,
-            songsPlayed: songsPlayed,
-            memories: memories
-        }, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-        return response.data.concert;
-    } catch (error) {
-        this.handleError(error, errorCallback)
+           return await response.data.concert;
+       } catch (error) {
+           this.handleError(error, errorCallback)
+      }
    }
-}
 
     /**
           * Get the identity of the current user
@@ -109,7 +105,6 @@ export default class CreateConcert extends BindingClass {
 
              return await this.authenticator.getUserToken();
      }
-
 
      /**
          * Helper method to log the error and run any error functions.

@@ -26,13 +26,14 @@ class CreateConcert extends BindingClass {
         this.header.addHeaderToPage();
         this.client = new CreateConcertClient();
         this.startupActivities();
-       // this.email = this.getUserEmail();
     }
 
     async startupActivities() {
-        //var concertEntryForm = document.querySelector("#entryForm");
-       // concertEntryForm.addEventListener('submit', () => this.submitForm());
-        document.getElementById('submitConcertButton').addEventListener('click', this.submitForm);
+        let concertForm = document.getElementById("concertFormId");
+        concertForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            this.submitForm();
+        });
     }
 
     /* Uses the client to obtain the Users email and Name;
@@ -40,8 +41,7 @@ class CreateConcert extends BindingClass {
         */
      async getUserEmail() {
         const { email, name } = await this.client.getIdentity().then(result => result);
-        //alert(email);
-        return email;
+            return email;
      }
 
      convertToList(stringToConvert) {
@@ -52,8 +52,7 @@ class CreateConcert extends BindingClass {
          return arr;
      }
 
-    async submitForm() {
-      //  alert("submitting");
+     async submitForm() {
         var oa = document.getElementById('openingActs').value;
         var sp = document.getElementById('songsPlayed').value;
         var m = document.getElementById('memories').value;
@@ -63,7 +62,6 @@ class CreateConcert extends BindingClass {
         var mList = this.convertToList(m);
         var email = await this.getUserEmail();
 
-      //  alert("before create concert");
         await this.client.createConcert(
             email,
             document.getElementById('concertDate').value,
@@ -74,26 +72,19 @@ class CreateConcert extends BindingClass {
             spList,
             mList
         ).then(results => {
-             //alert("in response: " + response);
              const searchCriteria = this.taskDataStore.get(TASK_SEARCH_CRITERIA_KEY);
              var searchResults = this.taskDataStore.get(TASK_SEARCH_RESULTS_KEY);
              searchResults.push(results);
-
-                                    //console.log(searchResults)
              this.taskDataStore.setState({
-             [TASK_SEARCH_CRITERIA_KEY]: searchCriteria,
-             [TASK_SEARCH_RESULTS_KEY]: searchResults,
-        });
-                                    //console.log(response);
-           // alert("returning results");
-            return results;
+                [TASK_SEARCH_CRITERIA_KEY]: searchCriteria,
+                [TASK_SEARCH_RESULTS_KEY]: searchResults,
+             });
+             return results;
         }).catch(e => {
-           // alert("Error, Will Robinson!");
             console.log(e);
         });
 
-       // alert("Form submitted success!");
-        window.location.href = "concertsAndBands.html";
+        window.location.href = "enterConcertInfo.html";
 
    }
 

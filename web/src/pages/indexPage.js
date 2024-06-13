@@ -34,13 +34,13 @@ class IndexPage extends BindingClass {
             const{email, name} = await this.concertMemoriesClient.getIdentity().then(result => result);
             this.dataStore.set([COGNITO_EMAIL_KEY], email);
             this.dataStore.set([COGNITO_NAME_KEY], name);
-
-            //var enterSiteButton = document.getElementById("enter-site-button");
-            var enterSiteButton = document.querySelector("#enterSiteButtonId");
-            enterSiteButton.style.display = "block";
-            enterSiteButton.addEventListener("click", function(event){document.location.href = "concertsAndBands.html";
-            });
         }
+
+        var enterSiteButton = document.querySelector("#enterSiteButtonId");
+        enterSiteButton.style.display = "block";
+        enterSiteButton.addEventListener(
+            "click", function(event){document.location.href = "concertsAndBands.html";
+        });
     }
 }
 
