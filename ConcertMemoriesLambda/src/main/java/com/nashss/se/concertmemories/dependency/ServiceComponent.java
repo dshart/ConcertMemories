@@ -4,6 +4,7 @@ import com.nashss.se.concertmemories.api.concert.activity.CreateConcertActivity;
 import com.nashss.se.concertmemories.api.concert.activity.GetConcertActivity;
 import com.nashss.se.concertmemories.api.concert.activity.GetAllConcertsActivity;
 import com.nashss.se.concertmemories.api.concert.activity.GetAllConcertsByBandActivity;
+import com.nashss.se.concertmemories.api.concert.activity.GetAllConcertsByVenueActivity;
 import com.nashss.se.concertmemories.api.concert.activity.DeleteConcertActivity;
 
 import com.nashss.se.concertmemories.dynamodb.ConcertDao;
@@ -44,9 +45,9 @@ public interface ServiceComponent {
 
     /**
      * Provides the relevant activity.
-     * @return GetConcertByVenueActivity
+     * @return GetAllConcertsByVenueActivity
      */
-    //  GetConcertByVenueActivity provideGetConcertByVenueActivity();
+     GetAllConcertsByVenueActivity provideGetAllConcertsByVenueActivity();
 
 
     /**

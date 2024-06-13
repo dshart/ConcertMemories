@@ -1,33 +1,33 @@
 package com.nashss.se.concertmemories.api.concert.request;
 
 /**
- * Implementation of GetAllConcertsByBandRequest for ConcertMemories' GetAllConcertsByBand API.
+ * Implementation of GetAllConcertsByVenueRequest for ConcertMemories' GetAllConcertsByVenue API.
  *
- * This API allows the user to get all of their saved concerts of a specific band.
+ * This API allows the user to get all of their saved concerts from a specific venue.
  */
-public class GetAllConcertsByBandRequest {
+public class GetAllConcertsByVenueRequest {
     private final String emailAddress;
-    private final String bandName;
+    private final String venue;
 
-    private GetAllConcertsByBandRequest(String emailAddress, String bandName) {
+    private GetAllConcertsByVenueRequest(String emailAddress, String venue) {
         this.emailAddress = emailAddress;
-        this.bandName = bandName;
+        this.venue = venue;
     }
 
     public String getEmailAddress() {
         return emailAddress;
     }
 
-    public String getBandName() {
-        return bandName;
+    public String getVenue() {
+        return venue;
     }
 
     @Override
     public String toString() {
-        return "GetAllConcertsByBandRequest{" +
+        return "GetAllConcertsByVenueRequest{" +
                 "emailAddress='" + getEmailAddress() + '\'' +
-                "bandName='" + getBandName() + '\'' +
-        '}';
+                "venue='" + getVenue() + '\'' +
+                '}';
     }
 
     /**
@@ -41,7 +41,7 @@ public class GetAllConcertsByBandRequest {
 
     public static class Builder {
         private String emailAddress;
-        private String bandName;
+        private String venue;
 
         /**
          * withEmailAddress(x).
@@ -54,21 +54,21 @@ public class GetAllConcertsByBandRequest {
         }
 
         /**
-         * withBandName(x).
-         * @param bandName name of band user wants to access concerts for
+         * withVenue(x).
+         * @param venue name of venue user wants to access concerts for
          * @return Builder
          */
-        public Builder withBandName(String bandName) {
-            this.bandName = bandName;
+        public Builder withVenue(String venue) {
+            this.venue = venue;
             return this;
         }
 
         /**
          * build().
-         * @return GetAllConcertsByBandRequest
+         * @return GetAllConcertsByVenueRequest
          */
-        public GetAllConcertsByBandRequest build() {
-            return new GetAllConcertsByBandRequest(emailAddress, bandName);
+        public GetAllConcertsByVenueRequest build() {
+            return new GetAllConcertsByVenueRequest(emailAddress, venue);
         }
     }
 }

@@ -1,7 +1,5 @@
 package com.nashss.se.concertmemories.dynamodb;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
-import com.amazonaws.services.dynamodbv2.model.GlobalSecondaryIndex;
 import com.nashss.se.concertmemories.dynamodb.models.Concert;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.nashss.se.concertmemories.exceptions.ConcertNotFoundException;
@@ -13,6 +11,7 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 import static com.nashss.se.concertmemories.dynamodb.models.Concert.BAND_INDEX;
+import static com.nashss.se.concertmemories.dynamodb.models.Concert.VENUE_INDEX;
 
 /**
  * Accesses data for a concert using {@link Concert} to represent the model in DynamoDB.
@@ -86,6 +85,28 @@ public class ConcertDao {
                 .withIndexName(BAND_INDEX)
                 .withConsistentRead(false)
                 .withKeyConditionExpression("emailAddress = :emailAddress and bandName = :bandName")
+                .withExpressionAttributeValues(valueMap);
+
+        return dynamoDbMapper.query(Concert.class, queryExpression);
+    }
+
+    /**
+     * Retrieves all concerts matching provided emailAddress and venue
+     * <p>
+     * If none found, returns an empty list.
+     *
+     * @param emailAddress The emailAddress to look up
+     * @param venue The venue to look up
+     * @return A list of Concerts found, if any
+     */
+    public List<Concert> getAllConcertsByVenue(String emailAddress, String venue) {
+        Map<String, AttributeValue> valueMap = new HashMap<>();
+        valueMap.put(":emailAddress", new AttributeValue().withS(emailAddress));
+        valueMap.put(":venue", new AttributeValue().withS(venue));
+        DynamoDBQueryExpression<Concert> queryExpression = new DynamoDBQueryExpression<Concert>()
+                .withIndexName(VENUE_INDEX)
+                .withConsistentRead(false)
+                .withKeyConditionExpression("emailAddress = :emailAddress and venue = :venue")
                 .withExpressionAttributeValues(valueMap);
 
         return dynamoDbMapper.query(Concert.class, queryExpression);

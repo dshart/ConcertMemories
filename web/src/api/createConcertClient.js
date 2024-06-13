@@ -16,6 +16,7 @@ export default class CreateConcert extends BindingClass {
         this.authenticator = new Authenticator();
         this.axiosClient = axios;
         axios.defaults.baseURL = process.env.API_BASE_URL;
+      //  axios.defaults.baseURL = '/api/';
         this.props = props;
         this.clientLoaded();
 
@@ -37,58 +38,35 @@ export default class CreateConcert extends BindingClass {
     */
 
    async createConcert(emailAddress, dateAttended, bandName, tourName, venue, openingActs, songsPlayed, memories, errorCallback) {
-        alert("create concert");
-
-//        const data = {
-//          emailAddress: emailAddress,
-//          dateAttended: dateAttended,
-//          bandName: bandName,
-//          tourName: tourName,
-//          venue: venue,
-//          openingActos: openingActs,
-//          songsPlayed: songsPlayed,
-//          memories: memories
-//        };
-//
-//       axios.post('concerts', data)
-//            headers: {
-//              Authorization: `Bearer ${token}`
-//           }
-//           .then(response => {
-//            console.log(response.data);
-//             return response.data.concert;
-//          })
-//          .catch(error => {
-//            console.log(error);
-//             this.handleError(error, errorCallback)
-//          });
+        alert("create changed concert");
+        alert(axios.defaults.baseURL);
 
 
-        try {
-            const token = await this.getTokenOrThrow("Only authenticated users can create a concert");
-            const response = await this.axiosClient.post(`concerts`, {
-                emailAddress: emailAddress,
-                dateAttended: dateAttended,
-                tourName: tourName,
-                bandName: bandName,
-                venue: venue,
-                openingActs: openingActs,
-                songsPlayed: songsPlayed,
-                memories: memories
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                }
-            });
-            return response.data.concert;
-       } catch (error) {
-            this.handleError(error, errorCallback)
-       }
+         try {
+        const token = await this.getTokenOrThrow("Only authenticated users can create a concert");
+        const response = await this.axiosClient.post(`createconcerts`, {
+            emailAddress: emailAddress,
+            dateAttended: dateAttended,
+            tourName: tourName,
+            bandName: bandName,
+            venue: venue,
+            openingActs: openingActs,
+            songsPlayed: songsPlayed,
+            memories: memories
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                accept: 'application/json',
+                content-type: 'application/x-www-form-urlencoded'
+            }
+        });
+        return response.data.concert;
+    } catch (error) {
+        this.handleError(error, errorCallback)
    }
+}
 
-
-
-     /**
+    /**
           * Get the identity of the current user
           * @param errorCallback (Optional) A function to execute if the call fails.
           * @returns The user information for the current user.

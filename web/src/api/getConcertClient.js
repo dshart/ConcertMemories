@@ -90,6 +90,30 @@ export default class GetConcertClient extends BindingClass {
      }
 
      /**
+         * Gets all concerts in the database for a specific venue.
+         * @param errorCallback (Optional) A function to execute if the call fails.
+         * @returns A list of concerts seen at a specific venue
+     */
+
+     async getAllConcertsByVenue(emailAddress, venue, errorCallback) {
+         alert(emailAddress);
+         alert(venue);
+         try {
+            alert("before axis");
+             const token = await this.getTokenOrThrow("Only authenticated users can get a concert");
+             const response = await this.axiosClient.get(`concertsbyvenue/${venue}`, {
+                 headers: {
+                      Authorization: `Bearer ${token}`
+                 }});
+              alert("after axios");
+             return response.data.allConcertsByVenue;
+         } catch (error) {
+            alert("error axios");
+             this.handleError(error, errorCallback)
+        }
+     }
+
+     /**
           * Get the identity of the current user
           * @param errorCallback (Optional) A function to execute if the call fails.
           * @returns The user information for the current user.

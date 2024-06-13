@@ -7,15 +7,15 @@ import java.util.List;
 
 
 /**
- * Implementation of GetAllConcertsByBandResult for ConcertMemories' GetAllConcertsByBand API.
+ * Implementation of GetAllConcertsByVenueResult for ConcertMemories' GetAllConcertsVenue API.
  *
- * This API allows the user to get all of their saved concerts by a specific band.
+ * This API allows the user to get all of their saved concerts from a specific venue.
  */
 
-public class GetAllConcertsByBandResult {
+public class GetAllConcertsByVenueResult {
     private final List<ConcertModel> concertList;
 
-    private GetAllConcertsByBandResult(List<ConcertModel> concertList) {
+    private GetAllConcertsByVenueResult(List<ConcertModel> concertList) {
         this.concertList = concertList;
     }
 
@@ -25,7 +25,7 @@ public class GetAllConcertsByBandResult {
 
     @Override
     public String toString() {
-        return "GetAllConcertsByBandResult{" +
+        return "GetAllConcertsByVenueResult{" +
                 "concertList=" + concertList +
                 '}';
     }
@@ -56,12 +56,10 @@ public class GetAllConcertsByBandResult {
         }
         /**
          * build().
-         * @return GetAllConcertsByBandResult
+         * @return GetAllConcertsByVenueResult
          */
-        public GetAllConcertsByBandResult build() {
-            return new GetAllConcertsByBandResult(concertList);
+        public GetAllConcertsByVenueResult build() {
+            return new GetAllConcertsByVenueResult(concertList);
         }
     }
 }
-
-
