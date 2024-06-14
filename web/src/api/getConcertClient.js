@@ -96,12 +96,15 @@ export default class GetConcertClient extends BindingClass {
      */
 
      async getAllConcertsByVenue(emailAddress, venue, errorCallback) {
+
          try {
              const token = await this.getTokenOrThrow("Only authenticated users can get a concert");
+             alert("about to call get concerts by venue with " + venue);
              const response = await this.axiosClient.get(`concertsbyvenue/${venue}`, {
                  headers: {
                       Authorization: `Bearer ${token}`
              }});
+
              return response.data.allConcertsByVenue;
          } catch (error) {
              this.handleError(error, errorCallback)
