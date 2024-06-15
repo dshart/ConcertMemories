@@ -19,7 +19,7 @@ public class GetAllConcertsByVenueResult {
         this.concertList = concertList;
     }
 
-    public List<ConcertModel> getAllConcertsByBand() {
+    public List<ConcertModel> getAllConcertsByVenue() {
         return new ArrayList<>(concertList);
     }
 

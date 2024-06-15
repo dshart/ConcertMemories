@@ -335,7 +335,7 @@ Resources:
           ConcertMemories:
             Type: Api
             Properties:
-              Path: /concerts/{dateAttended}
+              Path: /deleteconcert/{dateAttended}
               Method: delete
 
   #-----------------------------------------------------

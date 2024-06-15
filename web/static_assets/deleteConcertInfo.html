@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script type="text/javascript" src="assets/deleteConcertVlient.js"></script>
+    <script type="text/javascript" src="assets/deleteConcert.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,12 @@
     <title>Concert Memories - Delete Concert</title>
 </head>
 <body>
-    <label for="dateAttended">Date of Concert:</label>
-    <input type="text" id="dateAttended" name="DateAttended">
-</body>
+    <header class="header" id="header"></header>
+    <div class="center-me">
+        <br>
+        <label for="deleteConcertDateId"><h3>Concert date to delete</h3></label>
+        <br><br><input type="date" id="deleteConcertDateId" /><br><br>
+        <input type="button" hidden value="Submit" id="submitDateToDeleteButton" />
+        <br>
+    </body>
 </html>

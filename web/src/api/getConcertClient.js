@@ -10,8 +10,8 @@ export default class GetConcertClient extends BindingClass {
     constructor(props = {}) {
         super();
 
-        const methodsToBind = ['clientLoaded', 'getConcert', 'getAllConcerts', 'getIdentity', 'verifyLogin', 'login', 'logout',
-        'getTokenOrThrow'];
+        const methodsToBind = ['clientLoaded', 'getConcert', 'getAllConcerts', 'getIdentity', 'verifyLogin',
+        'getTokenOrThrow', 'login', 'logout'];
         this.bindClassMethods(methodsToBind, this);
         this.authenticator = new Authenticator();
         this.axiosClient = axios;
@@ -130,24 +130,24 @@ export default class GetConcertClient extends BindingClass {
      }
 
      async verifyLogin(errorCallback) {
-                 try {
-                     const isLoggedIn = await this.authenticator.isUserLoggedIn();
-                      return isLoggedIn;
+       try {
+         const isLoggedIn = await this.authenticator.isUserLoggedIn();
+         return isLoggedIn;
 
-                 } catch (error) {
-                     this.handleError(error, errorCallback)
-                 }
-             }
+       } catch (error) {
+           this.handleError(error, errorCallback)
+       }
+     }
 
-     async login() {
+      async login() {
              this.authenticator.login();
          }
 
-     async logout() {
+      async logout() {
              this.authenticator.logout();
-         }
+      }
 
-     async getTokenOrThrow(unauthenticatedErrorMessage) {
+    async getTokenOrThrow(unauthenticatedErrorMessage) {
              const isLoggedIn = await this.authenticator.isUserLoggedIn();
              if (!isLoggedIn) {
                  throw new Error(unauthenticatedErrorMessage);

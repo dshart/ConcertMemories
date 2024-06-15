@@ -1,6 +1,5 @@
 package com.nashss.se.concertmemories.api.concert.request;
 
-
 public class DeleteConcertRequest {
     private final String emailAddress;
     private final String dateAttended;
