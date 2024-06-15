@@ -105,6 +105,6 @@ public class CreateConcertActivity {
         return CreateConcertResult.builder()
                 .withConcert(concertModel)
                 .build();
-        
+
     }
 }

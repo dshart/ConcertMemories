@@ -23,7 +23,6 @@ public class DeleteConcertActivity {
      *
      * @param concertDao ConcertDao to interact with the concert table
      */
-
     @Inject
     public DeleteConcertActivity(ConcertDao concertDao)  {
         this.concertDao = concertDao;
