@@ -354,13 +354,6 @@ Resources:
           AttributeType: "S"
         - AttributeName: "venue"
           AttributeType: "S"
-        - AttributeName: "openingActs"
-          AttributeType: "L"
-        - AttributeName: "songsPlayed"
-          AttributeType: "L"
-        - AttributeName: "memories"
-          AttributeType: "L"
-
       KeySchema:
         - AttributeName: "emailAddress"
           KeyType: "HASH"
@@ -376,7 +369,10 @@ Resources:
             - AttributeName: "bandName"
               KeyType: "RANGE"
           Projection:
-            ProjectionType: "ALL"
+            ProjectionType: "INCLUDE"
+            NonKeyAttributes:
+              - "tourName"
+              - "openingActs"
         - IndexName: "ConcertsByVenueIndex"
           KeySchema:
             - AttributeName: "emailAddress"
@@ -384,7 +380,10 @@ Resources:
             - AttributeName: "venue"
               KeyType: "RANGE"
           Projection:
-            ProjectionType: "ALL"
+            ProjectionType: "INCLUDE"
+            NonKeyAttributes:
+              - "tourName"
+              - "openingActs"
   
   BandsTable:
     Type: AWS::DynamoDB::Table
