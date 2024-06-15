@@ -378,15 +378,7 @@ Resources:
               KeyType: "RANGE"
           Projection:
             ProjectionType: "ALL"
-        - IndexName: "ConcertsByVenueNameIndex"
-          KeySchema:
-            - AttributeName: "emailAddress"
-              KeyType: "HASH"
-            - AttributeName: "venueName"
-              KeyType: "RANGE"
-          Projection:
-            ProjectionType: "ALL"
-
+        
   BandsTable:
     Type: AWS::DynamoDB::Table
     Properties:
