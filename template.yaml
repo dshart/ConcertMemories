@@ -352,17 +352,9 @@ Resources:
           AttributeType: "S"
         - AttributeName: "bandName"
           AttributeType: "S"
-        - AttributeName: "tourName"
-          AttributeType: "S"
         - AttributeName: "venue"
           AttributeType: "S"
-        - AttributeName: "openingActs"
-          AttributeType: "L"
-        - AttributeName: "songsPlayed"
-          AttributeType: "L"
-        - AttributeName: "memories"
-          AttributeType: "L"
-
+      
       KeySchema:
         - AttributeName: "emailAddress"
           KeyType: "HASH"
