@@ -354,7 +354,6 @@ Resources:
           AttributeType: "S"
         - AttributeName: "venue"
           AttributeType: "S"
-      
       KeySchema:
         - AttributeName: "emailAddress"
           KeyType: "HASH"
@@ -379,7 +378,7 @@ Resources:
               KeyType: "RANGE"
           Projection:
             ProjectionType: "ALL"
-  
+
   BandsTable:
     Type: AWS::DynamoDB::Table
     Properties:
