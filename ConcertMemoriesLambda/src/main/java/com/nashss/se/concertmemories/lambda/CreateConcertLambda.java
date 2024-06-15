@@ -5,8 +5,6 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.concertmemories.api.concert.request.CreateConcertRequest;
 import com.nashss.se.concertmemories.api.concert.result.CreateConcertResult;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class CreateConcertLambda extends LambdaActivityRunner<CreateConcertRequest, CreateConcertResult>
         implements RequestHandler<AuthenticatedLambdaRequest<CreateConcertRequest>, LambdaResponse> {
