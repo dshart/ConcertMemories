@@ -11,7 +11,7 @@ import java.util.Objects;
 @DynamoDBTable(tableName = "Concerts")
 public class Concert {
     public static final String BAND_INDEX = "ConcertsByBandIndex";
-    public static final String VENUE_INDEX = "ConcertsByVenueIndex";
+    public static final String VENUE_INDEX = "ConcertsByVenueNameIndex";
     private String emailAddress;
     private String bandName;
     private String tourName;
