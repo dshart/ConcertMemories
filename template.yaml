@@ -372,6 +372,7 @@ Resources:
             ProjectionType: "INCLUDE"
             NonKeyAttributes:
               - tourName
+              - venue
               - openingActs
         - IndexName: "ConcertsByVenueIndex"
           KeySchema:
@@ -382,6 +383,7 @@ Resources:
           Projection:
             ProjectionType: "INCLUDE"
             NonKeyAttributes:
+              - bandName
               - tourName
               - openingActs
 
