@@ -51,13 +51,13 @@ export default class ConcertMemoriesClient extends BindingClass {
         }
     }
 
-    async login() {
-        this.authenticator.login();
-    }
+     async login() {
+            this.authenticator.login();
+        }
 
-    async logout() {
-        this.authenticator.logout();
-    }
+        async logout() {
+            this.authenticator.logout();
+        }
 
     async getTokenOrThrow(unauthenticatedErrorMessage) {
         const isLoggedIn = await this.authenticator.isUserLoggedIn();

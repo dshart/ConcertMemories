@@ -1,3 +1,7 @@
+#cut-top-margin {
+    margin-top: -60px
+}
+
 h1 {
     text-align: center;
     padding: 0px;
@@ -15,11 +19,15 @@ h3 {
     display: none;
 }
 
+.unhidden {
+    display: block;
+}
+
 .row {
   display: flex;
 }
 
-div.concertForm
+div.center-me
 {
     text-align: center;
 }

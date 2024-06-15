@@ -1,16 +1,23 @@
 package com.nashss.se.concertmemories.api.concert.result;
 
-import com.nashss.se.concertmemories.dynamodb.models.Concert;
+import com.nashss.se.concertmemories.models.ConcertModel;
 
 public class DeleteConcertResult {
 
-    private final Concert concert;
+    private final ConcertModel concert;
 
-    private DeleteConcertResult(Concert concert) {
+    private DeleteConcertResult(ConcertModel concert) {
         this.concert = concert;
     }
 
-    public Concert geConcert() { return concert; }
+    public ConcertModel getConcert() { return concert; }
+
+    @Override
+    public String toString() {
+        return "DeleteConcertResult{" +
+                "concert=" + concert +
+                '}';
+    }
 
     //CHECKSTYLE:OFF:Builder
     public static Builder builder() {
@@ -18,8 +25,8 @@ public class DeleteConcertResult {
     }
 
     public static class Builder {
-        private Concert concert;
-        public Builder withConcert(Concert concert) {
+        private ConcertModel concert;
+        public Builder withConcert(ConcertModel concert) {
             this.concert = concert;
             return this;
         }
@@ -27,4 +34,5 @@ public class DeleteConcertResult {
             return new DeleteConcertResult(concert);
         }
     }
+
 }
