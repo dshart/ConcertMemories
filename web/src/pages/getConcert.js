@@ -17,27 +17,27 @@ class GetConcert extends BindingClass {
 
         this.header = new Header(this.dataStore);
         this.bindClassMethods(['displayAllConcertsHTML', 'displayAllConcertsByBandHTML', 'displaySingleConcertHTML',
-        'displayAllConcertsByVenueHTML', 'dropDownChange', 'getHTMLForAllConcertsView', 'getHTMLForAllConcertsByBandView',
-        'getHTMLForSingleConcertView', 'getHTMLForAllConcertsByVenueView', 'getIdentity',  'mount', 'startupActivities',
-        'submitBandViewButton', 'submitDateViewButton', 'submitVenueViewButton', 'submitViewButtonClick'], this);
-        this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
+        'displayAllConcertsByVenueHTML', 'dropDownChange', 'getHTMLForAllConcertsView',
+        'getHTMLForAllConcertsByBandView', 'getHTMLForSingleConcertView', 'getHTMLForAllConcertsByVenueView',
+        'getIdentity',  'mount', 'startupActivities', 'submitBandViewButton', 'submitDateViewButton',
+        'submitVenueViewButton', 'submitViewButtonClick'], this);
+         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
     }
 
    /**
     * Add the header to the page and load the GetConcertClient.
     */
     mount() {
-
         this.header.addHeaderToPage();
         this.client = new GetConcertClient();
         this.startupActivities();
     }
 
     async startupActivities() {
-        const{email, name} = await this.client.getIdentity().then(result => result);
         //const concertView = document.querySelector('#concertViewOptions');
         const concertView = document.getElementById('concertViewOptions');
         concertView.addEventListener("change", this.dropDownChange);
+        //alert("in startup with email and name " + ${email} + "  " + ${name});
     }
 
     async dropDownChange() {
@@ -138,7 +138,9 @@ class GetConcert extends BindingClass {
 
     async submitViewButtonClick(selectedValue){
         var submitViewButton = document.getElementById('submitViewButton');
+        const{email, name} = await this.client.getIdentity();
 
+        alert("in submitViewButtonClick wiiht email " + email);
         //var submitViewButton = document.querySelector("#submitViewButton");
         submitViewButton.style.display = 'none';
 
@@ -155,10 +157,12 @@ class GetConcert extends BindingClass {
     }
 
     async submitBandViewButton(bandName){
+        const{email, name} = await this.client.getIdentity();
+        alert ("in submitbandview buttn with email" + email);
         //var submitBandNameButton = document.querySelector("#submitBandNameButton");
         var submitBandNameButton = document.getElementById('submitBandNameButton');
         submitBandNameButton.style.display = "none";
-        var emailKey = email;
+        var emailKey =email;
         var bandKey = bandName;
         const searchCriteria = [emailKey, bandKey];
         const results = await this.client.getAllConcertsByBand(emailKey, bandKey);
@@ -169,6 +173,8 @@ class GetConcert extends BindingClass {
     }
 
     async submitVenueViewButton(venue){
+        const{email, name} = await this.client.getIdentity();
+        alert("in submit view with email" + email);
        // var submitVenueButton = document.querySelector("#submitVenueButton");
         var submitVenueButton = document.getElementById('submitVenueButton');
         submitVenueButton.style.display='none';
@@ -183,10 +189,12 @@ class GetConcert extends BindingClass {
     }
 
     async submitDateViewButton(date, selectedValue){
+     const{email, name} = await this.client.getIdentity();
         //var submitDateButton = document.querySelector("#submitDateButton");
         var submitDateButton = document.getElementById('submitDateButton');
         submitDateButton.style.display='none';
 
+        alert("in submti date with email " + email);
         var emailKey = email;
         var dateKey = date;
         const searchCriteria = [emailKey, dateKey];
@@ -422,7 +430,15 @@ class GetConcert extends BindingClass {
             this.handleError(error, errorCallback)
         }
     }
+
+//   async getCognitoInfo(errrorCallBack) {
+//       alert("getting cognito")
+//       const{email, name} = await this.client.getIdentity();
+//       alert ("alert leaving cognito with " + email + "  " + name);
+//   }
 }
+
+
 /**
  * Main method to run when the page contents have loaded.
  */
@@ -430,5 +446,8 @@ const main = async () => {
     const getConcert = new GetConcert();
     getConcert.mount();
 };
+
+//window.onload(this.getCognitoInfo());
+//};
 
 window.addEventListener('DOMContentLoaded', main);

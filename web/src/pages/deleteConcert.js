@@ -31,7 +31,6 @@ class DeleteConcert extends BindingClass {
     }
 
     async startupActivities() {
-        const{email, name} = await this.client.getIdentity().then(result => result);
         //const concertView = document.querySelector('#concertDateToDelete');
         var concertView = document.getElementById('concertDateToDelete');
        // var dateSelected = document.querySelector("#deleteConcertDateId");
@@ -48,6 +47,7 @@ class DeleteConcert extends BindingClass {
     }
 
     async deleteConcert(dateAttended, dateSelected, DateToDeleteButton) {
+        const{email, name} = await this.client.getIdentity().then(result => result);
         var emailKey = email;
         var dateKey = dateAttended
         const searchCriteria = [emailKey, dateKey];
