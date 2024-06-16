@@ -208,10 +208,10 @@ Resources:
                 Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Concerts"
               - Effect: Allow
                 Action: dynamodb:query
-                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Concerts/index/ConcertsByBandIndex"
+                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Concerts/index/ConcertsByBandIndex2"
               - Effect: Allow
                 Action: dynamodb:query
-                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Concerts/index/ConcertsByBVenueIndex"
+                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Concerts/index/ConcertsByBVenueIndex2"
 
       
         - PolicyName: 'AccessBandsTable'
@@ -361,12 +361,6 @@ Resources:
           AttributeType: "S"
         - AttributeName: "venue"
           AttributeType: "S"
-        - AttributeName: "openingActs"
-          AttributeType: "L"
-        - AttributeName: "songsPlayed"
-          AttributeType: "L"
-        - AttributeName: "memories"
-          AttributeType: "L"
 
       KeySchema:
         - AttributeName: "emailAddress"
@@ -376,7 +370,33 @@ Resources:
       BillingMode: "PAY_PER_REQUEST"
       TableName: "Concerts"
       GlobalSecondaryIndexes:
-        - IndexName: "ConcertsByBandIndex"
+#        - IndexName: "ConcertsByBandIndex"
+#          KeySchema:
+#            - AttributeName: "emailAddress"
+#              KeyType: "HASH"
+#            - AttributeName: "bandName"
+#              KeyType: "RANGE"
+#          Projection:
+#            ProjectionType: "INCLUDE"
+#            NonKeyAttributes:
+#              - tourName
+#              - venue
+#              - openingActs
+#
+#        - IndexName: "ConcertsByVenueIndex"
+#          KeySchema:
+#            - AttributeName: "emailAddress"
+#              KeyType: "HASH"
+#            - AttributeName: "venue"
+#              KeyType: "RANGE"
+#          Projection:
+#            ProjectionType: "INCLUDE"
+#            NonKeyAttributes:
+#              - bandName
+#              - tourName
+#              - openingActs
+
+        - IndexName: "ConcertsByBandIndex2"
           KeySchema:
             - AttributeName: "emailAddress"
               KeyType: "HASH"
@@ -386,10 +406,9 @@ Resources:
             ProjectionType: "INCLUDE"
             NonKeyAttributes:
               - tourName
-              - venue
               - openingActs
 
-        - IndexName: "ConcertsByVenueIndex"
+        - IndexName: "ConcertsByVenueIndex2"
           KeySchema:
             - AttributeName: "emailAddress"
               KeyType: "HASH"
@@ -398,9 +417,8 @@ Resources:
           Projection:
             ProjectionType: "INCLUDE"
             NonKeyAttributes:
-              - bandName
               - tourName
-              - openingActs
+              - openingActs         -
 
   BandsTable:
     Type: AWS::DynamoDB::Table
