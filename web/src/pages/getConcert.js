@@ -34,10 +34,8 @@ class GetConcert extends BindingClass {
     }
 
     async startupActivities() {
-        //const concertView = document.querySelector('#concertViewOptions');
         const concertView = document.getElementById('concertViewOptions');
         concertView.addEventListener("change", this.dropDownChange);
-        //alert("in startup with email and name " + ${email} + "  " + ${name});
     }
 
     async dropDownChange() {
@@ -47,38 +45,34 @@ class GetConcert extends BindingClass {
 
         if (selectedValue == 1) {
             var html = "";
-            html += '<br><label>Enter Concert Date<br><input type="date" id="concertDateId" /><br><input type="button" hidden value="Submit" id="submitDateButton" />'
+            html += '<br><label>Enter Concert Date<br><input type="date" id="concertDateId" /><br><input type="button" value="Submit" id="submitDateButton" />'
             concertDisplayArea.innerHTML = "";
             concertDisplayArea.innerHTML = html;
 
-            //var dateSelected = document.querySelector("#concertDateId");
             var dateSelected = document.getElementById('concertDateId');
-            //var submitDateButton = document.querySelector("#submitDateButton");
             var submitDateButton = document.getElementById('submitDateButton');
             var date;
 
             dateSelected.addEventListener("change",  function() {
                 date = dateSelected.value;
-                submitDateButton.removeAttribute("hidden");
+                submitDateButton.style.display = "block";
             });
             submitDateButton.addEventListener("click", () => this.submitDateViewButton(date, selectedValue));
         } else if (selectedValue == 5) {
             var html = "";
-            html += '<br><label>Enter Band Name<br><input type="text" autocomplete="off", id="bandNameInput" /><br><input type="button" hidden value="Submit" id="submitBandNameButton" />'
+            html += '<br><label>Enter Band Name<br><input type="text" autocomplete="off", id="bandNameInput" /><br><input type="button" value="Submit" id="submitBandNameButton" />'
             concertDisplayArea.innerHTML = "";
             concertDisplayArea.innerHTML = html;
 
             var bandName = "";
-            //var bandNameInput = document.querySelector("#bandNameInput");
             var bandNameInput = document.getElementById('bandNameInput');
             bandNameInput.value == "";
             bandNameInput.focus();
-            //var submitBandButton = document.querySelector("#submitBandNameButton");
             var submitBandButton = document.getElementById('submitBandNameButton');
 
             bandNameInput.addEventListener("keyup", function() {
                 bandName = bandNameInput.value;
-                submitBandNameButton.removeAttribute("hidden");
+                submitBandNameButton.style.display = "block";
             });
 
             submitBandNameButton.addEventListener("click", () => this.submitBandViewButton(bandName));
@@ -93,21 +87,19 @@ class GetConcert extends BindingClass {
             });
         } else if (selectedValue == 6) {
             var html = "";
-            html += '<br><label>Enter Venue Name<br><input type="text" autocomplete="off", id="venueInput" /><br><input type="button" hidden value="Submit" id="submitVenueButton" />'
+            html += '<br><label>Enter Venue Name<br><input type="text" autocomplete="off", id="venueInput" /><br><input type="button" value="Submit" id="submitVenueButton" />'
             concertDisplayArea.innerHTML = "";
             concertDisplayArea.innerHTML = html;
 
             var venue = "";
-            //var venueInput = document.querySelector("#venueInput");
             var venueInput = document.getElementById('venueInput');
             venueInput.value == "";
             venueInput.focus();
-            //var submitVenueButton = document.querySelector("#submitVenueButton");
-             var submitVenueButton = document.getElementById('submitVenueButton');
+            var submitVenueButton = document.getElementById('submitVenueButton');
 
             venueInput.addEventListener("keyup", function() {
                 venue = venueInput.value;
-                submitVenueButton.removeAttribute("hidden");
+                submitVenueButton.style.display = "block";
             });
 
             submitVenueButton.addEventListener("click", () => {
@@ -131,7 +123,6 @@ class GetConcert extends BindingClass {
             html += '<br><label for="submitViewButton"></label><input type ="button" value="Submit" id="submitViewButton" />';
             concertDisplayArea.innerHTML = html;
             var submitViewButton = document.getElementById('submitViewButton');
-            //var submitViewButton = document.querySelector("#submitViewButton");
             submitViewButton.addEventListener("click", () => this.submitViewButtonClick(selectedValue));
         }
     }
@@ -140,8 +131,6 @@ class GetConcert extends BindingClass {
         var submitViewButton = document.getElementById('submitViewButton');
         const{email, name} = await this.client.getIdentity();
 
-        alert("in submitViewButtonClick wiiht email " + email);
-        //var submitViewButton = document.querySelector("#submitViewButton");
         submitViewButton.style.display = 'none';
 
         if (selectedValue == 0) {
@@ -158,8 +147,6 @@ class GetConcert extends BindingClass {
 
     async submitBandViewButton(bandName){
         const{email, name} = await this.client.getIdentity();
-        alert ("in submitbandview buttn with email" + email);
-        //var submitBandNameButton = document.querySelector("#submitBandNameButton");
         var submitBandNameButton = document.getElementById('submitBandNameButton');
         submitBandNameButton.style.display = "none";
         var emailKey =email;
@@ -174,8 +161,6 @@ class GetConcert extends BindingClass {
 
     async submitVenueViewButton(venue){
         const{email, name} = await this.client.getIdentity();
-        alert("in submit view with email" + email);
-       // var submitVenueButton = document.querySelector("#submitVenueButton");
         var submitVenueButton = document.getElementById('submitVenueButton');
         submitVenueButton.style.display='none';
         var emailKey = email;
@@ -190,11 +175,8 @@ class GetConcert extends BindingClass {
 
     async submitDateViewButton(date, selectedValue){
      const{email, name} = await this.client.getIdentity();
-        //var submitDateButton = document.querySelector("#submitDateButton");
         var submitDateButton = document.getElementById('submitDateButton');
         submitDateButton.style.display='none';
-
-        alert("in submti date with email " + email);
         var emailKey = email;
         var dateKey = date;
         const searchCriteria = [emailKey, dateKey];
@@ -262,11 +244,8 @@ class GetConcert extends BindingClass {
 
         searchResultsDisplay.innerHTML = "";
         searchResultsDisplay.innerHTML = this.getHTMLForSingleConcertView(searchResults, date);
-        //submitDateViewButton.classList.add('hidden');
         submitDateViewButton.style.display = 'none';
-
-
-    }
+   }
 
     //All Concerts by venue
    displayAllConcertsByVenueHTML(venue, submitVenueButton) {
@@ -306,10 +285,8 @@ class GetConcert extends BindingClass {
     }
 
     getHTMLForAllConcertsByBandView(searchResults, bandName) {
-        //var bandNameInput = document.querySelector("#bandNameInput");
-     var bandNameInput = document.getElementById('bandNameInput');
-     //var submitBandNameButton = document.querySelector("#submitBandNameButton");
-     var submitBandNameButton = document.getElementById('submitBandNameButton');
+        var bandNameInput = document.getElementById('bandNameInput');
+        var submitBandNameButton = document.getElementById('submitBandNameButton');
         if (searchResults == null || searchResults.length == 0) {
              let html = '<h3>No Concerts found for ' + bandName + '</h3>';
               bandNameInput.value = "";
@@ -430,12 +407,6 @@ class GetConcert extends BindingClass {
             this.handleError(error, errorCallback)
         }
     }
-
-//   async getCognitoInfo(errrorCallBack) {
-//       alert("getting cognito")
-//       const{email, name} = await this.client.getIdentity();
-//       alert ("alert leaving cognito with " + email + "  " + name);
-//   }
 }
 
 
@@ -446,8 +417,5 @@ const main = async () => {
     const getConcert = new GetConcert();
     getConcert.mount();
 };
-
-//window.onload(this.getCognitoInfo());
-//};
 
 window.addEventListener('DOMContentLoaded', main);

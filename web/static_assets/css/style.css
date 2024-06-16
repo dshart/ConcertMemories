@@ -102,6 +102,23 @@ body {
     align-items: center;
 }
 
+#submitDateToDisplayButton {
+    display : none;
+}
+
+#submitDateToDeleteButton {
+    display : none;
+}
+
+#submitBandNameButton {
+    display : none;
+}
+
+
+#submitVenueButton {
+    display : none;
+}
+
 #button-container-index {
     display: block;
     margin-left: auto;

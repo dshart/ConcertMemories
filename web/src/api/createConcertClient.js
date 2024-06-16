@@ -72,7 +72,6 @@ export default class CreateConcertClient extends BindingClass {
                 return undefined;
             }
 
-            alert("in getIdentity createCOncertCLient go to authenticsator ");
             return await this.authenticator.getCurrentUserInfo();
         } catch (error) {
             this.handleError(error, errorCallback)

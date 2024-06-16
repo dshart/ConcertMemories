@@ -55,7 +55,6 @@ class CreateConcert extends BindingClass {
 
 
         const{email, name} = await this.client.getIdentity().then(result => result);
-        alert ("in submit form with email: " + email);
         await this.client.createConcert(
             email,
             document.getElementById('concertDate').value,
