@@ -10,8 +10,8 @@ import java.util.Objects;
  */
 @DynamoDBTable(tableName = "Concerts")
 public class Concert {
-    public static final String BAND_INDEX = "ConcertsByBandIndex";
-    public static final String VENUE_INDEX = "ConcertsByVenueIndex";
+    public static final String BAND_INDEX = "ConcertsByBandIndex2";
+    public static final String VENUE_INDEX = "ConcertsByVenueIndex2";
     private String emailAddress;
     private String bandName;
     private String tourName;
