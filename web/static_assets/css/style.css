@@ -102,9 +102,92 @@ body {
     align-items: center;
 }
 
-#submitDateToDisplayButton {
-    display : none;
+#submitConcertButtonId {
+    background-color: #6E5658;
+    width: 125px;
+    padding: .5em 1em;
+    font-size: 1em;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 1.25em;
+    color: white;
+    border: none;
+    display: none;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    display: none
 }
+
+#submitDateToDisplayButtonId {
+    background-color: #6E5658;
+    width: 125px;
+    padding: .5em 1em;
+    font-size: 1em;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 1.25em;
+    color: white;
+    border: none;
+    display: none;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    display: none
+}
+
+#submitDateToDeleteButtonId {
+    background-color: #6E5658;
+    width: 125px;
+    padding: .5em 1em;
+    font-size: 1em;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 1.25em;
+    color: white;
+    border: none;
+    display: none;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    display: none
+}
+
+#enterSiteButtonId {
+    background-color: #6E5658;
+    width: 125px;
+    padding: .5em 1em;
+    font-size: 1em;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 1.25em;
+    color: white;
+    border: none;
+    display: none;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    display: none
+}
+
+#concertViewButtonId {
+    background-color: #6E5658;
+    width: 125px;
+    padding: .5em 1em;
+    font-size: 1em;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 1.25em;
+    color: white;
+    border: none;
+    display: none;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    display: none
+}
+
+
 
 #submitDateToDeleteButton {
     display : none;
@@ -144,22 +227,7 @@ td {
   padding: 20px;
 }
 
-.enterSiteButtonId {
-    background-color: #6E5658;
-    width: 125px;
-    padding: .5em 1em;
-    font-size: 1em;
-    text-align: center;
-    cursor: pointer;
-    border-radius: 1.25em;
-    color: white;
-    border: none;
-    display: none;
-    margin-top: 0px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block
-}
+
 
 .center-photos {
     display: block;
@@ -197,16 +265,6 @@ td {
    border-radius: 1.25em;
    color: white;
    display: inline-block
-}
-
-.concertViewButton {
-   width: 125px;
-   padding: .5em 1em;
-   font-size: 1em;
-   text-align: center;
-   cursor: pointer;
-   border-radius: 1.25em;
-   color: white;
 }
 
 .button-primary {
