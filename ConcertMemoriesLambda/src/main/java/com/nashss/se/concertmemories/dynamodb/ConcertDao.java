@@ -21,6 +21,7 @@ import static com.nashss.se.concertmemories.dynamodb.models.Concert.VENUE_INDEX;
 public class ConcertDao {
     private final DynamoDBMapper dynamoDbMapper;
 
+
     /**
      * Instantiates a ConcertDao object.
      *
@@ -130,6 +131,7 @@ public class ConcertDao {
      * @param dateAttended The date of concert to be deleted
      */
     public void deleteConcert(String emailAddress, String dateAttended) {
+
         Concert concert = new Concert();
         concert.setEmailAddress(emailAddress);
         concert.setDateAttended(dateAttended);
