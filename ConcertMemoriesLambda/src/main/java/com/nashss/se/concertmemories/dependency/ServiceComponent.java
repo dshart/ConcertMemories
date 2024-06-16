@@ -70,31 +70,9 @@ public interface ServiceComponent {
     DeleteConcertActivity provideDeleteConcertActivity();
 
 
-    /**
-     * Provides the relevant activity.
-     * @return GetArtistActivity
-     */
-    // GetArtistActivity provideGetArtistActivity();
 
 
-    /**
-     * Provides the relevant activity.
-     * @return UpdateArtistActivity
-     */
-    // UpdateArtistActivity provideUpdateArtistActivity();
 
-
-    /**
-     * Provides the relevant activity.
-     * @return CreateArtistActivity
-     */
-    //  CreateArtistActivity provideCreateArtistActivity();
-
-    /**
-     * Provides the relevant activity.
-     * @return DeleteArtistActivity
-     */
-    // DeleteArtistActivity provideDeleteArtistActivity();
 
 
 
