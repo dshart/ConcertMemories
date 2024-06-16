@@ -35,7 +35,6 @@ class CreateConcert extends BindingClass {
             e.preventDefault();
             this.submitForm();
         });
-        const{email, name} = await this.client.getIdentity().then(result => result);
     }
 
     convertToList(stringToConvert) {
@@ -55,6 +54,8 @@ class CreateConcert extends BindingClass {
         var mList = this.convertToList(m);
 
 
+        const{email, name} = await this.client.getIdentity().then(result => result);
+        alert ("in submit form with email: " + email);
         await this.client.createConcert(
             email,
             document.getElementById('concertDate').value,
