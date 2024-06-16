@@ -11,7 +11,7 @@ export default class GetConcertClient extends BindingClass {
         super();
 
         const methodsToBind = ['clientLoaded', 'getConcert', 'getAllConcerts', 'getIdentity', 'verifyLogin',
-        'getTokenOrThrow', 'login', 'logout'];
+        'getTokenOrThrow'];
         this.bindClassMethods(methodsToBind, this);
         this.authenticator = new Authenticator();
         this.axiosClient = axios;
@@ -99,7 +99,6 @@ export default class GetConcertClient extends BindingClass {
 
          try {
              const token = await this.getTokenOrThrow("Only authenticated users can get a concert");
-             alert("about to call get concerts by venue with " + venue);
              const response = await this.axiosClient.get(`concertsbyvenue/${venue}`, {
                  headers: {
                       Authorization: `Bearer ${token}`
@@ -130,22 +129,14 @@ export default class GetConcertClient extends BindingClass {
      }
 
      async verifyLogin(errorCallback) {
-       try {
-         const isLoggedIn = await this.authenticator.isUserLoggedIn();
-         return isLoggedIn;
+                 try {
+                     const isLoggedIn = await this.authenticator.isUserLoggedIn();
+                      return isLoggedIn;
 
-       } catch (error) {
-           this.handleError(error, errorCallback)
-       }
-     }
-
-      async login() {
-             this.authenticator.login();
-         }
-
-      async logout() {
-             this.authenticator.logout();
-      }
+                 } catch (error) {
+                     this.handleError(error, errorCallback)
+                 }
+             }
 
     async getTokenOrThrow(unauthenticatedErrorMessage) {
              const isLoggedIn = await this.authenticator.isUserLoggedIn();

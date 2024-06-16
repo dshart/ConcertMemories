@@ -31,9 +31,12 @@ class DeleteConcert extends BindingClass {
     }
 
     async startupActivities() {
-        const concertView = document.querySelector('#concertDateToDelete');
-        var dateSelected = document.querySelector("#deleteConcertDateId");
-        var submitDateToDeleteButton = document.querySelector("#submitDateToDeleteButton");
+        //const concertView = document.querySelector('#concertDateToDelete');
+        var concertView = document.getElementById('concertDateToDelete');
+       // var dateSelected = document.querySelector("#deleteConcertDateId");
+        var dateSelected = document.getElementById('deleteConcertDateId');
+        //var submitDateToDeleteButton = document.querySelector("#submitDateToDeleteButton");
+        var submitDateToDeleteButton = document.getElementById('submitDateToDeleteButton');
         var date;
 
         dateSelected.addEventListener("change",  function() {

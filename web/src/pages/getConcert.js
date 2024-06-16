@@ -19,7 +19,7 @@ class GetConcert extends BindingClass {
         this.bindClassMethods(['displayAllConcertsHTML', 'displayAllConcertsByBandHTML', 'displaySingleConcertHTML',
         'displayAllConcertsByVenueHTML', 'dropDownChange', 'getHTMLForAllConcertsView', 'getHTMLForAllConcertsByBandView',
         'getHTMLForSingleConcertView', 'getHTMLForAllConcertsByVenueView', 'getIdentity', 'getUserEmail', 'mount',
-        'startupActivities', 'submitBandViewButton', 'submitDateViewButton', 'submitVenueViewButton', 'submitViewButton'], this);
+        'startupActivities', 'submitBandViewButton', 'submitDateViewButton', 'submitVenueViewButton', 'submitViewButtonClick'], this);
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
     }
 
@@ -35,14 +35,15 @@ class GetConcert extends BindingClass {
     }
 
     async startupActivities() {
-        const concertView = document.querySelector('#concertViewOptions');
+        //const concertView = document.querySelector('#concertViewOptions');
+        const concertView = document.getElementById('concertViewOptions');
         concertView.addEventListener("change", this.dropDownChange);
     }
 
     async dropDownChange() {
         var dropDown = document.getElementById('concertViewOptions');
         var selectedValue = dropDown.options[dropDown.selectedIndex].value;
-        var concertDisplayArea = document.getElementById("submitConcertArea");
+        var concertDisplayArea = document.getElementById('submitConcertArea');
 
         if (selectedValue == 1) {
             var html = "";
@@ -50,8 +51,10 @@ class GetConcert extends BindingClass {
             concertDisplayArea.innerHTML = "";
             concertDisplayArea.innerHTML = html;
 
-            var dateSelected = document.querySelector("#concertDateId");
-            var submitDateButton = document.querySelector("#submitDateButton");
+            //var dateSelected = document.querySelector("#concertDateId");
+            var dateSelected = document.getElementById('concertDateId');
+            //var submitDateButton = document.querySelector("#submitDateButton");
+            var submitDateButton = document.getElementById('submitDateButton');
             var date;
 
             dateSelected.addEventListener("change",  function() {
@@ -66,10 +69,12 @@ class GetConcert extends BindingClass {
             concertDisplayArea.innerHTML = html;
 
             var bandName = "";
-            var bandNameInput = document.querySelector("#bandNameInput");
+            //var bandNameInput = document.querySelector("#bandNameInput");
+            var bandNameInput = document.getElementById('bandNameInput');
             bandNameInput.value == "";
             bandNameInput.focus();
-            var submitBandButton = document.querySelector("#submitBandNameButton");
+            //var submitBandButton = document.querySelector("#submitBandNameButton");
+            var submitBandButton = document.getElementById('submitBandNameButton');
 
             bandNameInput.addEventListener("keyup", function() {
                 bandName = bandNameInput.value;
@@ -93,10 +98,12 @@ class GetConcert extends BindingClass {
             concertDisplayArea.innerHTML = html;
 
             var venue = "";
-            var venueInput = document.querySelector("#venueInput");
+            //var venueInput = document.querySelector("#venueInput");
+            var venueInput = document.getElementById('venueInput');
             venueInput.value == "";
             venueInput.focus();
-            var submitVenueButton = document.querySelector("#submitVenueButton");
+            //var submitVenueButton = document.querySelector("#submitVenueButton");
+             var submitVenueButton = document.getElementById('submitVenueButton');
 
             venueInput.addEventListener("keyup", function() {
                 venue = venueInput.value;
@@ -119,18 +126,21 @@ class GetConcert extends BindingClass {
                     submitVenueButton.disabled = true;
                 }
             });
-        } else {
+        } else if (selectedValue == 2 || selectedValue == 3 || selectedValue == 4) {
             var html = "";
             html += '<br><label for="submitViewButton"></label><input type ="button" value="Submit" id="submitViewButton" />';
             concertDisplayArea.innerHTML = html;
-            var submitViewButton = document.querySelector("#submitViewButton");
-            submitViewButton.addEventListener("click", () => this.submitViewButton(selectedValue));
+            var submitViewButton = document.getElementById('submitViewButton');
+            //var submitViewButton = document.querySelector("#submitViewButton");
+            submitViewButton.addEventListener("click", () => this.submitViewButtonClick(selectedValue));
         }
     }
 
-    async submitViewButton(selectedValue){
-        var submitViewButton = document.querySelector("#submitViewButton");
-        submitViewButton.style.display='none';
+    async submitViewButtonClick(selectedValue){
+        var submitViewButton = document.getElementById('submitViewButton');
+
+        //var submitViewButton = document.querySelector("#submitViewButton");
+        submitViewButton.style.display = 'none';
 
         if (selectedValue == 0) {
             searchResultsDisplay.innerHTML = "";
@@ -145,7 +155,8 @@ class GetConcert extends BindingClass {
     }
 
     async submitBandViewButton(bandName){
-        var submitBandNameButton = document.querySelector("#submitBandNameButton");
+        //var submitBandNameButton = document.querySelector("#submitBandNameButton");
+        var submitBandNameButton = document.getElementById('submitBandNameButton');
         submitBandNameButton.style.display = "none";
         var emailKey = this.getUserEmail();
         var bandKey = bandName;
@@ -158,7 +169,8 @@ class GetConcert extends BindingClass {
     }
 
     async submitVenueViewButton(venue){
-        var submitVenueButton = document.querySelector("#submitVenueButton");
+       // var submitVenueButton = document.querySelector("#submitVenueButton");
+        var submitVenueButton = document.getElementById('submitVenueButton');
         submitVenueButton.style.display='none';
         var emailKey = await this.getUserEmail();
         var venueKey = venue;
@@ -171,7 +183,8 @@ class GetConcert extends BindingClass {
     }
 
     async submitDateViewButton(date, selectedValue){
-        var submitDateButton = document.querySelector("#submitDateButton");
+        //var submitDateButton = document.querySelector("#submitDateButton");
+        var submitDateButton = document.getElementById('submitDateButton');
         submitDateButton.style.display='none';
 
         var emailKey = this.getUserEmail();
@@ -241,7 +254,8 @@ class GetConcert extends BindingClass {
 
         searchResultsDisplay.innerHTML = "";
         searchResultsDisplay.innerHTML = this.getHTMLForSingleConcertView(searchResults, date);
-        submitDateViewButton.classList.add('hidden');
+        //submitDateViewButton.classList.add('hidden');
+        submitDateViewButton.style.display = 'none';
 
 
     }
@@ -293,8 +307,10 @@ class GetConcert extends BindingClass {
     }
 
     getHTMLForAllConcertsByBandView(searchResults, bandName) {
-     var bandNameInput = document.querySelector("#bandNameInput");
-     var submitBandNameButton = document.querySelector("#submitBandNameButton");
+        //var bandNameInput = document.querySelector("#bandNameInput");
+     var bandNameInput = document.getElementById('bandNameInput');
+     //var submitBandNameButton = document.querySelector("#submitBandNameButton");
+     var submitBandNameButton = document.getElementById('submitBandNameButton');
         if (searchResults == null || searchResults.length == 0) {
              let html = '<h3>No Concerts found for ' + bandName + '</h3>';
               bandNameInput.value = "";

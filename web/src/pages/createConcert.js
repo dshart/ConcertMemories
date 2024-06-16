@@ -29,7 +29,7 @@ class CreateConcert extends BindingClass {
     }
 
     async startupActivities() {
-        let concertForm = document.getElementById("concertFormId");
+        let concertForm = document.getElementById('concertFormId');
         concertForm.addEventListener("submit", (e) => {
             e.preventDefault();
             this.submitForm();

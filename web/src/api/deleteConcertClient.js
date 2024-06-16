@@ -53,7 +53,6 @@ export default class DeleteConcertClient extends BindingClass {
        } catch (error) {
            this.handleError(error, errorCallback)
        }
-       alert("If date legit, deleted.  Delete another?");
    }
 
     /**
