@@ -18,7 +18,7 @@ class CreateConcert extends BindingClass {
         super();
 
         this.header = new Header(this.dataStore);
-        this.bindClassMethods(['convertToList', 'getIdentity', 'getUserEmail', 'mount', 'startupActivities', 'submitForm'], this);
+        this.bindClassMethods(['convertToList', 'getIdentity', 'mount', 'startupActivities', 'submitForm'], this);
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
     }
 
@@ -26,25 +26,18 @@ class CreateConcert extends BindingClass {
         this.header.addHeaderToPage();
         this.client = new CreateConcertClient();
         this.startupActivities();
+        //const email = await this.getUserEmail();
     }
 
     async startupActivities() {
-        let concertForm = document.getElementById("concertFormId");
+        let concertForm = document.getElementById('concertFormId');
         concertForm.addEventListener("submit", (e) => {
             e.preventDefault();
             this.submitForm();
         });
     }
 
-    /* Uses the client to obtain the Users email and Name;
-         * @returns User Email
-        */
-     async getUserEmail() {
-        const { email, name } = await this.client.getIdentity().then(result => result);
-            return email;
-     }
-
-     convertToList(stringToConvert) {
+    convertToList(stringToConvert) {
          var arr = [];
          if (stringToConvert != null) {
              arr = stringToConvert.split(",");
@@ -56,12 +49,13 @@ class CreateConcert extends BindingClass {
         var oa = document.getElementById('openingActs').value;
         var sp = document.getElementById('songsPlayed').value;
         var m = document.getElementById('memories').value;
-
         var oaList = this.convertToList(oa);
         var spList = this.convertToList(sp);
         var mList = this.convertToList(m);
-        var email = await this.getUserEmail();
 
+
+        const{email, name} = await this.client.getIdentity().then(result => result);
+        alert ("in submit form with email: " + email);
         await this.client.createConcert(
             email,
             document.getElementById('concertDate').value,

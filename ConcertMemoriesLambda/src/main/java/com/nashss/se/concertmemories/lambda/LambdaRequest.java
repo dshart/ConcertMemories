@@ -2,20 +2,20 @@
 
 package com.nashss.se.concertmemories.lambda;
 
-        import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 
-        import com.fasterxml.jackson.core.JsonProcessingException;
-        import com.fasterxml.jackson.databind.ObjectMapper;
-        import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-        import org.apache.logging.log4j.LogManager;
-        import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-        import java.util.Map;
-        import java.util.function.BiFunction;
-        import java.util.function.Function;
+import java.util.Map;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
-        import static com.nashss.se.concertmemories.utils.NullUtils.ifNull;
+import static com.nashss.se.concertmemories.utils.NullUtils.ifNull;
 
 /**
  * Represents a generic "APIGateway" request made to a lambda function.

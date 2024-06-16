@@ -6,11 +6,11 @@ import Authenticator from "./authenticator";
  * Client to call ConcertMemories web app
   *
 */
-export default class CreateConcert extends BindingClass {
+export default class DeleteConcertClient extends BindingClass {
     constructor(props = {}) {
         super();
 
-        const methodsToBind = ['clientLoaded', 'deleteConcert','getIdentity', 'verifyLogin', 'login', 'logout',
+        const methodsToBind = ['clientLoaded', 'deleteConcert','getIdentity', 'login', 'logout', 'verifyLogin',
         'getTokenOrThrow'];
         this.bindClassMethods(methodsToBind, this);
         this.authenticator = new Authenticator();
@@ -20,6 +20,7 @@ export default class CreateConcert extends BindingClass {
         this.clientLoaded();
 
     }
+
 
      /**
          * Run any functions that are supposed to be called once the client has loaded successfully.
@@ -37,22 +38,22 @@ export default class CreateConcert extends BindingClass {
     */
 
    async deleteConcert(emailAddress, dateAttended, errorCallback) {
-
-       try {
+      try {
            const token = await this.getTokenOrThrow("Only authenticated users can delete a concert");
-           const response = await this.axiosClient.delete(`concerts/${dateAttended}`, {
-                                   emailAddress: orgId,
-                                   dateAttended: dateAttended,
-                               }, {
-                                   headers: {
-                                       Authorization: `Bearer ${token}`
-                                   }
-                               });
-                   return response.data.concert;
-               } catch (error) {
-                   this.handleError(error, errorCallback)
+           const response = await this.axiosClient.delete(`deleteconcert/${dateAttended}`, {
+               params: {
+                    emailAddress: emailAddress,
+                    dateAttended: dateAttended
+               },
+               headers: {
+                    Authorization: `Bearer ${token}`
                }
-           }
+           });
+               return await response.data.concert;
+       } catch (error) {
+           this.handleError(error, errorCallback)
+       }
+   }
 
     /**
           * Get the identity of the current user
@@ -73,22 +74,23 @@ export default class CreateConcert extends BindingClass {
      }
 
      async verifyLogin(errorCallback) {
-                 try {
-                     const isLoggedIn = await this.authenticator.isUserLoggedIn();
-                      return isLoggedIn;
+        try {
+            const isLoggedIn = await this.authenticator.isUserLoggedIn();
+             return isLoggedIn;
+        } catch (error) {
+           this.handleError(error, errorCallback)
+        }
+     }
 
-                 } catch (error) {
-                     this.handleError(error, errorCallback)
-                 }
-             }
+    async login() {
+        this.authenticator.login();
+    }
 
-     async login() {
-             this.authenticator.login();
-         }
+    async logout() {
+       this.authenticator.logout();
+    }
 
-     async logout() {
-             this.authenticator.logout();
-         }
+
 
      async getTokenOrThrow(unauthenticatedErrorMessage) {
              const isLoggedIn = await this.authenticator.isUserLoggedIn();

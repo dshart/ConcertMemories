@@ -6,12 +6,11 @@ import Authenticator from "./authenticator";
  * Client to call ConcertMemories web app
   *
 */
-export default class CreateConcert extends BindingClass {
+export default class CreateConcertClient extends BindingClass {
     constructor(props = {}) {
         super();
 
-        const methodsToBind = ['clientLoaded', 'createConcert', 'getIdentity','verifyLogin', 'login',
-        'logout', 'getTokenOrThrow'];
+        const methodsToBind = ['clientLoaded', 'createConcert', 'getIdentity','verifyLogin', 'login', 'logout', 'getTokenOrThrow'];
         this.bindClassMethods(methodsToBind, this);
         this.authenticator = new Authenticator();
         this.axiosClient = axios;
@@ -73,6 +72,7 @@ export default class CreateConcert extends BindingClass {
                 return undefined;
             }
 
+            alert("in getIdentity createCOncertCLient go to authenticsator ");
             return await this.authenticator.getCurrentUserInfo();
         } catch (error) {
             this.handleError(error, errorCallback)
@@ -80,20 +80,20 @@ export default class CreateConcert extends BindingClass {
      }
 
      async verifyLogin(errorCallback) {
-                 try {
-                     const isLoggedIn = await this.authenticator.isUserLoggedIn();
-                      return isLoggedIn;
+          try {
+             const isLoggedIn = await this.authenticator.isUserLoggedIn();
+             return isLoggedIn;
 
-                 } catch (error) {
-                     this.handleError(error, errorCallback)
-                 }
-             }
+            } catch (error) {
+               this.handleError(error, errorCallback)
+          }
+     }
 
-     async login() {
+      async login() {
              this.authenticator.login();
          }
 
-     async logout() {
+         async logout() {
              this.authenticator.logout();
          }
 

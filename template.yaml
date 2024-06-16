@@ -206,7 +206,14 @@ Resources:
               - Effect: Allow
                 Action: dynamodb:*
                 Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Concerts"
+              - Effect: Allow
+                Action: dynamodb:query
+                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Concerts/index/ConcertsByBandIndex"
+              - Effect: Allow
+                Action: dynamodb:query
+                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Concerts/index/ConcertsByBVenueIndex"
 
+      
         - PolicyName: 'AccessBandsTable'
           PolicyDocument:
             Version: '2012-10-17'
@@ -335,7 +342,7 @@ Resources:
           ConcertMemories:
             Type: Api
             Properties:
-              Path: /concerts/{dateAttended}
+              Path: /deleteconcert/{dateAttended}
               Method: delete
 
   #-----------------------------------------------------
@@ -376,7 +383,12 @@ Resources:
             - AttributeName: "bandName"
               KeyType: "RANGE"
           Projection:
-            ProjectionType: "ALL"
+            ProjectionType: "INCLUDE"
+            NonKeyAttributes:
+              - tourName
+              - venue
+              - openingActs
+
         - IndexName: "ConcertsByVenueIndex"
           KeySchema:
             - AttributeName: "emailAddress"
@@ -384,7 +396,11 @@ Resources:
             - AttributeName: "venue"
               KeyType: "RANGE"
           Projection:
-            ProjectionType: "ALL"
+            ProjectionType: "INCLUDE"
+            NonKeyAttributes:
+              - bandName
+              - tourName
+              - openingActs
 
   BandsTable:
     Type: AWS::DynamoDB::Table

@@ -2,9 +2,11 @@ package com.nashss.se.concertmemories.api.concert.activity;
 
 import com.nashss.se.concertmemories.api.concert.request.DeleteConcertRequest;
 import com.nashss.se.concertmemories.api.concert.result.DeleteConcertResult;
+import com.nashss.se.concertmemories.converters.ModelConverter;
 import com.nashss.se.concertmemories.dynamodb.ConcertDao;
 import com.nashss.se.concertmemories.dynamodb.models.Concert;
 import com.nashss.se.concertmemories.exceptions.InvalidAttributeValueException;
+import com.nashss.se.concertmemories.models.ConcertModel;
 
 import javax.inject.Inject;
 
@@ -21,7 +23,6 @@ public class DeleteConcertActivity {
      *
      * @param concertDao ConcertDao to interact with the concert table
      */
-
     @Inject
     public DeleteConcertActivity(ConcertDao concertDao)  {
         this.concertDao = concertDao;
@@ -41,8 +42,9 @@ public class DeleteConcertActivity {
         Concert concert = concertDao.getConcert(emailAddress, dateAttended);
         concertDao.deleteConcert(emailAddress, dateAttended);
 
+        ConcertModel concertModel = new ModelConverter().toConcertModel(concert);
         return DeleteConcertResult.builder()
-            .withConcert(concert)
+            .withConcert(concertModel)
             .build();
     }
 }
