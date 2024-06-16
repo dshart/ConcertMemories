@@ -26,6 +26,7 @@ class CreateConcert extends BindingClass {
         this.header.addHeaderToPage();
         this.client = new CreateConcertClient();
         this.startupActivities();
+        email = await this.getUserEmail();
     }
 
     async startupActivities() {
@@ -56,11 +57,10 @@ class CreateConcert extends BindingClass {
         var oa = document.getElementById('openingActs').value;
         var sp = document.getElementById('songsPlayed').value;
         var m = document.getElementById('memories').value;
-
         var oaList = this.convertToList(oa);
         var spList = this.convertToList(sp);
         var mList = this.convertToList(m);
-        var email = await this.getUserEmail();
+
 
         await this.client.createConcert(
             email,

@@ -30,7 +30,7 @@ class GetConcert extends BindingClass {
 
         this.header.addHeaderToPage();
         this.client = new GetConcertClient();
-        this.email = this.getUserEmail();
+        email = await this.getUserEmail();
         this.startupActivities();
     }
 
@@ -145,7 +145,7 @@ class GetConcert extends BindingClass {
         if (selectedValue == 0) {
             searchResultsDisplay.innerHTML = "";
         } else {
-            var searchCriteria = this.getUserEmail();
+            var searchCriteria = email;
             const results = await this.client.getAllConcerts(searchCriteria);
 
             this.dataStore.set([SEARCH_CRITERIA_KEY], searchCriteria);
@@ -158,7 +158,7 @@ class GetConcert extends BindingClass {
         //var submitBandNameButton = document.querySelector("#submitBandNameButton");
         var submitBandNameButton = document.getElementById('submitBandNameButton');
         submitBandNameButton.style.display = "none";
-        var emailKey = this.getUserEmail();
+        var emailKey = email;
         var bandKey = bandName;
         const searchCriteria = [emailKey, bandKey];
         const results = await this.client.getAllConcertsByBand(emailKey, bandKey);
@@ -172,7 +172,7 @@ class GetConcert extends BindingClass {
        // var submitVenueButton = document.querySelector("#submitVenueButton");
         var submitVenueButton = document.getElementById('submitVenueButton');
         submitVenueButton.style.display='none';
-        var emailKey = await this.getUserEmail();
+        var emailKey = email;
         var venueKey = venue;
         const searchCriteria = [emailKey, venueKey];
         const results = await this.client.getAllConcertsByVenue(emailKey, venueKey);
@@ -187,7 +187,7 @@ class GetConcert extends BindingClass {
         var submitDateButton = document.getElementById('submitDateButton');
         submitDateButton.style.display='none';
 
-        var emailKey = this.getUserEmail();
+        var emailKey = email;
         var dateKey = date;
         const searchCriteria = [emailKey, dateKey];
         const results = await this.client.getConcert(emailKey, dateKey);
