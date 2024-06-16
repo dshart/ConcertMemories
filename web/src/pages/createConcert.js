@@ -18,7 +18,7 @@ class CreateConcert extends BindingClass {
         super();
 
         this.header = new Header(this.dataStore);
-        this.bindClassMethods(['convertToList', 'getIdentity', 'getUserEmail', 'mount', 'startupActivities', 'submitForm'], this);
+        this.bindClassMethods(['convertToList', 'getIdentity', 'mount', 'startupActivities', 'submitForm'], this);
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
     }
 
@@ -26,7 +26,7 @@ class CreateConcert extends BindingClass {
         this.header.addHeaderToPage();
         this.client = new CreateConcertClient();
         this.startupActivities();
-        email = await this.getUserEmail();
+        //const email = await this.getUserEmail();
     }
 
     async startupActivities() {
@@ -35,17 +35,10 @@ class CreateConcert extends BindingClass {
             e.preventDefault();
             this.submitForm();
         });
+        const{email, name} = await this.client.getIdentity().then(result => result);
     }
 
-    /* Uses the client to obtain the Users email and Name;
-         * @returns User Email
-        */
-     async getUserEmail() {
-        const { email, name } = await this.client.getIdentity().then(result => result);
-            return email;
-     }
-
-     convertToList(stringToConvert) {
+    convertToList(stringToConvert) {
          var arr = [];
          if (stringToConvert != null) {
              arr = stringToConvert.split(",");

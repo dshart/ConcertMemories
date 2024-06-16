@@ -18,8 +18,8 @@ class GetConcert extends BindingClass {
         this.header = new Header(this.dataStore);
         this.bindClassMethods(['displayAllConcertsHTML', 'displayAllConcertsByBandHTML', 'displaySingleConcertHTML',
         'displayAllConcertsByVenueHTML', 'dropDownChange', 'getHTMLForAllConcertsView', 'getHTMLForAllConcertsByBandView',
-        'getHTMLForSingleConcertView', 'getHTMLForAllConcertsByVenueView', 'getIdentity', 'getUserEmail', 'mount',
-        'startupActivities', 'submitBandViewButton', 'submitDateViewButton', 'submitVenueViewButton', 'submitViewButtonClick'], this);
+        'getHTMLForSingleConcertView', 'getHTMLForAllConcertsByVenueView', 'getIdentity',  'mount', 'startupActivities',
+        'submitBandViewButton', 'submitDateViewButton', 'submitVenueViewButton', 'submitViewButtonClick'], this);
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
     }
 
@@ -30,11 +30,11 @@ class GetConcert extends BindingClass {
 
         this.header.addHeaderToPage();
         this.client = new GetConcertClient();
-        email = await this.getUserEmail();
         this.startupActivities();
     }
 
     async startupActivities() {
+        const{email, name} = await this.client.getIdentity().then(result => result);
         //const concertView = document.querySelector('#concertViewOptions');
         const concertView = document.getElementById('concertViewOptions');
         concertView.addEventListener("change", this.dropDownChange);
@@ -271,16 +271,7 @@ class GetConcert extends BindingClass {
        submitVenueButton.style.display = 'none';
    }
 
-    /**
-     * Uses the client to obtain the Users email and Name;
-     * @returns User Email
-    */
-    async getUserEmail() {
-        const { email, name } = await this.client.getIdentity().then(result => result);
-        return email;
-    }
-
-    getHTMLForAllConcertsView(searchResults, viewType) {
+   getHTMLForAllConcertsView(searchResults, viewType) {
 
          if (searchResults == null || searchResults.length == 0) {
             let html = '<h3>No Concerts found</h3>';
