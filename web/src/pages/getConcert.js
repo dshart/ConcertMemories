@@ -18,8 +18,8 @@ class GetConcert extends BindingClass {
         this.header = new Header(this.dataStore);
         this.bindClassMethods(['displayAllConcertsHTML', 'displayAllConcertsByBandHTML', 'displaySingleConcertHTML',
         'displayAllConcertsByVenueHTML', 'dropDownChange', 'getHTMLForAllConcertsView', 'getHTMLForAllConcertsByBandView',
-        'getHTMLForSingleConcertView', 'getHTMLForAllConcertsByVenueView', 'getIdentity', 'getUserEmail', 'mount',
-        'startupActivities', 'submitBandViewButton', 'submitDateViewButton', 'submitVenueViewButton', 'submitViewButtonClick'], this);
+        'getHTMLForSingleConcertView', 'getHTMLForAllConcertsByVenueView', 'getIdentity',  'mount', 'startupActivities',
+        'submitBandViewButton', 'submitDateViewButton', 'submitVenueViewButton', 'submitViewButtonClick'], this);
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
     }
 
@@ -30,11 +30,11 @@ class GetConcert extends BindingClass {
 
         this.header.addHeaderToPage();
         this.client = new GetConcertClient();
-        this.email = this.getUserEmail();
         this.startupActivities();
     }
 
     async startupActivities() {
+        const{email, name} = await this.client.getIdentity().then(result => result);
         //const concertView = document.querySelector('#concertViewOptions');
         const concertView = document.getElementById('concertViewOptions');
         concertView.addEventListener("change", this.dropDownChange);
@@ -145,7 +145,7 @@ class GetConcert extends BindingClass {
         if (selectedValue == 0) {
             searchResultsDisplay.innerHTML = "";
         } else {
-            var searchCriteria = this.getUserEmail();
+            var searchCriteria = email;
             const results = await this.client.getAllConcerts(searchCriteria);
 
             this.dataStore.set([SEARCH_CRITERIA_KEY], searchCriteria);
@@ -158,7 +158,7 @@ class GetConcert extends BindingClass {
         //var submitBandNameButton = document.querySelector("#submitBandNameButton");
         var submitBandNameButton = document.getElementById('submitBandNameButton');
         submitBandNameButton.style.display = "none";
-        var emailKey = this.getUserEmail();
+        var emailKey = email;
         var bandKey = bandName;
         const searchCriteria = [emailKey, bandKey];
         const results = await this.client.getAllConcertsByBand(emailKey, bandKey);
@@ -172,7 +172,7 @@ class GetConcert extends BindingClass {
        // var submitVenueButton = document.querySelector("#submitVenueButton");
         var submitVenueButton = document.getElementById('submitVenueButton');
         submitVenueButton.style.display='none';
-        var emailKey = await this.getUserEmail();
+        var emailKey = email;
         var venueKey = venue;
         const searchCriteria = [emailKey, venueKey];
         const results = await this.client.getAllConcertsByVenue(emailKey, venueKey);
@@ -187,7 +187,7 @@ class GetConcert extends BindingClass {
         var submitDateButton = document.getElementById('submitDateButton');
         submitDateButton.style.display='none';
 
-        var emailKey = this.getUserEmail();
+        var emailKey = email;
         var dateKey = date;
         const searchCriteria = [emailKey, dateKey];
         const results = await this.client.getConcert(emailKey, dateKey);
@@ -271,16 +271,7 @@ class GetConcert extends BindingClass {
        submitVenueButton.style.display = 'none';
    }
 
-    /**
-     * Uses the client to obtain the Users email and Name;
-     * @returns User Email
-    */
-    async getUserEmail() {
-        const { email, name } = await this.client.getIdentity().then(result => result);
-        return email;
-    }
-
-    getHTMLForAllConcertsView(searchResults, viewType) {
+   getHTMLForAllConcertsView(searchResults, viewType) {
 
          if (searchResults == null || searchResults.length == 0) {
             let html = '<h3>No Concerts found</h3>';

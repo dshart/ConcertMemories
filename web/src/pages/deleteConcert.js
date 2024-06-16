@@ -16,7 +16,7 @@ class DeleteConcert extends BindingClass {
         super();
 
         this.header = new Header(this.dataStore);
-        this.bindClassMethods(['deleteConcert', 'getIdentity', 'getUserEmail', 'mount'], this);
+        this.bindClassMethods(['deleteConcert', 'getIdentity', 'mount'], this);
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
     }
 
@@ -31,6 +31,7 @@ class DeleteConcert extends BindingClass {
     }
 
     async startupActivities() {
+        const{email, name} = await this.client.getIdentity().then(result => result);
         //const concertView = document.querySelector('#concertDateToDelete');
         var concertView = document.getElementById('concertDateToDelete');
        // var dateSelected = document.querySelector("#deleteConcertDateId");
@@ -47,7 +48,7 @@ class DeleteConcert extends BindingClass {
     }
 
     async deleteConcert(dateAttended, dateSelected, DateToDeleteButton) {
-        var emailKey = await this.getUserEmail();
+        var emailKey = email;
         var dateKey = dateAttended
         const searchCriteria = [emailKey, dateKey];
         const results = await this.client.deleteConcert(emailKey, dateKey);
@@ -60,12 +61,7 @@ class DeleteConcert extends BindingClass {
     }
 
 
-    async getUserEmail() {
-            const { email, name } = await this.client.getIdentity().then(result => result);
-                return email;
-         }
-
-   async getIdentity(errorCallback) {
+    async getIdentity(errorCallback) {
        try {
            const isLoggedIn = await this.authenticator.isUserLoggedIn();
            if (!isLoggedIn) {
