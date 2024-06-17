@@ -46,11 +46,13 @@ class CreateConcert extends BindingClass {
 
                  if (event.key == 'Enter') {
                     submitConcertFormButton.style.display = "none";
-                    this.submitForm();
+                    concertForm.submit();
                  }
             });
 
-            submitConcertFormButton.addEventListener("click", this.submitForm());
+           submitConcertFormButton.addEventListener("click", function() {
+               concertForm.submit();
+           });
         });
     }
 
@@ -63,7 +65,7 @@ class CreateConcert extends BindingClass {
      }
 
      async submitForm() {
-
+        alert("in submit form");
         //what about using the form.submit pattern?  Is it easier
         var oa = document.getElementById('openingActs').value;
         var sp = document.getElementById('songsPlayed').value;
@@ -95,25 +97,9 @@ class CreateConcert extends BindingClass {
         }).catch(e => {
             console.log(e);
         });
-
-        //clearForm();
     }
 
-    //not sure I need this
-//    clearForm() {
-//         var date = document.getElementById("concertDateTextBox");
-//         date.setValue("");
-//         date.focus();
-//         document.getElementById("bandName").setValue("");
-//         document.getElementById("tourName").setValue("");
-//         document.getElementById("venue").setValue("");
-//         document.getElementBYId("openingActs").setValue("");
-//         document.getElementById("songsPlayed").setValue("");
-//         document.getElementById("memories").setValue("");
-//
-//    }
-
-   async getIdentity(errorCallback) {
+    async getIdentity(errorCallback) {
        try {
            const isLoggedIn = await this.authenticator.isUserLoggedIn();
            if (!isLoggedIn) {
