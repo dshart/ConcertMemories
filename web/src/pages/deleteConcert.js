@@ -16,7 +16,7 @@ class DeleteConcert extends BindingClass {
         super();
 
         this.header = new Header(this.dataStore);
-        this.bindClassMethods(['deleteConcert', 'getIdentity', 'mount'], this);
+        this.bindClassMethods(['deleteConcert', 'getIdentity', 'handleError', 'mount'], this);
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
     }
 
@@ -43,7 +43,9 @@ class DeleteConcert extends BindingClass {
         submitDateToDeleteButton.addEventListener("click", () => this.deleteConcert(date, dateSelected, submitDateToDeleteButton));
     }
 
-    async deleteConcert(dateAttended, dateSelected, DateToDeleteButton) {
+    async deleteConcert(dateAttended, dateSelected, dateToDeleteButton) {
+        var submitDateToDeleteButton = document.getElementById("submitDateToDeleteButtonId");
+        submitDateToDeleteButton.style.display = "none";
         const{email, name} = await this.client.getIdentity().then(result => result);
         var emailKey = email;
         var dateKey = dateAttended
@@ -58,7 +60,7 @@ class DeleteConcert extends BindingClass {
     }
 
 
-    async getIdentity(errorCallback) {
+    async getIdentity() {
        try {
            const isLoggedIn = await this.authenticator.isUserLoggedIn();
            if (!isLoggedIn) {
@@ -67,9 +69,23 @@ class DeleteConcert extends BindingClass {
 
            return await this.authenticator.getCurrentUserInfo();
        } catch (error) {
-           this.handleError(error, errorCallback)
+           this.handleError(error)
        }
    }
+
+   /**
+    * Helper method to log the error and run any error functions.
+    * @param error The error received from the server.
+    */
+    handleError(error) {
+       console.error(error);
+
+       const errorFromApi = error?.response?.data?.error_message;
+       if (errorFromApi) {
+           console.error(errorFromApi)
+           error.message = errorFromApi;
+       }
+    }
 
 }
 

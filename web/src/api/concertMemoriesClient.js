@@ -9,7 +9,7 @@ export default class ConcertMemoriesClient extends BindingClass {
     constructor(props = {}) {
         super();
 
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'getTokenOrThrow', 'login', 'logout', 'verifyLogin'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'getTokenOrThrow', 'handleError', 'login', 'logout', 'verifyLogin'];
         this.bindClassMethods(methodsToBind, this);
         this.authenticator = new Authenticator();
         this.props = props;
@@ -27,10 +27,9 @@ export default class ConcertMemoriesClient extends BindingClass {
 
     /**
      * Get the identity of the current user
-     * @param errorCallback (Optional) A function to execute if the call fails.
      * @returns The user information for the current user.
      */
-    async getIdentity(errorCallback) {
+    async getIdentity() {
         try {
             const isLoggedIn = await this.authenticator.isUserLoggedIn();
             if (!isLoggedIn) {
@@ -38,16 +37,16 @@ export default class ConcertMemoriesClient extends BindingClass {
             }
             return await this.authenticator.getCurrentUserInfo();
         } catch (error) {
-            this.handleError(error, errorCallback)
+            this.handleError(error)
         }
     }
 
-    async verifyLogin(errorCallback) {
+    async verifyLogin() {
         try {
             const isLoggedIn = await this.authenticator.isUserLoggedIn();
                 return isLoggedIn;
         } catch (error) {
-            this.handleError(error, errorCallback)
+            this.handleError(error)
         }
     }
 
@@ -68,17 +67,13 @@ export default class ConcertMemoriesClient extends BindingClass {
         return await this.authenticator.getUserToken();
     }
 
-    handleError(error, errorCallback) {
+    handleError(error) {
         console.error(error);
 
         const errorFromApi = error?.response?.data?.error_message;
         if (errorFromApi) {
             console.error(errorFromApi)
             error.message = errorFromApi;
-        }
-
-        if (errorCallback) {
-            errorCallback(error);
         }
     }
 }

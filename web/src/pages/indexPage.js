@@ -34,10 +34,12 @@ class IndexPage extends BindingClass {
             this.dataStore.set([COGNITO_EMAIL_KEY], email);
             this.dataStore.set([COGNITO_NAME_KEY], name);
             var enterSiteButton = document.getElementById('enterSiteButtonId');
-            enterSiteButton.style.display = "block";
             enterSiteButton.addEventListener(
                  "click", function(event){document.location.href = "concertsAndBands.html";
             });
+            enterSiteButton.style.display = "block";
+
+
         }
     }
 }
