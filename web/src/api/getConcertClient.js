@@ -56,11 +56,13 @@ export default class GetConcertClient extends BindingClass {
          */
      async getAllConcerts(emailAddress) {
         try {
+
             const token = await this.getTokenOrThrow("Encountered token error trying to call Concert endpoint.");
             const response = await this.axiosClient.get(`concerts`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }});
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             return response.data.allConcerts;
         } catch (error) {
             this.handleError(error)
@@ -78,7 +80,8 @@ export default class GetConcertClient extends BindingClass {
              const response = await this.axiosClient.get(`concertsbyband/${bandName}`, {
                  headers: {
                      Authorization: `Bearer ${token}`
-                 }});
+                 }
+             });
 
              return response.data.allConcertsByBand;
          } catch (error) {
