@@ -137,9 +137,13 @@ class GetConcert extends BindingClass {
             alert("calling getAllConcerts 1 with " + searchCriteria)
             const results = await this.client.getAllConcerts(searchCriteria);
 
+            alert("returned from getAllConcerts with result " + results);
+
             this.dataStore.set([SEARCH_CRITERIA_KEY], searchCriteria);
             this.dataStore.set([SEARCH_RESULTS_KEY], results);
             this.displayAllConcertsHTML(selectedValue, concertViewButton);
+
+            alert("getting results from data store " + this.dataStore.get(SEARCH_RESULTS_KEY));
         }
     }
 
