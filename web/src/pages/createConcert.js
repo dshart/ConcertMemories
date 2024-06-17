@@ -18,7 +18,7 @@ class CreateConcert extends BindingClass {
         super();
 
         this.header = new Header(this.dataStore);
-        this.bindClassMethods(['convertToList', 'getIdentity', 'mount', 'startupActivities', 'submitForm'], this);
+        this.bindClassMethods(['clearForm', 'convertToList', 'getIdentity', 'mount', 'startupActivities', 'submitForm'], this);
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
     }
 
@@ -35,6 +35,42 @@ class CreateConcert extends BindingClass {
             e.preventDefault();
             this.submitForm();
         });
+
+        //only allow Enter button to appear if date is selected as it is range key
+        var submitConcertFormButton = document.getElementById("submitConcertButtonId");
+        var concertDate = document.getElementById("concertDateTextBox");
+        concertDate.addEventListener("change",  function() {
+            submitConcertFormButton.style.display = "block"
+            //set up listener for presseing Enter key only after date is entered
+             window.addEventListener('keydown', (event) => {
+
+                 if (event.key == 'Enter') {
+                    submitConcertFormButton.style.display = "none";
+                    this.submitForm();
+                 }
+            });
+                 //var form = document.getElementById("myForm"); form.reset();.
+
+//        var bandName = "";
+//                   var bandNameInput = document.getElementById('bandNameInput');
+//                   bandNameInput.value == "";
+//                   bandNameInput.focus();
+//                   var submitBandNameButton = document.getElementById('submitBandNameButtonId');
+
+
+
+
+            submitConcertFormButton.addEventListener("click", this.submitForm());
+
+        });
+//            bandNameInput.addEventListener('keydown', (event) => {
+//                submitConcertFormButton.style.display = "none";
+//                if (event.key == 'Enter') {
+//                   this.submitBandViewButton(bandName);
+//                      bandNameInput.value = "";
+//                      bandNameInput.focus();
+//                   }
+//            });
     }
 
     convertToList(stringToConvert) {
@@ -57,7 +93,7 @@ class CreateConcert extends BindingClass {
         const{email, name} = await this.client.getIdentity().then(result => result);
         await this.client.createConcert(
             email,
-            document.getElementById('concertDate').value,
+            document.getElementById('concertDateTextBox').value,
             document.getElementById('bandName').value,
             document.getElementById('tourName').value,
             document.getElementById('venue').value,
@@ -77,9 +113,21 @@ class CreateConcert extends BindingClass {
             console.log(e);
         });
 
-        window.location.href = "enterConcertInfo.html";
+        //clearForm();
+    }
 
-   }
+    clearForm() {
+         var date = document.getElementById("concertDateTextBox");
+         date.setValue("");
+         date.focus();
+         document.getElementById("bandName").setValue("");
+         document.getElementById("tourName").setValue("");
+         document.getElementById("venue").setValue("");
+         document.getElementBYId("openingActs").setValue("");
+         document.getElementById("songsPlayed").setValue("");
+         document.getElementById("memories").setValue("");
+
+    }
 
    async getIdentity(errorCallback) {
        try {
