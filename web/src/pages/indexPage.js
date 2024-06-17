@@ -29,18 +29,16 @@ class IndexPage extends BindingClass {
     }
 
     async startupActivities() {
-        //If user is logged in when app starts, this method will initialize page elements
         if (await this.concertMemoriesClient.verifyLogin()) {
             const{email, name} = await this.concertMemoriesClient.getIdentity().then(result => result);
             this.dataStore.set([COGNITO_EMAIL_KEY], email);
             this.dataStore.set([COGNITO_NAME_KEY], name);
+            var enterSiteButton = document.getElementById('enterSiteButtonId');
+            enterSiteButton.style.display = "block";
+            enterSiteButton.addEventListener(
+                 "click", function(event){document.location.href = "concertsAndBands.html";
+            });
         }
-
-        var enterSiteButton = document.getElementById('enterSiteButtonId');
-        enterSiteButton.style.display = "block";
-        enterSiteButton.addEventListener(
-            "click", function(event){document.location.href = "concertsAndBands.html";
-        });
     }
 }
 
