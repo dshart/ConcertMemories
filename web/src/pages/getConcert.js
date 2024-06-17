@@ -16,11 +16,11 @@ class GetConcert extends BindingClass {
         super();
 
         this.header = new Header(this.dataStore);
-        this.bindClassMethods(['displayAllConcertsHTML', 'displayAllConcertsByBandHTML', 'displaySingleConcertHTML',
-        'displayAllConcertsByVenueHTML', 'dropDownChange', 'getHTMLForAllConcertsView',
+        this.bindClassMethods(['concertViewButtonClick', 'displayAllConcertsHTML', 'displayAllConcertsByBandHTML', 'displaySingleConcertHTML',
+        'displayAllConcertsByVenueHTML', 'dropDownChange', 'getHTMLForAllConcertsView', 'handleError',
         'getHTMLForAllConcertsByBandView', 'getHTMLForSingleConcertView', 'getHTMLForAllConcertsByVenueView',
         'getIdentity',  'mount', 'startupActivities', 'submitBandViewButton', 'submitDateViewButton',
-        'submitVenueViewButton', 'submitViewButtonClick'], this);
+        'submitVenueViewButton'], this);
          this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
     }
 
@@ -106,31 +106,29 @@ class GetConcert extends BindingClass {
                 venueInput.value = "";
                 venueInput.focus();
                 this.submitVenueViewButton(venue);
-                //submitVenueButton.style.display = "none";
             });
             venueInput.addEventListener('keydown', (event) => {
-                submitVenueViewButton.style.display = "none";
-                if (event.key == 'Enter') {
+               if (event.key == 'Enter') {
                     venueInput.value = "";
                     venueInput.focus();
                     this.submitVenueViewButton(venue);
-                   // submitVenueButton.style.display = "none";
+                    submitVenueButton.style.display = "none";
                 }
             });
         } else if (selectedValue == 2 || selectedValue == 3 || selectedValue == 4) {
             var html = "";
-            html += '<br><label for="submitViewButton"></label><input type ="button" value="Submit" id="submitViewButtonId" />';
+            html += '<br><label for="submitViewButton"></label><input type ="button" value="Submit" id="concertViewButtonId" />';
             concertDisplayArea.innerHTML = html;
-            var submitViewButton = document.getElementById('submitViewButtonId');
-            submitViewButton.addEventListener("click", () => this.submitViewButtonClick(selectedValue));
+            var concertViewButton = document.getElementById('concertViewButtonId');
+            concertViewButton.addEventListener("click", () => this.concertViewButtonClick(selectedValue, concertViewButton));
+            concertViewButton.style.display = "block";
         }
     }
 
-    async submitViewButtonClick(selectedValue){
-        var submitViewButton = document.getElementById('submitViewButtonId');
+    async concertViewButtonClick(selectedValue, concertViewButton){
         const{email, name} = await this.client.getIdentity();
 
-        submitViewButton.style.display = 'none';
+        concertViewButton.style.display = 'none';
 
         if (selectedValue == 0) {
             searchResultsDisplay.innerHTML = "";
@@ -140,7 +138,7 @@ class GetConcert extends BindingClass {
 
             this.dataStore.set([SEARCH_CRITERIA_KEY], searchCriteria);
             this.dataStore.set([SEARCH_RESULTS_KEY], results);
-            this.displayAllConcertsHTML(selectedValue, submitViewButton);
+            this.displayAllConcertsHTML(selectedValue, concertViewButton);
         }
     }
 
@@ -228,7 +226,7 @@ class GetConcert extends BindingClass {
     displayAllConcertsByBandHTML(bandName, submitBandNameButton) {
         const searchCriteria = this.dataStore.get(SEARCH_CRITERIA_KEY);
         const searchResults = this.dataStore.get(SEARCH_RESULTS_KEY);
-        const searchResultsDisplay = document.getElementById('searchResultsDisplay');
+        const searchResultsDisplay = document.getElementById('searchResultsDisplay');c
 
         searchResultsDisplay.innerHTML = "";
         searchResultsDisplay.innerHTML = this.getHTMLForAllConcertsByBandView(searchResults, bandName);
@@ -248,6 +246,7 @@ class GetConcert extends BindingClass {
 
     //All Concerts by venue
    displayAllConcertsByVenueHTML(venue, submitVenueButton) {
+       var submitVenueButton = document.getElementById("concertButtonVenueId");
        const searchCriteria = this.dataStore.get(SEARCH_CRITERIA_KEY);
        const searchResults = this.dataStore.get(SEARCH_RESULTS_KEY);
        const searchResultsDisplay = document.getElementById('searchResultsDisplay');
@@ -394,7 +393,7 @@ class GetConcert extends BindingClass {
             return html;
     }
 
-    async getIdentity(errorCallback) {
+    async getIdentity() {
         try {
             const isLoggedIn = await this.authenticator.isUserLoggedIn();
             if (!isLoggedIn) {
@@ -403,11 +402,24 @@ class GetConcert extends BindingClass {
 
             return await this.authenticator.getCurrentUserInfo();
         } catch (error) {
-            this.handleError(error, errorCallback)
+            this.handleError(error)
         }
     }
-}
 
+    /**
+     * Helper method to log the error and run any error functions.
+     * @param error The error received from the server.
+     */
+     handleError(error) {
+         console.error(error);
+
+         const errorFromApi = error?.response?.data?.error_message;
+         if (errorFromApi) {
+             console.error(errorFromApi)
+             error.message = errorFromApi;
+         }
+     }
+}
 
 /**
  * Main method to run when the page contents have loaded.

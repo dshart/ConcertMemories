@@ -10,12 +10,12 @@ export default class CreateConcertClient extends BindingClass {
     constructor(props = {}) {
         super();
 
-        const methodsToBind = ['clientLoaded', 'createConcert', 'getIdentity','verifyLogin', 'login', 'logout', 'getTokenOrThrow'];
+        const methodsToBind = ['clientLoaded', 'createConcert', 'getIdentity', 'getTokenOrThrow', 'handleError', 'login',
+            'logout', 'verifyLogin',];
         this.bindClassMethods(methodsToBind, this);
         this.authenticator = new Authenticator();
         this.axiosClient = axios;
         axios.defaults.baseURL = process.env.API_BASE_URL;
-      //  axios.defaults.baseURL = '/api/';
         this.props = props;
         this.clientLoaded();
 
@@ -32,11 +32,10 @@ export default class CreateConcertClient extends BindingClass {
 
     /**
      * Creates single concert in the database by date.
-     * @param errorCallback (Optional) A function to execute if the call fails.
      * @returns A single concert object
     */
 
-   async createConcert(emailAddress, dateAttended, bandName, tourName, venue, openingActs, songsPlayed, memories, errorCallback) {
+   async createConcert(emailAddress, dateAttended, bandName, tourName, venue, openingActs, songsPlayed, memories) {
        try {
            const token = await this.getTokenOrThrow("Only authenticated users can create a concert");
            const response = await this.axiosClient.post(`createconcert`, {
@@ -56,16 +55,15 @@ export default class CreateConcertClient extends BindingClass {
 
            return await response.data.concert;
        } catch (error) {
-           this.handleError(error, errorCallback)
+           this.handleError(error)
       }
    }
 
     /**
           * Get the identity of the current user
-          * @param errorCallback (Optional) A function to execute if the call fails.
           * @returns The user information for the current user.
           */
-     async getIdentity(errorCallback) {
+     async getIdentity() {
         try {
             const isLoggedIn = await this.authenticator.isUserLoggedIn();
             if (!isLoggedIn) {
@@ -74,17 +72,17 @@ export default class CreateConcertClient extends BindingClass {
 
             return await this.authenticator.getCurrentUserInfo();
         } catch (error) {
-            this.handleError(error, errorCallback)
+            this.handleError(error)
         }
      }
 
-     async verifyLogin(errorCallback) {
+     async verifyLogin() {
           try {
              const isLoggedIn = await this.authenticator.isUserLoggedIn();
              return isLoggedIn;
 
             } catch (error) {
-               this.handleError(error, errorCallback)
+               this.handleError(error)
           }
      }
 
@@ -108,19 +106,14 @@ export default class CreateConcertClient extends BindingClass {
      /**
          * Helper method to log the error and run any error functions.
          * @param error The error received from the server.
-         * @param errorCallback (Optional) A function to execute if the call fails.
          */
-     handleError(error, errorCallback) {
+     handleError(error) {
          console.error(error);
 
          const errorFromApi = error?.response?.data?.error_message;
          if (errorFromApi) {
              console.error(errorFromApi)
              error.message = errorFromApi;
-         }
-
-         if (errorCallback) {
-             errorCallback(error);
          }
      }
 }

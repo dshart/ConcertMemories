@@ -18,7 +18,7 @@ class CreateConcert extends BindingClass {
         super();
 
         this.header = new Header(this.dataStore);
-        this.bindClassMethods(['convertToList', 'getIdentity', 'mount', 'startupActivities', 'submitForm'], this);
+        this.bindClassMethods(['convertToList', 'getIdentity', 'handleError', 'mount', 'startupActivities', 'submitForm'], this);
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
     }
 
@@ -65,8 +65,6 @@ class CreateConcert extends BindingClass {
      }
 
      async submitForm() {
-        alert("in submit form");
-        //what about using the form.submit pattern?  Is it easier
         var oa = document.getElementById('openingActs').value;
         var sp = document.getElementById('songsPlayed').value;
         var m = document.getElementById('memories').value;
@@ -99,7 +97,7 @@ class CreateConcert extends BindingClass {
         });
     }
 
-    async getIdentity(errorCallback) {
+    async getIdentity() {
        try {
            const isLoggedIn = await this.authenticator.isUserLoggedIn();
            if (!isLoggedIn) {
@@ -108,10 +106,23 @@ class CreateConcert extends BindingClass {
 
            return await this.authenticator.getCurrentUserInfo();
        } catch (error) {
-           this.handleError(error, errorCallback)
+           this.handleError(error);
        }
    }
 
+   /**
+    * Helper method to log the error and run any error functions.
+    * @param error The error received from the server.
+     */
+    handleError(error) {
+        console.error(error);
+
+        const errorFromApi = error?.response?.data?.error_message;
+        if (errorFromApi) {
+            console.error(errorFromApi)
+            error.message = errorFromApi;
+        }
+    }
 }
 
 /**

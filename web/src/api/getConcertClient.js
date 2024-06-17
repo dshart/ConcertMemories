@@ -10,8 +10,8 @@ export default class GetConcertClient extends BindingClass {
     constructor(props = {}) {
         super();
 
-        const methodsToBind = ['clientLoaded', 'getConcert', 'getAllConcerts', 'getIdentity', 'verifyLogin',
-        'getTokenOrThrow'];
+        const methodsToBind = ['clientLoaded', 'getConcert', 'getAllConcerts', 'getIdentity', 'handleError',
+        'getTokenOrThrow', 'verifyLogin'];
         this.bindClassMethods(methodsToBind, this);
         this.authenticator = new Authenticator();
         this.axiosClient = axios;
@@ -33,11 +33,10 @@ export default class GetConcertClient extends BindingClass {
 
     /**
      * Gets single concert in the database by date.
-     * @param errorCallback (Optional) A function to execute if the call fails.
      * @returns A single concert object
     */
 
-   async getConcert(emailAddress, dateAttended, errorCallback) {
+   async getConcert(emailAddress, dateAttended) {
        try {
            const token = await this.getTokenOrThrow("Only authenticated users can get a concert");
            const response = await this.axiosClient.get(`concerts/${dateAttended}`, {
@@ -47,16 +46,15 @@ export default class GetConcertClient extends BindingClass {
 
            return response.data.concert;
            } catch (error) {
-               this.handleError(error, errorCallback)
+               this.handleError(error)
            }
        }
 
      /**
          * Gets all concerts in the database.
-         * @param errorCallback (Optional) A function to execute if the call fails.
          * @returns A list of concerts
          */
-     async getAllConcerts(errorCallback) {
+     async getAllConcerts() {
         try {
             const token = await this.getTokenOrThrow("Encountered token error trying to call Concert endpoint.");
             const response = await this.axiosClient.get(`concerts`, {
@@ -65,17 +63,16 @@ export default class GetConcertClient extends BindingClass {
             }});
             return response.data.allConcerts;
         } catch (error) {
-            this.handleError(error, errorCallback)
+            this.handleError(error)
         }
      }
 
      /**
       * Gets all concerts in the database for a specific band.
-      * @param errorCallback (Optional) A function to execute if the call fails.
       * @returns A list of concerts seen of a specific band
      */
 
-     async getAllConcertsByBand(emailAddress, bandName, errorCallback) {
+     async getAllConcertsByBand(emailAddress, bandName) {
          try {
              const token = await this.getTokenOrThrow("Only authenticated users can get a concert");
              const response = await this.axiosClient.get(`concertsbyband/${bandName}`, {
@@ -85,17 +82,16 @@ export default class GetConcertClient extends BindingClass {
 
              return response.data.allConcertsByBand;
          } catch (error) {
-             this.handleError(error, errorCallback)
+             this.handleError(error)
          }
      }
 
      /**
          * Gets all concerts in the database for a specific venue.
-         * @param errorCallback (Optional) A function to execute if the call fails.
          * @returns A list of concerts seen at a specific venue
      */
 
-     async getAllConcertsByVenue(emailAddress, venue, errorCallback) {
+     async getAllConcertsByVenue(emailAddress, venue) {
 
          try {
              const token = await this.getTokenOrThrow("Only authenticated users can get a concert");
@@ -106,16 +102,15 @@ export default class GetConcertClient extends BindingClass {
 
              return response.data.allConcertsByVenue;
          } catch (error) {
-             this.handleError(error, errorCallback)
+             this.handleError(error)
         }
      }
 
      /**
           * Get the identity of the current user
-          * @param errorCallback (Optional) A function to execute if the call fails.
           * @returns The user information for the current user.
           */
-     async getIdentity(errorCallback) {
+     async getIdentity() {
         try {
             const isLoggedIn = await this.authenticator.isUserLoggedIn();
             if (!isLoggedIn) {
@@ -124,17 +119,17 @@ export default class GetConcertClient extends BindingClass {
 
             return await this.authenticator.getCurrentUserInfo();
         } catch (error) {
-            this.handleError(error, errorCallback)
+            this.handleError(error)
         }
      }
 
-     async verifyLogin(errorCallback) {
+     async verifyLogin() {
                  try {
                      const isLoggedIn = await this.authenticator.isUserLoggedIn();
                       return isLoggedIn;
 
                  } catch (error) {
-                     this.handleError(error, errorCallback)
+                     this.handleError(error)
                  }
              }
 
@@ -151,9 +146,8 @@ export default class GetConcertClient extends BindingClass {
      /**
          * Helper method to log the error and run any error functions.
          * @param error The error received from the server.
-         * @param errorCallback (Optional) A function to execute if the call fails.
          */
-     handleError(error, errorCallback) {
+     handleError(error) {
          console.error(error);
 
          const errorFromApi = error?.response?.data?.error_message;
@@ -162,8 +156,5 @@ export default class GetConcertClient extends BindingClass {
              error.message = errorFromApi;
          }
 
-         if (errorCallback) {
-             errorCallback(error);
-         }
      }
 }
