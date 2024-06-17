@@ -54,7 +54,7 @@ export default class GetConcertClient extends BindingClass {
          * Gets all concerts in the database.
          * @returns A list of concerts
          */
-     async getAllConcerts() {
+     async getAllConcerts(emailAddress) {
         try {
             const token = await this.getTokenOrThrow("Encountered token error trying to call Concert endpoint.");
             const response = await this.axiosClient.get(`concerts`, {
