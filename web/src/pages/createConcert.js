@@ -18,7 +18,7 @@ class CreateConcert extends BindingClass {
         super();
 
         this.header = new Header(this.dataStore);
-        this.bindClassMethods(['clearForm', 'convertToList', 'getIdentity', 'mount', 'startupActivities', 'submitForm'], this);
+        this.bindClassMethods(['convertToList', 'getIdentity', 'mount', 'startupActivities', 'submitForm'], this);
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
     }
 
@@ -41,7 +41,7 @@ class CreateConcert extends BindingClass {
         var concertDate = document.getElementById("concertDateTextBox");
         concertDate.addEventListener("change",  function() {
             submitConcertFormButton.style.display = "block"
-            //set up listener for presseing Enter key only after date is entered
+            //set up listener for pressing Enter key only after date is entered
              window.addEventListener('keydown', (event) => {
 
                  if (event.key == 'Enter') {
@@ -49,28 +49,9 @@ class CreateConcert extends BindingClass {
                     this.submitForm();
                  }
             });
-                 //var form = document.getElementById("myForm"); form.reset();.
-
-//        var bandName = "";
-//                   var bandNameInput = document.getElementById('bandNameInput');
-//                   bandNameInput.value == "";
-//                   bandNameInput.focus();
-//                   var submitBandNameButton = document.getElementById('submitBandNameButtonId');
-
-
-
 
             submitConcertFormButton.addEventListener("click", this.submitForm());
-
         });
-//            bandNameInput.addEventListener('keydown', (event) => {
-//                submitConcertFormButton.style.display = "none";
-//                if (event.key == 'Enter') {
-//                   this.submitBandViewButton(bandName);
-//                      bandNameInput.value = "";
-//                      bandNameInput.focus();
-//                   }
-//            });
     }
 
     convertToList(stringToConvert) {
@@ -82,6 +63,8 @@ class CreateConcert extends BindingClass {
      }
 
      async submitForm() {
+
+        //what about using the form.submit pattern?  Is it easier
         var oa = document.getElementById('openingActs').value;
         var sp = document.getElementById('songsPlayed').value;
         var m = document.getElementById('memories').value;
@@ -116,18 +99,19 @@ class CreateConcert extends BindingClass {
         //clearForm();
     }
 
-    clearForm() {
-         var date = document.getElementById("concertDateTextBox");
-         date.setValue("");
-         date.focus();
-         document.getElementById("bandName").setValue("");
-         document.getElementById("tourName").setValue("");
-         document.getElementById("venue").setValue("");
-         document.getElementBYId("openingActs").setValue("");
-         document.getElementById("songsPlayed").setValue("");
-         document.getElementById("memories").setValue("");
-
-    }
+    //not sure I need this
+//    clearForm() {
+//         var date = document.getElementById("concertDateTextBox");
+//         date.setValue("");
+//         date.focus();
+//         document.getElementById("bandName").setValue("");
+//         document.getElementById("tourName").setValue("");
+//         document.getElementById("venue").setValue("");
+//         document.getElementBYId("openingActs").setValue("");
+//         document.getElementById("songsPlayed").setValue("");
+//         document.getElementById("memories").setValue("");
+//
+//    }
 
    async getIdentity(errorCallback) {
        try {
