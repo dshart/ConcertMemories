@@ -33,12 +33,11 @@ class DeleteConcert extends BindingClass {
     async startupActivities() {
         var concertView = document.getElementById('concertDateToDelete');
         var dateSelected = document.getElementById('deleteConcertDateId');
-        var submitDateToDeleteButton = document.getElementById('submitDateToDeleteButton');
+        var submitDateToDeleteButton = document.getElementById('submitDateToDeleteButtonId');
         var date;
 
         dateSelected.addEventListener("change",  function() {
             date = dateSelected.value;
-            //submitDateToDeleteButton.removeAttribute("hidden");
             submitDateViewButton.style.display = 'block';
         });
         submitDateToDeleteButton.addEventListener("click", () => this.deleteConcert(date, dateSelected, submitDateToDeleteButton));
