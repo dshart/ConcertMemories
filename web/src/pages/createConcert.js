@@ -35,6 +35,25 @@ class CreateConcert extends BindingClass {
             e.preventDefault();
             this.submitForm();
         });
+
+        //only allow Enter button to appear if date is selected as it is range key
+        var submitConcertFormButton = document.getElementById("submitConcertButtonId");
+        var concertDate = document.getElementById("concertDateTextBox");
+        concertDate.addEventListener("change",  function() {
+            submitConcertFormButton.style.display = "block"
+            //set up listener for pressing Enter key only after date is entered
+             window.addEventListener('keydown', (event) => {
+
+                 if (event.key == 'Enter') {
+                    submitConcertFormButton.style.display = "none";
+                    concertForm.submit();
+                 }
+            });
+
+           submitConcertFormButton.addEventListener("click", function() {
+               concertForm.submit();
+           });
+        });
     }
 
     convertToList(stringToConvert) {
@@ -46,6 +65,8 @@ class CreateConcert extends BindingClass {
      }
 
      async submitForm() {
+        alert("in submit form");
+        //what about using the form.submit pattern?  Is it easier
         var oa = document.getElementById('openingActs').value;
         var sp = document.getElementById('songsPlayed').value;
         var m = document.getElementById('memories').value;
@@ -57,7 +78,7 @@ class CreateConcert extends BindingClass {
         const{email, name} = await this.client.getIdentity().then(result => result);
         await this.client.createConcert(
             email,
-            document.getElementById('concertDate').value,
+            document.getElementById('concertDateTextBox').value,
             document.getElementById('bandName').value,
             document.getElementById('tourName').value,
             document.getElementById('venue').value,
@@ -76,12 +97,9 @@ class CreateConcert extends BindingClass {
         }).catch(e => {
             console.log(e);
         });
+    }
 
-        window.location.href = "enterConcertInfo.html";
-
-   }
-
-   async getIdentity(errorCallback) {
+    async getIdentity(errorCallback) {
        try {
            const isLoggedIn = await this.authenticator.isUserLoggedIn();
            if (!isLoggedIn) {

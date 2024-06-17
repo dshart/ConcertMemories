@@ -38,7 +38,7 @@ class DeleteConcert extends BindingClass {
 
         dateSelected.addEventListener("change",  function() {
             date = dateSelected.value;
-            submitDateViewButton.style.display = 'block';
+            submitDateToDeleteButton.style.display = 'block';
         });
         submitDateToDeleteButton.addEventListener("click", () => this.deleteConcert(date, dateSelected, submitDateToDeleteButton));
     }

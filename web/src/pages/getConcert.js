@@ -68,7 +68,7 @@ class GetConcert extends BindingClass {
             var bandNameInput = document.getElementById('bandNameInput');
             bandNameInput.value == "";
             bandNameInput.focus();
-            var submitBandButton = document.getElementById('submitBandNameButton');
+            var submitBandNameButton = document.getElementById('submitBandNameButtonId');
 
             bandNameInput.addEventListener("keyup", function() {
                 bandName = bandNameInput.value;
@@ -77,12 +77,11 @@ class GetConcert extends BindingClass {
 
             submitBandNameButton.addEventListener("click", () => this.submitBandViewButton(bandName));
             bandNameInput.addEventListener('keydown', (event) => {
-                submitBandNameButton.disabled = false;
+                submitBandNameButtonId.style.display = "none";
                 if (event.key == 'Enter') {
                     this.submitBandViewButton(bandName);
                     bandNameInput.value = "";
                     bandNameInput.focus();
-                    submitBandNameButton.disabled = true;
                 }
             });
         } else if (selectedValue == 6) {
@@ -103,19 +102,19 @@ class GetConcert extends BindingClass {
             });
 
             submitVenueButton.addEventListener("click", () => {
-                submitVenueButton.disabled = false;
+                submitVenueButton.style.display = "none";
                 venueInput.value = "";
                 venueInput.focus();
                 this.submitVenueViewButton(venue);
-                submitVenueButton.disabled = true;
+                //submitVenueButton.style.display = "none";
             });
             venueInput.addEventListener('keydown', (event) => {
-                submitVenueButton.disabled = false;
+                submitVenueViewButton.style.display = "none";
                 if (event.key == 'Enter') {
                     venueInput.value = "";
                     venueInput.focus();
                     this.submitVenueViewButton(venue);
-                    submitVenueButton.disabled = true;
+                   // submitVenueButton.style.display = "none";
                 }
             });
         } else if (selectedValue == 2 || selectedValue == 3 || selectedValue == 4) {

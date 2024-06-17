@@ -116,7 +116,6 @@ body {
     margin-top: 0px;
     margin-left: auto;
     margin-right: auto;
-    display: none
 }
 
 #submitDateToDisplayButtonId {
@@ -133,7 +132,6 @@ body {
     margin-top: 0px;
     margin-left: auto;
     margin-right: auto;
-    display: none
 }
 
 #submitDateToDeleteButtonId {
@@ -150,7 +148,6 @@ body {
     margin-top: 0px;
     margin-left: auto;
     margin-right: auto;
-    display: none
 }
 
 #enterSiteButtonId {
@@ -167,7 +164,6 @@ body {
     margin-top: 0px;
     margin-left: auto;
     margin-right: auto;
-    display: none
 }
 
 #concertViewButtonId {
@@ -184,23 +180,40 @@ body {
     margin-top: 0px;
     margin-left: auto;
     margin-right: auto;
-    display: none
 }
 
-
-
-#submitDateToDeleteButton {
-    display : none;
+#submitBandNameButtonId {
+    background-color: #6E5658;
+    width: 125px;
+    padding: .5em 1em;
+    font-size: 1em;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 1.25em;
+    color: white;
+    border: none;
+    display: none;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-#submitBandNameButton {
-    display : none;
+#submitVenueButtonId {
+    background-color: #6E5658;
+    width: 125px;
+    padding: .5em 1em;
+    font-size: 1em;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 1.25em;
+    color: white;
+    border: none;
+    display: none;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-
-#submitVenueButton {
-    display : none;
-}
 
 #button-container-index {
     display: block;
