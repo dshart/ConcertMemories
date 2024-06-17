@@ -134,6 +134,7 @@ class GetConcert extends BindingClass {
             searchResultsDisplay.innerHTML = "";
         } else {
             var searchCriteria = email;
+            alert("calling getAllConcerts 1 with " + searchCriteria)
             const results = await this.client.getAllConcerts(searchCriteria);
 
             this.dataStore.set([SEARCH_CRITERIA_KEY], searchCriteria);
@@ -190,6 +191,7 @@ class GetConcert extends BindingClass {
 
     //All concerts sorted by either date, band, or venue
     displayAllConcertsHTML(selectedValue, submitViewButton) {
+        alert ("in displayAllConcerts with selectedValue and submitViewBUtton " + selectedValue + " " + submitViewButton);
         const searchCriteria = this.dataStore.get(SEARCH_CRITERIA_KEY);
         const searchResults = this.dataStore.get(SEARCH_RESULTS_KEY);
         const searchResultsDisplay = document.getElementById('searchResultsDisplay');
