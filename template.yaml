@@ -211,7 +211,7 @@ Resources:
                 Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Concerts/index/ConcertsByBandIndex2"
               - Effect: Allow
                 Action: dynamodb:query
-                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Concerts/index/ConcertsByBVenueIndex2"
+                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Concerts/index/ConcertsByVenueIndex2"
 
       
         - PolicyName: 'AccessBandsTable'
@@ -370,20 +370,7 @@ Resources:
       BillingMode: "PAY_PER_REQUEST"
       TableName: "Concerts"
       GlobalSecondaryIndexes:
-        - IndexName: "ConcertsByBandIndex"
-          KeySchema:
-            - AttributeName: "emailAddress"
-              KeyType: "HASH"
-            - AttributeName: "bandName"
-              KeyType: "RANGE"
-          Projection:
-            ProjectionType: "INCLUDE"
-            NonKeyAttributes:
-              - tourName
-              - venue
-              - openingActs
-
-        - IndexName: "ConcertsByVenueIndex"
+          - IndexName: "ConcertsByVenueIndex"
           KeySchema:
             - AttributeName: "emailAddress"
               KeyType: "HASH"
