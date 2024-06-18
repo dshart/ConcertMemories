@@ -63,7 +63,8 @@ export default class GetConcertClient extends BindingClass {
                     Authorization: `Bearer ${token}`
                 }
             });
-            return response.data.allConcerts;
+            alert(response.data);
+            return response.data;
         } catch (error) {
             this.handleError(error)
         }
