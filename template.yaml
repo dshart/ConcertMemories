@@ -370,19 +370,6 @@ Resources:
       BillingMode: "PAY_PER_REQUEST"
       TableName: "Concerts"
       GlobalSecondaryIndexes:
-        - IndexName: "ConcertsByVenueIndex"
-          KeySchema:
-            - AttributeName: "emailAddress"
-              KeyType: "HASH"
-            - AttributeName: "venue"
-              KeyType: "RANGE"
-          Projection:
-            ProjectionType: "INCLUDE"
-            NonKeyAttributes:
-              - bandName
-              - tourName
-              - openingActs
-
         - IndexName: "ConcertsByBandIndex2"
           KeySchema:
             - AttributeName: "emailAddress"
