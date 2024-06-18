@@ -195,10 +195,13 @@ class GetConcert extends BindingClass {
 
     //All concerts sorted by either date, band, or venue
     displayAllConcertsHTML(selectedValue, submitViewButton) {
-        alert ("in displayAllConcerts with selectedValue and submitViewBUtton " + selectedValue + " " + submitViewButton);
+        alert ("in displayAllConcerts with selectedValue " + selectedValue + " and submitViewButton " + submitViewButton);
         const searchCriteria = this.dataStore.get(SEARCH_CRITERIA_KEY);
         const searchResults = this.dataStore.get(SEARCH_RESULTS_KEY);
         const searchResultsDisplay = document.getElementById('searchResultsDisplay');
+
+        alert("searchCriteria is " + searchCriteria);
+        alert("searchResults is " + searchResults);
 
         if (selectedValue == 2) {
             var viewType = "Date";
