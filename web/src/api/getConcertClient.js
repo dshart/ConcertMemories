@@ -36,6 +36,7 @@ export default class GetConcertClient extends BindingClass {
     */
 
     async getConcert(dateAttended) {
+        alert("scooby inhere");
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can get a concert");
             const response = await this.axiosClient.get(`concerts/${dateAttended}`, {

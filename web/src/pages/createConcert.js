@@ -6,7 +6,6 @@ import Authenticator from '../api/authenticator';
 
 const SEARCH_RESULTS_KEY = 'search-results';
 const EMPTY_DATASTORE_STATE = {
-    [SEARCH_CRITERIA_KEY]: '',
     [SEARCH_RESULTS_KEY]: ''
 };
 
@@ -51,7 +50,7 @@ class CreateConcert extends BindingClass {
             });
 
             submitConcertFormButton.addEventListener("click", function() {
-               concertForm.submit();
+                concertForm.submit();
             });
         });
     }

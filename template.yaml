@@ -201,27 +201,28 @@ Resources:
 
         - PolicyName: 'AccessConcertsTable'
           PolicyDocument:
-            "Version": '2012-10-17'
-            "Statement": [
-              {
-                "Effect": "Allow",
-                "Action": [
-                  "dynamodb:PutItem",
-                  "dynamodb:UpdateItem",
-                  "dynamodb:DeleteItem",
-                  "dynamodb:BatchWriteItem",
-                  "dynamodb:GetItem",
-                  "dynamodb:BatchGetItem",
-                  "dynamodb:Scan",
-                  "dynamodb:Query",
-                  "dynamodb:ConditionCheckItem"
-                ],
-                "Resource": [
+            Version: '2012-10-17'
+            Statement:
+              - Effect": Allow
+                Action: dynamodb.*
+#                "Action": [
+#                  "dynamodb:PostItem",
+#                  "dynamodb:PutItem",
+#                  "dynamodb:UpdateItem",
+#                  "dynamodb:DeleteItem",
+#                  "dynamodb:BatchWriteItem",
+#                  "dynamodb:GetItem",
+#                  "dynamodb:BatchGetItem",
+#                  "dynamodb:Scan",
+#                  "dynamodb:Query",
+#                  "dynamodb:ConditionCheckItem"
+#                ],
+                Resource: [
                   !Sub 'arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Concerts',
                   !Sub 'arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Concerts/index/*'
                 ]
-              }
-            ]
+
+
 
         - PolicyName: 'AccessBandsTable'
           PolicyDocument:

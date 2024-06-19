@@ -37,6 +37,7 @@ class DeleteConcert extends BindingClass {
         dateSelected.addEventListener("change",  function() {
             date = dateSelected.value;
             submitDateToDeleteButton.style.display = 'block';
+            document.getElementById("updateSuccessMessageId").classList.add('hidden');
         });
         submitDateToDeleteButton.addEventListener("click", () => this.deleteConcert(date, dateSelected, submitDateToDeleteButton));
     }
@@ -49,6 +50,7 @@ class DeleteConcert extends BindingClass {
 
         dateSelected.value = "";
         dateSelected.focus();
+        document.getElementById("updateSuccessMessageId").classList.remove('hidden');
     }
 
     /**
