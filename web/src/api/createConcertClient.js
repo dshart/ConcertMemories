@@ -35,6 +35,7 @@ export default class CreateConcertClient extends BindingClass {
     */
 
    async createConcert(dateAttended, bandName, tourName, venue, openingActs, songsPlayed, memories) {
+       alert("creating concert");
        try {
            const token = await this.getTokenOrThrow("Only authenticated users can create a concert");
            const response = await this.axiosClient.post(`createconcert`, {
