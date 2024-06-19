@@ -19,10 +19,6 @@ h3 {
     display: none;
 }
 
-.unhidden {
-    display: block;
-}
-
 .row {
   display: flex;
 }
@@ -65,6 +61,7 @@ div.textAndImage {
     height : 50%;
     width : 50%;
 }
+
 
 .links {
     text-decoration: none;
@@ -118,7 +115,7 @@ body {
     margin-right: auto;
 }
 
-#submitDateToDisplayButtonId {
+#submitDateButtonId {
     background-color: #6E5658;
     width: 125px;
     padding: .5em 1em;
@@ -199,6 +196,22 @@ body {
 }
 
 #submitVenueButtonId {
+    background-color: #6E5658;
+    width: 125px;
+    padding: .5em 1em;
+    font-size: 1em;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 1.25em;
+    color: white;
+    border: none;
+    display: none;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#updateConcertButtonId {
     background-color: #6E5658;
     width: 125px;
     padding: .5em 1em;

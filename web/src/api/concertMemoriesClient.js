@@ -50,13 +50,13 @@ export default class ConcertMemoriesClient extends BindingClass {
         }
     }
 
-     async login() {
-            this.authenticator.login();
-        }
+    async login() {
+        this.authenticator.login();
+    }
 
-        async logout() {
-            this.authenticator.logout();
-        }
+    async logout() {
+        this.authenticator.logout();
+    }
 
     async getTokenOrThrow(unauthenticatedErrorMessage) {
         const isLoggedIn = await this.authenticator.isUserLoggedIn();
@@ -72,7 +72,7 @@ export default class ConcertMemoriesClient extends BindingClass {
 
         const errorFromApi = error?.response?.data?.error_message;
         if (errorFromApi) {
-            console.error(errorFromApi)
+            console.error(errorFromApi);
             error.message = errorFromApi;
         }
     }
