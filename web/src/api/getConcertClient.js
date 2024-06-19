@@ -57,7 +57,6 @@ export default class GetConcertClient extends BindingClass {
      */
      async getAllConcerts() {
          try {
-
              const token = await this.getTokenOrThrow("Encountered token error trying to call Concert endpoint.");
              const response = await this.axiosClient.get(`concerts`, {
                  headers: {
@@ -65,9 +64,17 @@ export default class GetConcertClient extends BindingClass {
                  }
              });
 
-             return response.data.allConcerts;
-         } catch (error) {
-             this.handleError(error)
+                return response.data.allConcerts;
+             } catch (error) {
+                  this.handleError(error)
+             //let arr = Object.keys(response.data.items).map(key=> response.data.items[key]);
+            //return arr;
+            // return (response => {
+
+            // });
+             //return response.data;
+         //} catch (error) {
+         //    this.handleError(error)
          }
      }
 
