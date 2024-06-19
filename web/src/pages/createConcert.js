@@ -4,12 +4,12 @@ import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
 import Authenticator from '../api/authenticator';
 
-const SEARCH_CRITERIA_KEY = 'search-criteria';
 const SEARCH_RESULTS_KEY = 'search-results';
 const EMPTY_DATASTORE_STATE = {
     [SEARCH_CRITERIA_KEY]: '',
     [SEARCH_RESULTS_KEY]: ''
 };
+
 /**
  * Logic needed for the enterConcertInfo page of the website.
  */
@@ -18,7 +18,7 @@ class CreateConcert extends BindingClass {
         super();
 
         this.header = new Header(this.dataStore);
-        this.bindClassMethods(['convertToList', 'getIdentity', 'handleError', 'mount', 'startupActivities', 'submitForm'], this);
+        this.bindClassMethods(['convertToList', 'handleError', 'mount', 'startupActivities', 'submitForm'], this);
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
     }
 
@@ -26,7 +26,6 @@ class CreateConcert extends BindingClass {
         this.header.addHeaderToPage();
         this.client = new CreateConcertClient();
         this.startupActivities();
-        //const email = await this.getUserEmail();
     }
 
     async startupActivities() {
@@ -41,18 +40,19 @@ class CreateConcert extends BindingClass {
         var concertDate = document.getElementById("concertDateTextBox");
         concertDate.addEventListener("change",  function() {
             submitConcertFormButton.style.display = "block"
-            //set up listener for pressing Enter key only after date is entered
-             window.addEventListener('keydown', (event) => {
 
-                 if (event.key == 'Enter') {
+            //set up listener for pressing Enter key only after date is entered
+            window.addEventListener('keydown', (event) => {
+
+                if (event.key == 'Enter') {
                     submitConcertFormButton.style.display = "none";
                     concertForm.submit();
-                 }
+                }
             });
 
-           submitConcertFormButton.addEventListener("click", function() {
+            submitConcertFormButton.addEventListener("click", function() {
                concertForm.submit();
-           });
+            });
         });
     }
 
@@ -72,10 +72,7 @@ class CreateConcert extends BindingClass {
         var spList = this.convertToList(sp);
         var mList = this.convertToList(m);
 
-
-        const{email, name} = await this.client.getIdentity().then(result => result);
         await this.client.createConcert(
-            email,
             document.getElementById('concertDateTextBox').value,
             document.getElementById('bandName').value,
             document.getElementById('tourName').value,
@@ -84,31 +81,17 @@ class CreateConcert extends BindingClass {
             spList,
             mList
         ).then(results => {
-             const searchCriteria = this.taskDataStore.get(TASK_SEARCH_CRITERIA_KEY);
              var searchResults = this.taskDataStore.get(TASK_SEARCH_RESULTS_KEY);
              searchResults.push(results);
              this.taskDataStore.setState({
-                [TASK_SEARCH_CRITERIA_KEY]: searchCriteria,
-                [TASK_SEARCH_RESULTS_KEY]: searchResults,
+                 [TASK_SEARCH_RESULTS_KEY]: searchResults,
              });
+
              return results;
         }).catch(e => {
             console.log(e);
         });
     }
-
-    async getIdentity() {
-       try {
-           const isLoggedIn = await this.authenticator.isUserLoggedIn();
-           if (!isLoggedIn) {
-               return undefined;
-           }
-
-           return await this.authenticator.getCurrentUserInfo();
-       } catch (error) {
-           this.handleError(error);
-       }
-   }
 
    /**
     * Helper method to log the error and run any error functions.

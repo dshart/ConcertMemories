@@ -10,8 +10,7 @@ export default class GetConcertClient extends BindingClass {
     constructor(props = {}) {
         super();
 
-        const methodsToBind = ['clientLoaded', 'getConcert', 'getAllConcerts', 'getIdentity', 'handleError',
-        'getTokenOrThrow', 'verifyLogin'];
+        const methodsToBind = ['clientLoaded', 'getConcert', 'getAllConcerts', 'getTokenOrThrow', 'handleError'];
         this.bindClassMethods(methodsToBind, this);
         this.authenticator = new Authenticator();
         this.axiosClient = axios;
@@ -22,13 +21,13 @@ export default class GetConcertClient extends BindingClass {
 
     }
 
-     /**
-         * Run any functions that are supposed to be called once the client has loaded successfully.
-         */
-     clientLoaded() {
-         if (this.props.hasOwnProperty("onReady")) {
-             this.props.onReady(this);
-         }
+    /**
+     * Run any functions that are supposed to be called once the client has loaded successfully.
+     */
+    clientLoaded() {
+        if (this.props.hasOwnProperty("onReady")) {
+            this.props.onReady(this);
+        }
     }
 
     /**
@@ -36,38 +35,40 @@ export default class GetConcertClient extends BindingClass {
      * @returns A single concert object
     */
 
-   async getConcert(emailAddress, dateAttended) {
-       try {
-           const token = await this.getTokenOrThrow("Only authenticated users can get a concert");
-           const response = await this.axiosClient.get(`concerts/${dateAttended}`, {
-               headers: {
-                   Authorization: `Bearer ${token}`
-               }});
-
-           return response.data.concert;
-           } catch (error) {
-               this.handleError(error)
-           }
-       }
-
-     /**
-         * Gets all concerts in the database.
-         * @returns A list of concerts
-         */
-     async getAllConcerts(emailAddress) {
+    async getConcert(dateAttended) {
         try {
-
-            const token = await this.getTokenOrThrow("Encountered token error trying to call Concert endpoint.");
-            const response = await this.axiosClient.get(`concerts`, {
+            const token = await this.getTokenOrThrow("Only authenticated users can get a concert");
+            const response = await this.axiosClient.get(`concerts/${dateAttended}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
+
             });
-            alert(response.data);
-            return response.data;
+
+            return response.data.concert;
         } catch (error) {
             this.handleError(error)
         }
+    }
+
+     /**
+      * Gets all concerts in the database.
+     * @returns A list of concerts
+     */
+     async getAllConcerts() {
+         try {
+
+             const token = await this.getTokenOrThrow("Encountered token error trying to call Concert endpoint.");
+             const response = await this.axiosClient.get(`concerts`, {
+                 headers: {
+                     Authorization: `Bearer ${token}`
+                 }
+             });
+
+             return response.data.allConcerts;
+         } catch (error) {
+             this.handleError(error)
+         }
      }
 
      /**
@@ -75,7 +76,7 @@ export default class GetConcertClient extends BindingClass {
       * @returns A list of concerts seen of a specific band
      */
 
-     async getAllConcertsByBand(emailAddress, bandName) {
+     async getAllConcertsByBand(bandName) {
          try {
              const token = await this.getTokenOrThrow("Only authenticated users can get a concert");
              const response = await this.axiosClient.get(`concertsbyband/${bandName}`, {
@@ -95,14 +96,15 @@ export default class GetConcertClient extends BindingClass {
          * @returns A list of concerts seen at a specific venue
      */
 
-     async getAllConcertsByVenue(emailAddress, venue) {
+     async getAllConcertsByVenue(venue) {
 
          try {
              const token = await this.getTokenOrThrow("Only authenticated users can get a concert");
              const response = await this.axiosClient.get(`concertsbyvenue/${venue}`, {
                  headers: {
                       Authorization: `Bearer ${token}`
-             }});
+                 }
+             });
 
              return response.data.allConcertsByVenue;
          } catch (error) {
@@ -110,47 +112,20 @@ export default class GetConcertClient extends BindingClass {
         }
      }
 
-     /**
-          * Get the identity of the current user
-          * @returns The user information for the current user.
-          */
-     async getIdentity() {
-        try {
-            const isLoggedIn = await this.authenticator.isUserLoggedIn();
-            if (!isLoggedIn) {
-                return undefined;
-            }
+     async getTokenOrThrow(unauthenticatedErrorMessage) {
+         const isLoggedIn = await this.authenticator.isUserLoggedIn();
+         if (!isLoggedIn) {
+             throw new Error(unauthenticatedErrorMessage);
+         }
 
-            return await this.authenticator.getCurrentUserInfo();
-        } catch (error) {
-            this.handleError(error)
-        }
-     }
-
-     async verifyLogin() {
-                 try {
-                     const isLoggedIn = await this.authenticator.isUserLoggedIn();
-                      return isLoggedIn;
-
-                 } catch (error) {
-                     this.handleError(error)
-                 }
-             }
-
-    async getTokenOrThrow(unauthenticatedErrorMessage) {
-             const isLoggedIn = await this.authenticator.isUserLoggedIn();
-             if (!isLoggedIn) {
-                 throw new Error(unauthenticatedErrorMessage);
-             }
-
-             return await this.authenticator.getUserToken();
+         return await this.authenticator.getUserToken();
      }
 
 
      /**
-         * Helper method to log the error and run any error functions.
-         * @param error The error received from the server.
-         */
+      * Helper method to log the error and run any error functions.
+      * @param error The error received from the server.
+      */
      handleError(error) {
          console.error(error);
 
@@ -159,6 +134,5 @@ export default class GetConcertClient extends BindingClass {
              console.error(errorFromApi)
              error.message = errorFromApi;
          }
-
      }
 }

@@ -38,8 +38,6 @@ class IndexPage extends BindingClass {
                  "click", function(event){document.location.href = "concertsAndBands.html";
             });
             enterSiteButton.style.display = "block";
-
-
         }
     }
 }

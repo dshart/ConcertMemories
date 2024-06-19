@@ -1,7 +1,7 @@
-package com.nashss.se.concertmemories.api.concert;
-
-public class CreateConcertActivityTest {
-}
+//package com.nashss.se.concertmemories.api.concert.activity;
+//
+//public class CreateConcertActivityTest {
+//}
 
 
 
