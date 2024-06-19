@@ -19,6 +19,7 @@ export default class UpdateConcertClient extends BindingClass {
         this.clientLoaded();
     }
 
+
      /**
       * Run any functions that are supposed to be called once the client has loaded successfully.
       */
@@ -34,6 +35,7 @@ export default class UpdateConcertClient extends BindingClass {
     */
 
     async getConcert(dateAttended) {
+        alert("here");
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can get a concert");
             const response = await this.axiosClient.get(`concerts/${dateAttended}`, {

@@ -109,7 +109,7 @@ body {
     border-radius: 1.25em;
     color: white;
     border: none;
-    display: none;
+    display: block;
     margin-top: 0px;
     margin-left: auto;
     margin-right: auto;
