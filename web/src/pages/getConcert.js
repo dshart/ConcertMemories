@@ -137,19 +137,12 @@ class GetConcert extends BindingClass {
     }
 
     async concertViewButtonClick(selectedValue, concertViewButton){
-        //const{email, name} = await this.client.getIdentity();
-
         concertViewButton.style.display = 'none';
 
         if (selectedValue == 0) {
             searchResultsDisplay.innerHTML = "";
         } else {
             const results = await this.client.getAllConcerts();
-            alert("selected 2 searchresults got back are " + results);
-            //alert(Array.isArray(results));
-            //let arr = [];
-            //Object.keys(results.items).forEach(key => arr.push(response.items[key]));
-            //this.dataStore.set([SEARCH_RESULTS_KEY], results);
             this.dataStore.set([SEARCH_RESULTS_KEY], results);
             this.displayAllConcertsHTML(selectedValue, concertViewButton);
         }
@@ -246,7 +239,6 @@ class GetConcert extends BindingClass {
     }
 
     getHTMLForAllConcertsView(searchResults, viewType) {
-        alert("In getHTMLForAllConcertsView with searchResults of " + searchResults);
         if (searchResults == null || searchResults.length == 0) {
             let html = '<h3>No Concerts found</h3>';
 

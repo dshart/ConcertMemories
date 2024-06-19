@@ -54,6 +54,7 @@ export default class UpdateConcertClient extends BindingClass {
    */
 
    async updateConcert(dateAttended, bandName, tourName, venue, openingActs, songsPlayed, memories) {
+       alert ("in update");
        try {
            const token = await this.getTokenOrThrow("Only authenticated users can create a concert");
            const response = await this.axiosClient.put(`createconcert`, {

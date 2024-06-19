@@ -62,21 +62,13 @@ export default class GetConcertClient extends BindingClass {
                  headers: {
                      Authorization: `Bearer ${token}`
                  }
-             });
-
-                return response.data.allConcerts;
-             } catch (error) {
-                  this.handleError(error)
-             //let arr = Object.keys(response.data.items).map(key=> response.data.items[key]);
-            //return arr;
-            // return (response => {
-
-            // });
-             //return response.data;
-         //} catch (error) {
-         //    this.handleError(error)
-         }
+            });
+            return response.data.allConcerts;
+         } catch (error) {
+             this.handleError(error)
+        }
      }
+
 
      /**
       * Gets all concerts in the database for a specific band.
