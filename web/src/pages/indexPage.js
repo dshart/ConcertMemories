@@ -30,6 +30,7 @@ class IndexPage extends BindingClass {
 
     async startupActivities() {
         if (await this.concertMemoriesClient.verifyLogin()) {
+            alert(here);
             const{email, name} = await this.concertMemoriesClient.getIdentity().then(result => result);
             this.dataStore.set([COGNITO_EMAIL_KEY], email);
             this.dataStore.set([COGNITO_NAME_KEY], name);
