@@ -9,6 +9,9 @@
 //import org.junit.jupiter.api.Test;
 //import org.mockito.Mock;
 //
+//import java.util.ArrayList;
+//import java.util.List;
+//
 //import static org.junit.jupiter.api.Assertions.assertEquals;
 //import static org.junit.jupiter.api.Assertions.assertNotNull;
 //import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -30,16 +33,34 @@
 //    }
 //
 //    @Test
-//    public void getAllConcdrts_returnsListOfConcerts() {
+//    public void getAllConcerts_withGoodEmail_returnsListOfConcerts() {
 //        // GIVEN
-//        Concert concert = new Concert();
+//        String email = "test@test.com";
+//        String date1 = "1999-09-09";
+//        String date2 = "1888-08-08";
+//
+//        List<Concert> concertList = new ArrayList<>();
+//
+//        Concert concert1 = new Concert();
+//        concert1.setDateAttended(date1);
+//        concertList.add(concert1);
+//
+//        Concert concert2 = new Concert();
+//        concert2.setDateAttended(date2);
+//
+//        concertList.add(concert2);
+//        when(dynamoDBMapper.query(Concert.class)).thenReturn(concertList));
+//        dynamoDbMapper.query(Concert.class, queryExpression);
 //
 //        // WHEN
-//        Concert result = concertDao.saveConcert(concert);
+//        List<Concert> result = concertDao.getAllConcerts(email);
 //
 //        // THEN
-//        verify(dynamoDBMapper).save(concert);
-//        assertEquals(concert, result);
+//        assertNotNull(result);
+//        assert(concertList[0] instanceof Concert;
+//        assert(concertList.size() == 2);
+//        assert(concertList[0]).date =
+//        verify(dynamoDBMapper).load(Concert.class);
 //    }
 //
 //    @Test
