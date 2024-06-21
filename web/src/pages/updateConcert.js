@@ -1,4 +1,5 @@
-import UpdateConcertClient from '../api/updateConcertClient';
+//import UpdateConcertClient from '../api/updateConcertClient';
+import ConcertMemoriesClient from '../api/concertMemoriesClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
@@ -17,22 +18,24 @@ class UpdateConcert extends BindingClass {
         super();
 
         this.header = new Header(this.dataStore);
-        this.bindClassMethods(['convertToList', 'handleError', 'mount', 'startupActivities', 'submitForm'], this);
+        this.bindClassMethods(['convertToList', 'handleError', 'mount', 'startupActivities', 'submit'], this);
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
     }
 
     mount() {
         this.header.addHeaderToPage();
-        this.client = new UpdateConcertClient();
+        this.client = new ConcertMemoriesClient();
         this.startupActivities();
     }
 
     async startupActivities() {
-        let updateConcertForm = document.getElementById('updateConcertFormId');
-        updateConcertForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            this.submitForm();
-        });
+        let updateConcertForm = document.getElementById('updateConcertButtonId');
+         updateConcertForm.addEventListener("click", this.submit);
+
+//        updateConcertForm.addEventListener("submit", (e) => {
+//            e.preventDefault();
+//            this.submitForm();
+//        });
 
        //want to grab textbox fields when user enters date and not have them have to click button but not working yet
        //concertDate.addEventListener("change",  async function() {
@@ -41,46 +44,61 @@ class UpdateConcert extends BindingClass {
        //have send date button appear - now button is always on just to get things working
        // concertDate.addEventListener('datetimepicker-changed', async function(){
 
-       var updateConcertFormButton = document.getElementById("updateConcertButtonId");
+       //var updateConcertFormButton = document.getElementById("updateConcertButtonId");
        var concertDate = document.getElementById("updateDateInput");
+       concertDate.addEventListener("change",  function() {
+            var success = document.getElementById('successMessageId');
+            success.style.display = "none";
+            var failed = document.getElementById('updateFailedMessageId');
+            failed.style.display = "none";
+       });
+
        var submitDateButton = document.getElementById("submitDateToFillTextBoxesId");
-
-       submitDateButton.addEventListener('click', async function () {
-
+       submitDateButton.addEventListener('click',  async (e) => {
+           e.preventDefault();
            var date = concertDate.value;
-           alert(date);
-                //call get with date to return values for that date if any and return to textboxes
-           alert("sending");
            const results = await this.client.getConcert(date);
-           alert("back");
            this.dataStore.set([SEARCH_RESULTS_KEY], results);
-           alert("results" + results);
+                                       //now take results object and fill in text boxes that were just unrgreyed
+           if (results != null && results.length != 0) {
+               //ungrey all input text boxes only if concert found
+               var bandNameInput = document.getElementById('updateBandNameInput');
+               bandNameInput.classList.remove('disabled');
+               var tourNameInput = document.getElementById('updateTourNameInput');
+               tourNameInput.classList.remove('disabled');
+               var venueInput = document.getElementById('updateVenueInput');
+               venueInput.classList.remove('disabled');
+               var openingActsInput = document.getElementById('updateOpeningActsInput');
+               openingActsInput.classList.remove('disabled');
+               var songsPlayedInput = document.getElementById('updateSongsPlayedInput');
+               songsPlayedInput.classList.remove('disabled');
+               var memoriesInput = document.getElementById('updateMemoriesInput');
+               memoriesInput.classList.remove('disabled');
 
-                            //now take results object and fill in text boxes that were just unrgreyed
-                if (results != null && results.length != 0) {
-                    alert("here");
-                    alert("bandname: " + results.bandName);
-                    updateBandNameInput.value = results.bandName;
-                    upDateTourNameInput.value = results.tourName;
-                    updateVenueInput.value = results.venue;
-                    updateOpeningActs.value = results.openingActs;
-                    updateSongsPlayed.value = results.songsPlayed;
-                    updateMemories.value = results.memories;
+               //fill textboxes with DynamoDB data
+               bandNameInput.value = results.bandName;
+               tourNameInput.value = results.tourName;
+               venueInput.value = results.venue;
+               openingActsInput.value = results.openingActs;
+               songsPlayedInput.value = results.songsPlayed;
+               memoriesInput.value = results.memories;
 
-                   //ungrey all input text boxes only if concert found
-                   // var bandNameInput = document.getElementById('updateBandNameInput');
-                    bandNameInput.classList.remove('disabled');
-                    var tourNameInput = document.getElementById('updateTourNameInput');
-                    tourNameInput.classList.remove('disabled');
-                    var venueInput = document.getElementById('updateVenueInput');
-                    venueInput.classList.remove('disabled');
-                    var openingActsInput = document.getElementById('updateOpeningActsInput');
-                    openingActsInput.classList.remove('disabled');
-                    var songsPlayedInput = document.getElementById('updateSongsPlayedInput');
-                    songsPlayedInput.classList.remove('disabled');
-                    var memoriesInput = document.getElementById('updateMemoriesInput');
-                    memoriesInput.classList.remove('disabled');
-//
+               var updateConcertButton = document.getElementById('updateConcertButtonId');
+               updateConcertButton.style.display = "block";
+               //var updateForm = document.getElementById('updateConcertFormId');
+             //  updateConcertButton.addEventListener("click", function() {
+             //      updateForm.submit();
+             //  });
+
+
+               var success = document.getElementById('successMessageId');
+               success.style.display = "block";
+          } else {
+               var failed = document.getElementById('updateFailedMessageId');
+                failed.style.display = "block";
+          }
+
+
 //                    updateConcertFormButton.style.display = "block";
 //
 //                    //set up listener for pressing Enter key only after date is entered
@@ -96,8 +114,8 @@ class UpdateConcert extends BindingClass {
 //                    });
 //                } else {
 //                    document.getElementById("updateFailedMessageId").classList.remove('hidden');
-                }
-            });
+              //  }
+           });
         }
 
     convertToList(stringToConvert) {
@@ -108,10 +126,12 @@ class UpdateConcert extends BindingClass {
          return arr;
      }
 
-     async submitForm() {
-        var oa = document.getElementById('updateOpeningActsId').value;
-        var sp = document.getElementById('updateSongsPlayedId').value;
-        var m = document.getElementById('updateMemoriesId').value;
+     async submit(evt) {
+        evt.preventDefault();
+        alert("in submit form");
+        var oa = document.getElementById('updateOpeningActsInput').value;
+        var sp = document.getElementById('updateSongsPlayedInput').value;
+        var m = document.getElementById('updateMemoriesInput').value;
         var oaList = this.convertToList(oa);
         var spList = this.convertToList(sp);
         var mList = this.convertToList(m);
@@ -120,7 +140,7 @@ class UpdateConcert extends BindingClass {
         //const{email, name} = await this.client.getIdentity().then(result => result);
         await this.client.updateConcert(
             //email,
-            document.getElementById('updateConcertDateInput').value,
+            document.getElementById('updateDateInput').value,
             document.getElementById('updateBandNameInput').value,
             document.getElementById('updateTourNameInput').value,
             document.getElementById('updateVenueInput').value,
@@ -129,9 +149,9 @@ class UpdateConcert extends BindingClass {
             mList
         ).then(results => {
             // const searchCriteria = this.taskDataStore.get(TASK_SEARCH_CRITERIA_KEY);
-             var searchResults = this.taskDataStore.get(TASK_SEARCH_RESULTS_KEY);
+             var searchResults = this.dataStore.get(SEARCH_RESULTS_KEY);
              searchResults.push(results);
-             this.taskDataStore.setState({
+             this.dataStore.setState({
                // [TASK_SEARCH_CRITERIA_KEY]: searchCriteria,
                 [TASK_SEARCH_RESULTS_KEY]: searchResults,
              });

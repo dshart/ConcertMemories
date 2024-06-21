@@ -48,14 +48,7 @@ public interface ServiceComponent {
      * Provides the relevant activity.
      * @return GetAllConcertsByVenueActivity
      */
-     GetAllConcertsByVenueActivity provideGetAllConcertsByVenueActivity();
-
-
-    /**
-     * Provides the relevant activity.
-     * @return UpdateConcertActivity
-     */
-    // UpdateConcertActivity provideUpdateConcertActivity();
+    GetAllConcertsByVenueActivity provideGetAllConcertsByVenueActivity();
 
     /**
      * Provides the relevant activity.
@@ -75,12 +68,6 @@ public interface ServiceComponent {
      * @return UpdateConcertActivity
      */
     UpdateConcertActivity provideUpdateConcertActivity();
-
-
-
-
-
-
 
 
 }

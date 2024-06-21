@@ -14,12 +14,6 @@ public class CreateConcertLambda extends LambdaActivityRunner<CreateConcertReque
         return super.runActivity(
                 () ->
                 {
-                    CreateConcertRequest stageRequest = input.fromUserClaims(claims ->
-                        CreateConcertRequest.builder()
-                           .withEmailAddress(claims.get("email"))
-                           .build());
-
-
                     CreateConcertRequest request = input.fromBody(CreateConcertRequest.class);
                     return input.fromUserClaims(claims ->
                         CreateConcertRequest.builder()

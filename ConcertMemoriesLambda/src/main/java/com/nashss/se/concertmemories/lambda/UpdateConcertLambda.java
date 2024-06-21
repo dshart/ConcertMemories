@@ -15,17 +15,17 @@ public class UpdateConcertLambda extends LambdaActivityRunner<UpdateConcertReque
         return super.runActivity(
                 () ->
                 {
-                    UpdateConcertRequest stageRequest = input.fromUserClaims(claims ->
-                            UpdateConcertRequest.builder()
-                                    .withEmailAddress(claims.get("email"))
-                                    .build());
-
-
                     UpdateConcertRequest request = input.fromBody(UpdateConcertRequest.class);
                     return input.fromUserClaims(claims ->
                             UpdateConcertRequest.builder()
                                     .withEmailAddress(claims.get("email"))
                                     .withDateAttended(request.getDateAttended())
+                                     .withBandName(request.getBandName())
+                                    .withTourName(request.getTourName())
+                                    .withVenue(request.getVenue())
+                                    .withOpeningActs(request.getOpeningActs())
+                                    .withSongsPlayed(request.getSongsPlayed())
+                                    .withMemories(request.getMemories())
                                     .build());
                 },
                 (request, serviceComponent) ->
