@@ -1,4 +1,4 @@
-import CreateConcertClient from '../api/createConcertClient';
+import ConcertMemoriesClient from '../api/concertMemoriesClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
@@ -17,42 +17,24 @@ class CreateConcert extends BindingClass {
         super();
 
         this.header = new Header(this.dataStore);
-        this.bindClassMethods(['convertToList', 'handleError', 'mount', 'startupActivities', 'submitForm'], this);
+        this.bindClassMethods(['convertToList', 'handleError', 'mount', 'startupActivities', 'submit'], this);
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
     }
 
     mount() {
         this.header.addHeaderToPage();
-        this.client = new CreateConcertClient();
+        this.client = new ConcertMemoriesClient();
         this.startupActivities();
     }
 
     async startupActivities() {
-        let concertForm = document.getElementById('concertFormId');
-        concertForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            this.submitForm();
-        });
-
-        //only allow Enter button to appear if date is selected as it is range key
         var submitConcertFormButton = document.getElementById("submitConcertButtonId");
+        submitConcertFormButton.addEventListener("click", this.submit);
+
+         //only allow Enter button to appear if date is selected as it is range key
+
         var concertDate = document.getElementById("concertDateTextBox");
-        concertDate.addEventListener("change",  function() {
-            submitConcertFormButton.style.display = "block"
 
-            //set up listener for pressing Enter key only after date is entered
-            window.addEventListener('keydown', (event) => {
-
-                if (event.key == 'Enter') {
-                    submitConcertFormButton.style.display = "none";
-                    concertForm.submit();
-                }
-            });
-
-            submitConcertFormButton.addEventListener("click", function() {
-                concertForm.submit();
-            });
-        });
     }
 
     convertToList(stringToConvert) {
@@ -61,9 +43,11 @@ class CreateConcert extends BindingClass {
              arr = stringToConvert.split(",");
          }
          return arr;
-     }
+    }
 
-     async submitForm() {
+    async submit(evt) {
+       evt.preventDefault();
+        alert("in submit form");
         var oa = document.getElementById('openingActs').value;
         var sp = document.getElementById('songsPlayed').value;
         var m = document.getElementById('memories').value;
@@ -71,7 +55,10 @@ class CreateConcert extends BindingClass {
         var spList = this.convertToList(sp);
         var mList = this.convertToList(m);
 
-        await this.client.createConcert(
+
+
+
+       const concert = await this.client.createConcert(
             document.getElementById('concertDateTextBox').value,
             document.getElementById('bandName').value,
             document.getElementById('tourName').value,
@@ -79,17 +66,39 @@ class CreateConcert extends BindingClass {
             oaList,
             spList,
             mList
-        ).then(results => {
-             var searchResults = this.taskDataStore.get(TASK_SEARCH_RESULTS_KEY);
-             searchResults.push(results);
-             this.taskDataStore.setState({
-                 [TASK_SEARCH_RESULTS_KEY]: searchResults,
-             });
+       );
+       this.dataStore.set('concert', concert);
 
-             return results;
-        }).catch(e => {
-            console.log(e);
-        });
+
+// const playlist = await this.client.createPlaylist(playlistName, tags, (error) => {
+//            createButton.innerText = origButtonText;
+//            errorMessageDisplay.innerText = `Error: ${error.message}`;
+//            errorMessageDisplay.classList.remove('hidden');
+//        });
+//        this.dataStore.set('playlist', playlist);
+//    }
+
+//        await this.client.createConcert(
+//            document.getElementById('concertDateTextBox').value,
+//            document.getElementById('bandName').value,
+//            document.getElementById('tourName').value,
+//            document.getElementById('venue').value,
+//            oaList,
+//            spList,
+//            mList
+//        ).then(results => {
+//             var searchResults = this.dataStore.get(SEARCH_RESULTS_KEY);
+//             searchResults.push(results);
+//             this.DataStore.setState({
+//                 [SEARCH_RESULTS_KEY]: searchResults,
+//             });
+//
+//             alert("results" + results);
+//
+//             return results;
+//        }).catch(e => {
+//            console.log(e);
+//        });
     }
 
    /**

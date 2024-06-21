@@ -56,6 +56,7 @@ import org.apache.logging.log4j.Logger;
         concert.setSongsPlayed(updateConcertRequest.getSongsPlayed());
         concert.setMemories(updateConcertRequest.getMemories());
 
+        concertDao.saveConcert(concert);
         ConcertModel concertModel = new ModelConverter().toConcertModel(concert);
         return UpdateConcertResult.builder()
             .withConcert(concertModel)

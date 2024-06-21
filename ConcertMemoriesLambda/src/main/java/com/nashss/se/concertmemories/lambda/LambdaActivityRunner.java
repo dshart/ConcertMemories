@@ -23,6 +23,7 @@ public class LambdaActivityRunner<TRequest, TResult> {
         Supplier<TRequest> requestSupplier,
         BiFunction<TRequest, ServiceComponent, TResult> handleRequest) {
 
+       // this.service = null;
         TRequest request;
         try {
             log.info("Attempting to build activity request object...");
@@ -50,10 +51,11 @@ public class LambdaActivityRunner<TRequest, TResult> {
     }
 
     private ServiceComponent getService() {
-        if (service == null) {
-            service = DaggerServiceComponent.create();
-        }
-        return service;
+
+       if (service == null) {
+           service = DaggerServiceComponent.create();
+       }
+       return service;
     }
 }
 

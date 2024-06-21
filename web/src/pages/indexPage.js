@@ -24,21 +24,21 @@ class IndexPage extends BindingClass {
 
     mount() {
         this.header.addHeaderToPage();
-        this.concertMemoriesClient = new ConcertMemoriesClient();
+        this.client = new ConcertMemoriesClient();
         this.startupActivities();
     }
 
     async startupActivities() {
-        if (await this.concertMemoriesClient.verifyLogin()) {
-            alert(here);
-            const{email, name} = await this.concertMemoriesClient.getIdentity().then(result => result);
+        if (await this.client.verifyLogin()) {
+            const{email, name} = await this.client.getIdentity().then(result => result);
             this.dataStore.set([COGNITO_EMAIL_KEY], email);
             this.dataStore.set([COGNITO_NAME_KEY], name);
             var enterSiteButton = document.getElementById('enterSiteButtonId');
+            enterSiteButton.style.display = "block";
             enterSiteButton.addEventListener(
                  "click", function(event){document.location.href = "concertsAndBands.html";
             });
-            enterSiteButton.style.display = "block";
+
         }
     }
 }

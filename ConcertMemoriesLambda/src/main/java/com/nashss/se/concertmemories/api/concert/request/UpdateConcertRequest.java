@@ -1,11 +1,14 @@
 package com.nashss.se.concertmemories.api.concert.request;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
 import java.util.List;
 
 import static com.nashss.se.concertmemories.utils.CollectionUtils.copyToList;
 
 
-
+@JsonDeserialize(builder = UpdateConcertRequest.Builder.class)
 public class UpdateConcertRequest {
     private String emailAddress;
     private String dateAttended;
@@ -15,6 +18,7 @@ public class UpdateConcertRequest {
     private List<String> openingActs;
     private List<String> songsPlayed;
     private List<String> memories;
+
 
 
     private UpdateConcertRequest(String emailAddress, String dateAttended, String bandName, String tourName, String venue,
@@ -67,6 +71,7 @@ public class UpdateConcertRequest {
     //CHECKSTYLE:OFF:BUILDER
     public static  Builder builder() { return new Builder(); }
 
+    @JsonPOJOBuilder
     public static class Builder {
         private String emailAddress;
         private String dateAttended;

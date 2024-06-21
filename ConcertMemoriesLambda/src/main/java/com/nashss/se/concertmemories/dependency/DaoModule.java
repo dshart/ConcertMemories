@@ -21,6 +21,7 @@ public class DaoModule {
     @Singleton
     @Provides
     public DynamoDBMapper provideDynamoDBMapper() {
-        return new DynamoDBMapper(com.nashss.se.concertmemories.dynamodb.DynamoDbClientProvider.getDynamoDBClient(Regions.US_EAST_2));
+       return new DynamoDBMapper(com.nashss.se.concertmemories.dynamodb.DynamoDbClientProvider.getDynamoDBClient(Regions.US_EAST_2));
     }
 }
+

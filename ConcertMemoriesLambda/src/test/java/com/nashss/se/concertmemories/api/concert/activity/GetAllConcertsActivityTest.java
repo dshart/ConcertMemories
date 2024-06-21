@@ -1,6 +1,5 @@
 //package com.nashss.se.concertmemories.api.concert.activity;
 //
-//import com.nashss.se.concertmemories.api.concert.activity.GetAllConcertsActivity;
 //import com.nashss.se.concertmemories.api.concert.request.GetAllConcertsRequest;
 //import com.nashss.se.concertmemories.api.concert.result.GetAllConcertsResult;
 //import com.nashss.se.concertmemories.converters.ModelConverter;
@@ -138,7 +137,7 @@
 //        // THEN
 //        assertEquals(myConcertModelsList, result.getAllConcerts());
 //    }
-//
+//}
 ////Other tests left to do - no time
 ////  test for sorted by date
 ////  test for sorted by band

@@ -1,4 +1,5 @@
-import GetConcertClient from '../api/getConcertClient';
+//import GetConcertClient from '../api/getConcertClient';
+import ConcertMemoriesClient from '../api/concertMemoriesClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
@@ -27,7 +28,8 @@ class GetConcert extends BindingClass {
     */
     mount() {
         this.header.addHeaderToPage();
-        this.client = new GetConcertClient();
+        this.client = new ConcertMemoriesClient();
+        //this.client = new GetConcertClient();
         this.startupActivities();
     }
 
@@ -42,13 +44,18 @@ class GetConcert extends BindingClass {
         var concertDisplayArea = document.getElementById('submitConcertArea');
 
         if (selectedValue == 0) {
-             concertDisplayArea.innerHTML = "";
+             var html = "";
+             alert("clearing out page");
+             concertDisplayArea.innerHTML = html;
+             alert("chose 0 first");
+
+             //return;
          }
 
         else if (selectedValue == 1) {
             var html = "";
             html += '<br><label>Enter Concert Date<br><input type="date" id="concertDateId" /><br><input type="button" value="Submit" id="submitDateButtonId" />'
-            concertDisplayArea.innerHTML = "";
+            //concertDisplayArea.innerHTML = "";
             concertDisplayArea.innerHTML = html;
 
             var dateSelected = document.getElementById('concertDateId');
@@ -137,13 +144,16 @@ class GetConcert extends BindingClass {
     async concertViewButtonClick(selectedValue, concertViewButton){
         concertViewButton.style.display = 'none';
 
-        if (selectedValue == 0) {
-            searchResultsDisplay.innerHTML = "";
-        } else {
+//        if (selectedValue == 0) {
+//            alert("setting display area to blank;");
+//            searchResultsDisplay.innerHTML = "";
+//            alert("zero");
+
+        //} else {
             const results = await this.client.getAllConcerts();
             this.dataStore.set([SEARCH_RESULTS_KEY], results);
             this.displayAllConcertsHTML(selectedValue, concertViewButton);
-        }
+        //}
     }
 
     async submitBandViewButton(bandName){

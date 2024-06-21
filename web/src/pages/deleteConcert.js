@@ -1,4 +1,5 @@
-import DeleteConcertClient from '../api/deleteConcertClient';
+//import DeleteConcertClient from '../api/deleteConcertClient';
+import ConcertMemoriesClient from '../api/concertMemoriesClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
@@ -24,7 +25,8 @@ class DeleteConcert extends BindingClass {
     mount() {
 
         this.header.addHeaderToPage();
-        this.client = new DeleteConcertClient();
+        this.client = new ConcertMemoriesClient();
+        //this.client = new DeleteConcertClient();
         this.startupActivities();
     }
 
