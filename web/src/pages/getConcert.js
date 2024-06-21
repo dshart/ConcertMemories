@@ -44,13 +44,9 @@ class GetConcert extends BindingClass {
         var concertDisplayArea = document.getElementById('submitConcertArea');
 
         if (selectedValue == 0) {
-             var html = "";
-             alert("clearing out page");
-             concertDisplayArea.innerHTML = html;
-             alert("chose 0 first");
-
-             //return;
-         }
+            const searchResultsDisplay = document.getElementById('searchResultsDisplay');
+            searchResultsDisplay.innerHTML = "";
+        }
 
         else if (selectedValue == 1) {
             var html = "";
@@ -228,7 +224,6 @@ class GetConcert extends BindingClass {
 
     //All Concerts by band
     displayAllConcertsByBandHTML(bandName, submitBandNameButton) {
-        var submitBandButton = document.getElementById("concertButtonBandId");
         const searchResults = this.dataStore.get(SEARCH_RESULTS_KEY);
         const searchResultsDisplay = document.getElementById('searchResultsDisplay');
         searchResultsDisplay.innerHTML = "";
@@ -238,7 +233,6 @@ class GetConcert extends BindingClass {
 
     //All Concerts by venue
     displayAllConcertsByVenueHTML(venue, submitVenueButton) {
-        var submitVenueButton = document.getElementById("concertButtonVenueId");
         const searchResults = this.dataStore.get(SEARCH_RESULTS_KEY);
         const searchResultsDisplay = document.getElementById('searchResultsDisplay');
         searchResultsDisplay.innerHTML = "";
@@ -360,10 +354,15 @@ class GetConcert extends BindingClass {
          }
 
     getHTMLForAllConcertsByVenueView(searchResults, venue) {
-        if (searchResults.length == 0) {
-            let html = '<h3>No Concerts found for ' + venue + '</h3>';
-                return html;
-            }
+        var venueInput = document.getElementById('venueInput');
+        var submitVenueButton = document.getElementById('submitVenueButtonId');
+         if (searchResults == null || searchResults.length == 0) {
+             let html = '<h3>No Concerts found at ' + venue + '</h3>';
+                  venueInput.value = "";
+                  venueInput.focus();
+                  submitVenueButton.style.display='block';
+                  return html;
+              }
 
             let html = '<h3>Concerts at ' + venue + '</h3><br>';
             html += '<br><table><tr><th>Date Attended</th><th>Band Name</th> <th>Tour Name</th><th>Venue</th><th>Opening Act(s)</tr>';

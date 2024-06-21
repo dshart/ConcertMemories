@@ -47,7 +47,6 @@ class CreateConcert extends BindingClass {
 
     async submit(evt) {
        evt.preventDefault();
-        alert("in submit form");
         var oa = document.getElementById('openingActs').value;
         var sp = document.getElementById('songsPlayed').value;
         var m = document.getElementById('memories').value;

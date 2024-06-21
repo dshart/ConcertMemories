@@ -128,7 +128,6 @@ class UpdateConcert extends BindingClass {
 
      async submit(evt) {
         evt.preventDefault();
-        alert("in submit form");
         var oa = document.getElementById('updateOpeningActsInput').value;
         var sp = document.getElementById('updateSongsPlayedInput').value;
         var m = document.getElementById('updateMemoriesInput').value;
