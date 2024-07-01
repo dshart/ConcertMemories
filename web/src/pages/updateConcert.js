@@ -91,12 +91,15 @@ class UpdateConcert extends BindingClass {
              //  });
 
 
-               var success = document.getElementById('successMessageId');
-               success.style.display = "block";
-          } else {
-               var failed = document.getElementById('updateFailedMessageId');
-                failed.style.display = "block";
-          }
+
+
+
+              // var success = document.getElementById('successMessageId');
+             //  success.style.display = "block";
+        //  } else {
+        //       var failed = document.getElementById('updateFailedMessageId');
+        //        failed.style.display = "block";
+       }
 
 
 //                    updateConcertFormButton.style.display = "block";
@@ -128,7 +131,6 @@ class UpdateConcert extends BindingClass {
 
      async submit(evt) {
         evt.preventDefault();
-        alert("in submit form");
         var oa = document.getElementById('updateOpeningActsInput').value;
         var sp = document.getElementById('updateSongsPlayedInput').value;
         var m = document.getElementById('updateMemoriesInput').value;
@@ -160,7 +162,17 @@ class UpdateConcert extends BindingClass {
             console.log(e);
         });
 
-        document.getElementById("successMessageId").disabled = "false";
+        document.getElementById('updateDateInput').value = "";
+        document.getElementById('updateBandNameInput').value = "";
+        document.getElementById('updateTourNameInput').value = "";
+        document.getElementById('updateVenueInput').value = "";
+        document.getElementById('updateOpeningActsInput').value = "";
+        document.getElementById('updateSongsPlayedInput').value = "";
+        document.getElementById('updateMemoriesInput').value = "";
+
+
+
+       // document.getElementById("successMessageId").disabled = "false";
     }
 
 

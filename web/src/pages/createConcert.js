@@ -47,27 +47,59 @@ class CreateConcert extends BindingClass {
 
     async submit(evt) {
        evt.preventDefault();
-        alert("in submit form");
-        var oa = document.getElementById('openingActs').value;
-        var sp = document.getElementById('songsPlayed').value;
-        var m = document.getElementById('memories').value;
-        var oaList = this.convertToList(oa);
-        var spList = this.convertToList(sp);
-        var mList = this.convertToList(m);
+//        var oa = document.getElementById('openingActs').value;
+//        var sp = document.getElementById('songsPlayed').value;
+//        var m = document.getElementById('memories').value;
+//        var oaList = this.convertToList(oa);
+//        var spList = this.convertToList(sp);
+//        var mList = this.convertToList(m);
+
+           var oa = document.getElementById('openingActs');
+           var sp = document.getElementById('songsPlayed');
+           var m = document.getElementById('memories');
+           var oaList = this.convertToList(oa.value);
+           var spList = this.convertToList(sp.value);
+           var mList = this.convertToList(m.value);
 
 
+         var dateAttendedInput = document.getElementById('concertDateTextBox');
+         var bandNameInput = document.getElementById('bandName');
+         var tourNameInput = document.getElementById('tourName');
+         var venueInput = document.getElementById('venue');
 
+        var dateAttendedValue = dateAttendedInput.value;
+        var bandNameValue = bandNameInput.value;
+        var tourNameValue = tourNameInput.value;
+        var venueValue = venueInput.value;
 
-       const concert = await this.client.createConcert(
-            document.getElementById('concertDateTextBox').value,
-            document.getElementById('bandName').value,
-            document.getElementById('tourName').value,
-            document.getElementById('venue').value,
+//       const concert = await this.client.createConcert(
+//            document.getElementById('concertDateTextBox').value,
+//            document.getElementById('bandName').value,
+//            document.getElementById('tourName').value,
+//            document.getElementById('venue').value,
+//            oaList,
+//            spList,
+//            mList
+
+        const concert = await this.client.createConcert(
+            dateAttendedValue,
+            bandNameValue,
+            tourNameValue,
+            venueValue,
             oaList,
             spList,
             mList
        );
        this.dataStore.set('concert', concert);
+
+        dateAttendedInput.value = "";
+        bandNameInput.value = "";
+        tourNameInput.value = "";
+        venueInput.value = "";
+        oa.value = "";
+        sp.value = "";
+        m.value = "";
+
 
 
 // const playlist = await this.client.createPlaylist(playlistName, tags, (error) => {

@@ -224,65 +224,65 @@ Resources:
   #-----------------------------------------------------
   # Lambda Functions Configuration
   #-----------------------------------------------------
-#  CreateConcertLambda:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      Role: !GetAtt AccessRole.Arn
-#      CodeUri: ConcertMemoriesLambda
-#      Handler: com.nashss.se.concertmemories.lambda.CreateConcertLambda::handleRequest
-#      Runtime: java11
-#      Architectures:
-#        - x86_64
-#      MemorySize: 512
-#      Environment:
-#        Variables:
-#          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-#      Events:
-#        ConcertMemories:
-#          Type: Api
-#          Properties:
-#            Path: /createconcert
-#            Method: post
+  CreateConcertLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: ConcertMemoriesLambda
+      Handler: com.nashss.se.concertmemories.lambda.CreateConcertLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        ConcertMemories:
+          Type: Api
+          Properties:
+            Path: /createconcert
+            Method: post
 
-#  UpdateConcertLambda:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      Role: !GetAtt AccessRole.Arn
-#      CodeUri: ConcertMemoriesLambda
-#      Handler: com.nashss.se.concertmemories.lambda.UpdateConcertLambda::handleRequest
-#      Runtime: java11
-#      Architectures:
-#        - x86_64
-#      MemorySize: 512
-#      Environment:
-#        Variables:
-#          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-#      Events:
-#        ConcertMemories:
-#          Type: Api
-#          Properties:
-#            Path: /updateconcert
-#            Method: put
+  UpdateConcertLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: ConcertMemoriesLambda
+      Handler: com.nashss.se.concertmemories.lambda.UpdateConcertLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        ConcertMemories:
+          Type: Api
+          Properties:
+            Path: /updateconcert
+            Method: put
 
-#  GetConcertLambda:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      Role: !GetAtt AccessRole.Arn
-#      CodeUri: ConcertMemoriesLambda
-#      Handler: com.nashss.se.concertmemories.lambda.GetConcertLambda::handleRequest
-#      Runtime: java11
-#      Architectures:
-#        - x86_64
-#      MemorySize: 512
-#      Environment:
-#        Variables:
-#          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-#      Events:
-#        ConcertMemories:
-#          Type: Api
-#          Properties:
-#            Path: /concerts/{dateAttended}
-#            Method: get
+  GetConcertLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: ConcertMemoriesLambda
+      Handler: com.nashss.se.concertmemories.lambda.GetConcertLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        ConcertMemories:
+          Type: Api
+          Properties:
+            Path: /concerts/{dateAttended}
+            Method: get
 
   GetAllConcertsLambda:
     Type: AWS::Serverless::Function
@@ -304,65 +304,65 @@ Resources:
             Path: /concerts
             Method: get
 
-#  GetAllConcertsByBandLambda:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      Role: !GetAtt AccessRole.Arn
-#      CodeUri: ConcertMemoriesLambda
-#      Handler: com.nashss.se.concertmemories.lambda.GetAllConcertsByBandLambda::handleRequest
-#      Runtime: java11
-#      Architectures:
-#        - x86_64
-#      MemorySize: 512
-#      Environment:
-#        Variables:
-#          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-#      Events:
-#        ConcertMemories:
-#          Type: Api
-#          Properties:
-#            Path: /concertsbyband/{bandName}
-#            Method: get
+  GetAllConcertsByBandLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: ConcertMemoriesLambda
+      Handler: com.nashss.se.concertmemories.lambda.GetAllConcertsByBandLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        ConcertMemories:
+          Type: Api
+          Properties:
+            Path: /concertsbyband/{bandName}
+            Method: get
 
-#  GetAllConcertsByVenueLambda:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      Role: !GetAtt AccessRole.Arn
-#      CodeUri: ConcertMemoriesLambda
-#      Handler: com.nashss.se.concertmemories.lambda.GetAllConcertsByVenueLambda::handleRequest
-#      Runtime: java11
-#      Architectures:
-#        - x86_64
-#      MemorySize: 512
-#      Environment:
-#        Variables:
-#          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-#      Events:
-#        ConcertMemories:
-#          Type: Api
-#          Properties:
-#            Path: /concertsbyvenue/{venue}
-#            Method: get
+  GetAllConcertsByVenueLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: ConcertMemoriesLambda
+      Handler: com.nashss.se.concertmemories.lambda.GetAllConcertsByVenueLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        ConcertMemories:
+          Type: Api
+          Properties:
+            Path: /concertsbyvenue/{venue}
+            Method: get
 
-#  DeleteConcertLambda:
-#      Type: AWS::Serverless::Function
-#      Properties:
-#        Role: !GetAtt AccessRole.Arn
-#        CodeUri: ConcertMemoriesLambda
-#        Handler: com.nashss.se.concertmemories.lambda.DeleteConcertLambda::handleRequest
-#        Runtime: java11
-#        Architectures:
-#          - x86_64
-#        MemorySize: 512
-#        Environment:
-#          Variables:
-#            JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-#        Events:
-#          ConcertMemories:
-#            Type: Api
-#            Properties:
-#              Path: /deleteconcert/{dateAttended}
-#              Method: delete
+  DeleteConcertLambda:
+      Type: AWS::Serverless::Function
+      Properties:
+        Role: !GetAtt AccessRole.Arn
+        CodeUri: ConcertMemoriesLambda
+        Handler: com.nashss.se.concertmemories.lambda.DeleteConcertLambda::handleRequest
+        Runtime: java11
+        Architectures:
+          - x86_64
+        MemorySize: 512
+        Environment:
+          Variables:
+            JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+        Events:
+          ConcertMemories:
+            Type: Api
+            Properties:
+              Path: /deleteconcert/{dateAttended}
+              Method: delete
 
   #-----------------------------------------------------
   # DynamoDB Configuration
