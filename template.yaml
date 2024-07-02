@@ -206,9 +206,9 @@ Resources:
               - Effect: Allow
                 Action: dynamodb:*
                 Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Concerts"
-              - Effect: Allow
-                Action: dynamodb:query
-                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Concerts/index/ConcertsByBandIndex2"
+             #- Effect: Allow
+             #   Action: dynamodb:query
+             #   Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Concerts/index/ConcertsByBandIndex2"
               - Effect: Allow
                 Action: dynamodb:query
                 Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/Concerts/index/ConcertsByVenueIndex2"
@@ -286,32 +286,12 @@ Resources:
 #            Path: /concerts/{dateAttended}
 #            Method: get
 
-#  GetAllConcertsLambda:
-#    Type: AWS::Serverless::Function
-#    Properties:
-#      Role: !GetAtt AccessRole.Arn
-#      CodeUri: ConcertMemoriesLambda
-#      Handler: com.nashss.se.concertmemories.lambda.GetAllConcertsLambda::handleRequest
-#      Runtime: java11
-#      Architectures:
-#        - x86_64
-#      MemorySize: 512
-#      Environment:
-#        Variables:
-#          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-#      Events:
-#        ConcertMemories:
-#          Type: Api
-#          Properties:
-#            Path: /concerts
-#            Method: get
-
-  GetAllConcertsByBandLambda:
+  GetAllConcertsLambda:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: ConcertMemoriesLambda
-      Handler: com.nashss.se.concertmemories.lambda.GetAllConcertsByBandLambda::handleRequest
+      Handler: com.nashss.se.concertmemories.lambda.GetAllConcertsLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -323,10 +303,32 @@ Resources:
         ConcertMemories:
           Type: Api
           Properties:
-            Path: /concertsbyband/{bandName}
+            Path: /concerts
             Method: get
             Auth:
               Authorizer: 'NONE'
+
+#  GetAllConcertsByBandLambda:
+#    Type: AWS::Serverless::Function
+#    Properties:
+#      Role: !GetAtt AccessRole.Arn
+#      CodeUri: ConcertMemoriesLambda
+#      Handler: com.nashss.se.concertmemories.lambda.GetAllConcertsByBandLambda::handleRequest
+#      Runtime: java11
+#      Architectures:
+#        - x86_64
+#      MemorySize: 512
+#      Environment:
+#        Variables:
+#          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+#      Events:
+#        ConcertMemories:
+#          Type: Api
+#          Properties:
+#            Path: /concertsbyband/{bandName}
+#            Method: get
+#            Auth:
+#              Authorizer: 'NONE'
 
 #  GetAllConcertsByVenueLambda:
 #    Type: AWS::Serverless::Function
@@ -382,8 +384,8 @@ Resources:
           AttributeType: "S"
         - AttributeName: "bandName"
           AttributeType: "S"
-        - AttributeName: "venue"
-          AttributeType: "S"
+#        - AttributeName: "venue"
+#          AttributeType: "S"
 
       KeySchema:
         - AttributeName: "emailAddress"
@@ -405,17 +407,17 @@ Resources:
               - tourName
               - openingActs
 
-        - IndexName: "ConcertsByVenueIndex2"
-          KeySchema:
-            - AttributeName: "emailAddress"
-              KeyType: "HASH"
-            - AttributeName: "venue"
-              KeyType: "RANGE"
-          Projection:
-            ProjectionType: "INCLUDE"
-            NonKeyAttributes:
-              - tourName
-              - openingActs
+#        - IndexName: "ConcertsByVenueIndex2"
+#          KeySchema:
+#            - AttributeName: "emailAddress"
+#              KeyType: "HASH"
+#            - AttributeName: "venue"
+#              KeyType: "RANGE"
+#          Projection:
+#            ProjectionType: "INCLUDE"
+#            NonKeyAttributes:
+#              - tourName
+#              - openingActs
 
   BandsTable:
     Type: AWS::DynamoDB::Table
