@@ -325,6 +325,8 @@ Resources:
           Properties:
             Path: /concertsbyband/{bandName}
             Method: get
+            Auth:
+              Authorizer: 'NONE'
 
 #  GetAllConcertsByVenueLambda:
 #    Type: AWS::Serverless::Function
