@@ -19,10 +19,6 @@ h3 {
     display: none;
 }
 
-.unhidden {
-    display: block;
-}
-
 .row {
   display: flex;
 }
@@ -66,6 +62,7 @@ div.textAndImage {
     width : 50%;
 }
 
+
 .links {
     text-decoration: none;
 }
@@ -102,6 +99,135 @@ body {
     align-items: center;
 }
 
+#submitConcertButtonId {
+    background-color: #6E5658;
+    width: 125px;
+    padding: .5em 1em;
+    font-size: 1em;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 1.25em;
+    color: white;
+    border: none;
+    display: block;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#submitDateButtonId {
+    background-color: #6E5658;
+    width: 125px;
+    padding: .5em 1em;
+    font-size: 1em;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 1.25em;
+    color: white;
+    border: none;
+    display: none;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#submitDateToDeleteButtonId {
+    background-color: #6E5658;
+    width: 125px;
+    padding: .5em 1em;
+    font-size: 1em;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 1.25em;
+    color: white;
+    border: none;
+    display: none;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#enterSiteButtonId {
+    background-color: #6E5658;
+    width: 125px;
+    padding: .5em 1em;
+    font-size: 1em;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 1.25em;
+    color: white;
+    border: none;
+    display: none;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#concertViewButtonId {
+    background-color: #6E5658;
+    width: 125px;
+    padding: .5em 1em;
+    font-size: 1em;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 1.25em;
+    color: white;
+    border: none;
+    display: none;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#submitBandNameButtonId {
+    background-color: #6E5658;
+    width: 125px;
+    padding: .5em 1em;
+    font-size: 1em;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 1.25em;
+    color: white;
+    border: none;
+    display: none;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#submitVenueButtonId {
+    background-color: #6E5658;
+    width: 125px;
+    padding: .5em 1em;
+    font-size: 1em;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 1.25em;
+    color: white;
+    border: none;
+    display: none;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#updateConcertButtonId {
+    background-color: #6E5658;
+    width: 125px;
+    padding: .5em 1em;
+    font-size: 1em;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 1.25em;
+    color: white;
+    border: none;
+    display: none;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
 #button-container-index {
     display: block;
     margin-left: auto;
@@ -127,22 +253,7 @@ td {
   padding: 20px;
 }
 
-.enterSiteButtonId {
-    background-color: #6E5658;
-    width: 125px;
-    padding: .5em 1em;
-    font-size: 1em;
-    text-align: center;
-    cursor: pointer;
-    border-radius: 1.25em;
-    color: white;
-    border: none;
-    display: none;
-    margin-top: 0px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block
-}
+
 
 .center-photos {
     display: block;
@@ -180,16 +291,6 @@ td {
    border-radius: 1.25em;
    color: white;
    display: inline-block
-}
-
-.concertViewButton {
-   width: 125px;
-   padding: .5em 1em;
-   font-size: 1em;
-   text-align: center;
-   cursor: pointer;
-   border-radius: 1.25em;
-   color: white;
 }
 
 .button-primary {

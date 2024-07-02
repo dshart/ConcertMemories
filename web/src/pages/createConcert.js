@@ -1,15 +1,14 @@
-import CreateConcertClient from '../api/createConcertClient';
+import ConcertMemoriesClient from '../api/concertMemoriesClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
 import Authenticator from '../api/authenticator';
 
-const SEARCH_CRITERIA_KEY = 'search-criteria';
 const SEARCH_RESULTS_KEY = 'search-results';
 const EMPTY_DATASTORE_STATE = {
-    [SEARCH_CRITERIA_KEY]: '',
     [SEARCH_RESULTS_KEY]: ''
 };
+
 /**
  * Logic needed for the enterConcertInfo page of the website.
  */
@@ -18,23 +17,24 @@ class CreateConcert extends BindingClass {
         super();
 
         this.header = new Header(this.dataStore);
-        this.bindClassMethods(['convertToList', 'getIdentity', 'mount', 'startupActivities', 'submitForm'], this);
+        this.bindClassMethods(['convertToList', 'handleError', 'mount', 'startupActivities', 'submit'], this);
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
     }
 
     mount() {
         this.header.addHeaderToPage();
-        this.client = new CreateConcertClient();
+        this.client = new ConcertMemoriesClient();
         this.startupActivities();
-        //const email = await this.getUserEmail();
     }
 
     async startupActivities() {
-        let concertForm = document.getElementById('concertFormId');
-        concertForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            this.submitForm();
-        });
+        var submitConcertFormButton = document.getElementById("submitConcertButtonId");
+        submitConcertFormButton.addEventListener("click", this.submit);
+
+         //only allow Enter button to appear if date is selected as it is range key
+
+        var concertDate = document.getElementById("concertDateTextBox");
+
     }
 
     convertToList(stringToConvert) {
@@ -43,58 +43,109 @@ class CreateConcert extends BindingClass {
              arr = stringToConvert.split(",");
          }
          return arr;
-     }
+    }
 
-     async submitForm() {
-        var oa = document.getElementById('openingActs').value;
-        var sp = document.getElementById('songsPlayed').value;
-        var m = document.getElementById('memories').value;
-        var oaList = this.convertToList(oa);
-        var spList = this.convertToList(sp);
-        var mList = this.convertToList(m);
+    async submit(evt) {
+       evt.preventDefault();
+//        var oa = document.getElementById('openingActs').value;
+//        var sp = document.getElementById('songsPlayed').value;
+//        var m = document.getElementById('memories').value;
+//        var oaList = this.convertToList(oa);
+//        var spList = this.convertToList(sp);
+//        var mList = this.convertToList(m);
+
+           var oa = document.getElementById('openingActs');
+           var sp = document.getElementById('songsPlayed');
+           var m = document.getElementById('memories');
+           var oaList = this.convertToList(oa.value);
+           var spList = this.convertToList(sp.value);
+           var mList = this.convertToList(m.value);
 
 
-        const{email, name} = await this.client.getIdentity().then(result => result);
-        alert ("in submit form with email: " + email);
-        await this.client.createConcert(
-            email,
-            document.getElementById('concertDate').value,
-            document.getElementById('bandName').value,
-            document.getElementById('tourName').value,
-            document.getElementById('venue').value,
+         var dateAttendedInput = document.getElementById('concertDateTextBox');
+         var bandNameInput = document.getElementById('bandName');
+         var tourNameInput = document.getElementById('tourName');
+         var venueInput = document.getElementById('venue');
+
+        var dateAttendedValue = dateAttendedInput.value;
+        var bandNameValue = bandNameInput.value;
+        var tourNameValue = tourNameInput.value;
+        var venueValue = venueInput.value;
+
+//       const concert = await this.client.createConcert(
+//            document.getElementById('concertDateTextBox').value,
+//            document.getElementById('bandName').value,
+//            document.getElementById('tourName').value,
+//            document.getElementById('venue').value,
+//            oaList,
+//            spList,
+//            mList
+
+        const concert = await this.client.createConcert(
+            dateAttendedValue,
+            bandNameValue,
+            tourNameValue,
+            venueValue,
             oaList,
             spList,
             mList
-        ).then(results => {
-             const searchCriteria = this.taskDataStore.get(TASK_SEARCH_CRITERIA_KEY);
-             var searchResults = this.taskDataStore.get(TASK_SEARCH_RESULTS_KEY);
-             searchResults.push(results);
-             this.taskDataStore.setState({
-                [TASK_SEARCH_CRITERIA_KEY]: searchCriteria,
-                [TASK_SEARCH_RESULTS_KEY]: searchResults,
-             });
-             return results;
-        }).catch(e => {
-            console.log(e);
-        });
+       );
+       this.dataStore.set('concert', concert);
 
-        window.location.href = "enterConcertInfo.html";
+        dateAttendedInput.value = "";
+        bandNameInput.value = "";
+        tourNameInput.value = "";
+        venueInput.value = "";
+        oa.value = "";
+        sp.value = "";
+        m.value = "";
 
-   }
 
-   async getIdentity(errorCallback) {
-       try {
-           const isLoggedIn = await this.authenticator.isUserLoggedIn();
-           if (!isLoggedIn) {
-               return undefined;
-           }
 
-           return await this.authenticator.getCurrentUserInfo();
-       } catch (error) {
-           this.handleError(error, errorCallback)
-       }
-   }
+// const playlist = await this.client.createPlaylist(playlistName, tags, (error) => {
+//            createButton.innerText = origButtonText;
+//            errorMessageDisplay.innerText = `Error: ${error.message}`;
+//            errorMessageDisplay.classList.remove('hidden');
+//        });
+//        this.dataStore.set('playlist', playlist);
+//    }
 
+//        await this.client.createConcert(
+//            document.getElementById('concertDateTextBox').value,
+//            document.getElementById('bandName').value,
+//            document.getElementById('tourName').value,
+//            document.getElementById('venue').value,
+//            oaList,
+//            spList,
+//            mList
+//        ).then(results => {
+//             var searchResults = this.dataStore.get(SEARCH_RESULTS_KEY);
+//             searchResults.push(results);
+//             this.DataStore.setState({
+//                 [SEARCH_RESULTS_KEY]: searchResults,
+//             });
+//
+//             alert("results" + results);
+//
+//             return results;
+//        }).catch(e => {
+//            console.log(e);
+//        });
+    }
+
+   /**
+    * Helper method to log the error and run any error functions.
+    * @param error The error received from the server.
+     */
+    handleError(error) {
+        console.error(error);
+
+        const errorFromApi = error?.response?.data?.error_message;
+        if (errorFromApi) {
+            console.error(errorFromApi)
+            error.message = errorFromApi;
+        }
+    }
 }
 
 /**
